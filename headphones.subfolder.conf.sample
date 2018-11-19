@@ -1,0 +1,16 @@
+# first stop the headphones container and edit the config.ini for headphones and set http_root to /headphones and then start the headphones container
+
+location ^~ /headphones {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /login;
+
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_headphones headphones;
+    proxy_pass http://$upstream_headphones:8181;
+}

@@ -1,0 +1,39 @@
+# plex does not require a base url setting
+# if plex is running in bridge mode, the below config should work as is. 
+# for host mode, replace the line "proxy_pass https://$upstream_plex:32400;" with "proxy_pass https://HOSTIP:32400;" HOSTIP being the IP address of plex
+# in plex server settings, under network, fill in "Custom server access URLs" with your domain (ie. "https://yourdomain.url/plex:443")
+
+location /plex {
+    return 301 $scheme://$host/plex/;
+}
+location ^~ /plex/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /login;
+
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_plex plex;
+    rewrite /plex(.*) $1 break;
+    proxy_pass http://$upstream_plex:32400;
+
+    proxy_set_header X-Plex-Client-Identifier $http_x_plex_client_identifier;
+    proxy_set_header X-Plex-Device $http_x_plex_device;
+    proxy_set_header X-Plex-Device-Name $http_x_plex_device_name;
+    proxy_set_header X-Plex-Platform $http_x_plex_platform;
+    proxy_set_header X-Plex-Platform-Version $http_x_plex_platform_version;
+    proxy_set_header X-Plex-Product $http_x_plex_product;
+    proxy_set_header X-Plex-Token $http_x_plex_token;
+    proxy_set_header X-Plex-Version $http_x_plex_version;
+    proxy_set_header X-Plex-Nocache $http_x_plex_nocache;
+    proxy_set_header X-Plex-Provides $http_x_plex_provides;
+    proxy_set_header X-Plex-Device-Vendor $http_x_plex_device_vendor;
+    proxy_set_header X-Plex-Model $http_x_plex_model;
+}
+if ($http_referer ~* /plex) {
+    rewrite ^/web/(.*) /plex/web/$1? redirect;
+}

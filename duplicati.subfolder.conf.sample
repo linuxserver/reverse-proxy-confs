@@ -1,0 +1,19 @@
+# duplicati does not require a base url setting. DUPLICATI AUTH WILL NOT WORK WITH THIS CONFIG, use the auth options below
+
+location /duplicati {
+    return 301 $scheme://$host/duplicati/;
+}
+location ^~ /duplicati/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /login;
+
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_duplicati duplicati;
+    rewrite /duplicati(.*) $1 break;
+    proxy_pass http://$upstream_duplicati:8200;
+}

@@ -1,0 +1,49 @@
+# make sure that your dns has a cname set for portainer
+
+server {
+    listen 443 ssl;
+
+    server_name portainer.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    # enable for ldap auth, fill in ldap details in ldap.conf
+    #include /config/nginx/ldap.conf;
+
+    location / {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable the next two lines for ldap auth
+        #auth_request /auth;
+        #error_page 401 =200 /login;
+
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_portainer portainer;
+        proxy_pass http://$upstream_portainer:9000;
+        proxy_set_header Connection "";
+        proxy_http_version 1.1;
+        proxy_hide_header X-Frame-Options; # Possibly nott needed after Portainer 1.20.0
+    }
+
+    location /api/websocket/ {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable the next two lines for ldap auth
+        #auth_request /auth;
+        #error_page 401 =200 /login;
+
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_portainer portainer;
+        proxy_pass http://$upstream_portainer:9000;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_http_version 1.1;
+        proxy_hide_header X-Frame-Options; # Possibly nott needed after Portainer 1.20.0
+    }
+}

@@ -1,0 +1,23 @@
+# first go into jackett settings, set the URL Base to /jackett and restart the jackett container
+
+location /jackett {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /login;
+
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_jackett jackett;
+    proxy_pass http://$upstream_jackett:9117;
+}
+
+location ~ /jackett/(api|dl) {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_jackett jackett;
+    proxy_pass http://$upstream_jackett:9117;
+}

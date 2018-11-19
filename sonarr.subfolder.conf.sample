@@ -1,0 +1,23 @@
+# first go into sonarr settings, under "General" set the URL Base to /sonarr and restart the sonarr container
+
+location ^~ /sonarr {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /login;
+
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_sonarr sonarr;
+    proxy_pass http://$upstream_sonarr:8989;
+}
+
+location ^~ /sonarr/api {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_sonarr sonarr;
+    proxy_pass http://$upstream_sonarr:8989;
+}

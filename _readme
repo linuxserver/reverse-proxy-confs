@@ -1,0 +1,36 @@
+This folder contains sample reverse proxy configs for various docker images linuxserver provides. They are grouped in two:
+1. "subfolder" these will allow accessing services at https://yourdomain.com/servicename
+2. "subdomain" these will allow accessing services at https://servicename.yourdomain.com
+
+To enable the reverse proxies:
+1) rename the conf files and remove the ".sample" at the end (ie. "sonarr.subfolder.conf") and 
+2) restart the letsencrypt container
+
+Make sure that your default site config contains the following lines in the appropriate spots as seen in the default version:
+1) for subfolder methods: "include /config/nginx/proxy-confs/*.subfolder.conf;"
+2) for subdomain methods: "include /config/nginx/proxy-confs/*.subdomain.conf;"
+
+To disable the configs, simply rename the files to add back the ".sample" to the end, and restart letsencrypt.
+
+If you are reverse proxying linuxserver containers installed on the same host with the recommended options, you shouldn't 
+need to edit these conf files. However, some files require you to make changes to the service containers such as adding 
+base urls in their settings. Each conf file lists the required changes on the first line.
+
+These confs also assume that the letsencrypt container can reach other containers via their dns hostnames (defaults to 
+container name) resolved via docker's internal dns. This is achieved through having the containers attached to the same 
+user defined docker bridge network. 
+- If you are using docker-compose and the containers are managed through the same yaml file, docker-compose will automatically 
+create a custom network and attach all containers to it. You don't have to do anything extra.
+- If you are starting the containers via command line, first create a bridge network via "docker network create [networkname]"
+and define that network in the container run/create command via "--network [networkname]".
+- If you are using a gui manager like portainer, you can create a custom bridge network in the gui, and select it when creating
+a new container.
+- If you are using unraid, create a custom network in command line via "docker network create [networkname]", then go to docker service settings (under advanced) and 
+set the option "Preserve user defined networks:" to "Yes". Then in each container setting, do one of the following:
+  1) Unraid 6.5.0 or earlier - (under advanced) add "--network=[networkname]" into "Extra Parameters".
+  2) Unraid 6.5.1 or later - in the network type dropdown, select "Custom : [networkname]".
+  You would have to do the above for the letsencrypt container as well, so they are all on the same custom network. The bridge 
+network that unraid uses by default does not allow container to container communication.
+
+If the reverse proxied containers are not reachable via dns or they are running on a different machine, you will have to modify
+these confs to fit your needs.

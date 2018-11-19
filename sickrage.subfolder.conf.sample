@@ -1,0 +1,16 @@
+# first stop the sickrage container and edit the config.ini for sickrage and set web_root to /sickrage and then start the sickrage container
+
+location ^~ /sickrage {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /login;
+
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_sickrage sickrage;
+    proxy_pass http://$upstream_sickrage:8081;
+}

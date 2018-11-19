@@ -1,0 +1,20 @@
+# if emby is running in bridge mode, the below config should work as is, although, the container name is expected to be "emby",
+# if not, replace the line "set $upstream_emby emby;" with "set $upstream_emby <containername>;"
+# for host mode, replace the line "proxy_pass http://$upstream_emby:8096;" with "proxy_pass http://HOSTIP:8096;" HOSTIP being the IP address of emby
+# in emby settings, under "Advanced" change the public https port to 443, leave the local ports as is, set the "external domain" to your url and subdomain,
+# and set the "Secure connection mode" to "Handled by reverse proxy"
+
+location /emby {
+    return 301 $scheme://$host/emby/;
+}
+location ^~ /emby/ {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_emby emby;
+    proxy_pass http://$upstream_emby:8096;
+    
+    proxy_set_header Range $http_range;
+    proxy_set_header If-Range $http_if_range;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $http_connection;
+}

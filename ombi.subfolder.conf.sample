@@ -1,0 +1,30 @@
+# first go into ombi settings, under the menu "Ombi" set the base url to /ombi and restart the ombi container
+
+location /ombi {
+    return 301 $scheme://$host/ombi/;
+}
+
+location ^~ /ombi/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /login;
+
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_ombi ombi;
+    proxy_pass http://$upstream_ombi:3579;
+}
+
+location ^~ /ombi/swagger {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_ombi ombi;
+    proxy_pass http://$upstream_ombi:3579;
+}
+if ($http_referer ~* /ombi) {
+    rewrite ^/swagger/(.*) /ombi/swagger/$1? redirect;
+}

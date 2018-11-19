@@ -1,0 +1,40 @@
+# Assuming this container is called "letsencrypt", edit your nextcloud container's config
+# located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
+#  'trusted_proxies' => ['letsencrypt'],
+#  'overwritewebroot' => '/nextcloud',
+#  'overwrite.cli.url' => 'https://your-domain.com/nextcloud',
+#
+# Also don't forget to add your domain name to the trusted domains array. It should look somewhat like this:
+#  array (
+#    0 => '192.168.0.1:444', # This line may look different on your setup, don't modify it.
+#    1 => 'your-domain.com',
+#  ),
+
+# Redirects for DAV clients
+location = /.well-known/carddav {
+    return 301 $scheme://$host/nextcloud/remote.php/dav;
+}
+
+location = /.well-known/caldav {
+    return 301 $scheme://$host/nextcloud/remote.php/dav;
+}
+
+location /nextcloud {
+    return 301 $scheme://$host/nextcloud/;
+}
+
+location ^~ /nextcloud/ {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_nextcloud nextcloud;
+    rewrite /nextcloud(.*) $1 break;
+    proxy_pass https://$upstream_nextcloud:443;
+    
+    proxy_max_temp_file_size 2048m;
+
+    proxy_set_header Range $http_range;
+    proxy_set_header If-Range $http_if_range;
+    proxy_set_header Connection $http_connection;
+    proxy_redirect off;
+    proxy_ssl_session_reuse off;
+} 
