@@ -2,14 +2,15 @@
 
 server {
     listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name unifi.*;
 
     include /config/nginx/ssl.conf;
 
     client_max_body_size 0;
-    
-    # enable for ldap auth, fill in ldap details in ldap.conf 
+
+    # enable for ldap auth, fill in ldap details in ldap.conf
     #include /config/nginx/ldap.conf;
 
     location / {
@@ -26,7 +27,7 @@ server {
         set $upstream_unifi unifi;
         proxy_pass https://$upstream_unifi:8443;
     }
-    
+
     location /wss {
         # enable the next two lines for http auth
         #auth_basic "Restricted";

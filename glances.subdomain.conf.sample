@@ -2,6 +2,7 @@
 
 server {
     listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name glances.*;
 

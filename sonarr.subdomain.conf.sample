@@ -2,6 +2,7 @@
 
 server {
     listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name sonarr.*;
 
@@ -32,5 +33,5 @@ server {
         resolver 127.0.0.11 valid=30s;
         set $upstream_sonarr sonarr;
         proxy_pass http://$upstream_sonarr:8989;
-   } 
+   }
 }
