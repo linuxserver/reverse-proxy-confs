@@ -17,6 +17,7 @@ location ^~ /pihole/ {
     set $upstream_pihole pihole;
     rewrite /pihole(.*) $1 break;
     proxy_pass http://$upstream_pihole:80;
+    proxy_hide_header X-Frame-Options;
 }
 
 location /pihole/admin {
@@ -36,4 +37,5 @@ location ^~ /pihole/admin/ {
     set $upstream_pihole pihole;
     rewrite /pihole(.*) $1 break;
     proxy_pass http://$upstream_pihole:80;
+    proxy_hide_header X-Frame-Options;
 }

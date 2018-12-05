@@ -25,6 +25,7 @@ server {
         resolver 127.0.0.11 valid=30s;
         set $upstream_pihole pihole;
         proxy_pass http://$upstream_pihole:80;
+        proxy_hide_header X-Frame-Options;
     }
 
     location /admin {
@@ -40,5 +41,6 @@ server {
         resolver 127.0.0.11 valid=30s;
         set $upstream_pihole pihole;
         proxy_pass http://$upstream_pihole:80;
+        proxy_hide_header X-Frame-Options;
     }
 }
