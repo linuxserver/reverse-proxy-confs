@@ -2,11 +2,12 @@
 
 server {
     listen 443 ssl;
-    
+    listen [::]:443 ssl;
+
     server_name collabora.*;
-    
+
     include /config/nginx/ssl.conf;
-    
+
     resolver 127.0.0.11 valid=30s;
     set $upstream_collabora collabora;
 
@@ -45,4 +46,4 @@ server {
         proxy_set_header Host $http_host;
         proxy_read_timeout 36000s;
     }
-} 
+}
