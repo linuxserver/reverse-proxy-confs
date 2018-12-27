@@ -1,4 +1,4 @@
-# grocy requires a base url setting
+# grocy requires a base url setting - check the config.php file that grocy uses for this setting
 
 location /grocy {
     rewrite ^/grocy(/.*)$ $1 break;
