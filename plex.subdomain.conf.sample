@@ -15,7 +15,7 @@ server {
     proxy_buffering off;
 
     # enable for ldap auth, fill in ldap details in ldap.conf
-    #include /config/nginx/ldap.conf;
+    #include /config/nginx/auth-confs/ldap.conf;
 
 
     location / {
