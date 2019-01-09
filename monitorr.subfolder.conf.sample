@@ -1,6 +1,9 @@
 # monitorr does not require a base url setting
 
-location ^~ /monitorr {
+location /monitorr {
+    return 301 $scheme://$host/monitorr/;
+}
+location ^~ /monitorr/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
