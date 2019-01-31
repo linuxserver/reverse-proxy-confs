@@ -1,4 +1,4 @@
-# first go into nzbhydra settings, set the URL Base to /nzbhydra and restart the nzbhydra container
+# first go into nzbhydra settings, set the URL Base to /nzbhydra, then disable CSRF protection on the same page and restart the nzbhydra container
 
 location ^~ /nzbhydra {
     # enable the next two lines for http auth
