@@ -18,5 +18,6 @@ location ^~ /qbittorrent/ {
     rewrite /qbittorrent(.*) $1 break;
     proxy_pass http://$upstream_qbittorrent:8080;
 
+    proxy_set_header Referer '';
     proxy_set_header Host $upstream_qbittorrent:8080;
 }

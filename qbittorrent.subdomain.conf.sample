@@ -27,6 +27,7 @@ server {
         set $upstream_qbittorrent qbittorrent;
         proxy_pass http://$upstream_qbittorrent:8080;
 
+        proxy_set_header Referer '';
         proxy_set_header Host $upstream_qbittorrent:8080;
     }
 }
