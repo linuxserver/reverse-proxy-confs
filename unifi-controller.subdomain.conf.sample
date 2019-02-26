@@ -1,4 +1,4 @@
-# make sure that your dns has a cname set for unifi and that your unifi container is not using a base url
+# make sure that your dns has a cname set for unifi and that your unifi-controller container is not using a base url
 
 server {
     listen 443 ssl;
