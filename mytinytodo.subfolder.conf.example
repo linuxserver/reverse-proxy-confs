@@ -1,3 +1,4 @@
+# works with https://github.com/breakall/mytinytodo-docker
 # set the mtt_url config in db/config.php
 
 location ^~ /todo {
