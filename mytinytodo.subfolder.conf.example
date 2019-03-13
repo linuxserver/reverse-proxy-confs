@@ -1,0 +1,11 @@
+# set the mtt_url config in db/config.php
+
+location ^~ /todo {
+    return 301 $scheme://$host/todo/;
+}
+
+location ^~ /todo/ {
+    include /config/nginx/proxy.conf;
+    set $upstream_mytinytodo mytinytodo;
+    proxy_pass http://$upstream_mytinytodo:80/;
+}
