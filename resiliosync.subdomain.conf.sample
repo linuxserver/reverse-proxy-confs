@@ -4,7 +4,7 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name resiliosync.*;
+    server_name resilio-sync.*;
 
     include /config/nginx/ssl.conf;
 
@@ -24,7 +24,7 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_resiliosync resiliosync;
+        set $upstream_resiliosync resilio-sync;
         proxy_pass http://$upstream_resiliosync:8888;
     }
 }
