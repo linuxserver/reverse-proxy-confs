@@ -1,4 +1,4 @@
-# make sure that your dns has a cname set for resiliosync and that your resiliosync container is not using a base url
+# make sure that your dns has a cname set for resilio-sync and that your resilio-sync container is not using a base url
 
 server {
     listen 443 ssl;
