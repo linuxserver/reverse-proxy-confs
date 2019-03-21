@@ -14,8 +14,6 @@ server {
     #include /config/nginx/ldap.conf;
 
     location / {
-        include /config/nginx/proxy.conf;
-
         # enable the next two lines for http auth
         #auth_basic "Restricted";
         #auth_basic_user_file /config/nginx/.htpasswd;
@@ -23,7 +21,8 @@ server {
         # enable the next two lines for ldap auth
         #auth_request /auth;
         #error_page 401 =200 /login;
-
+        
+        include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_airsonic airsonic;
         proxy_pass http://$upstream_airsonic:4040;
