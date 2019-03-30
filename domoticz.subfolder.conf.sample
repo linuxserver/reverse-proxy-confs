@@ -1,4 +1,4 @@
-# set the CONTEXT_PATH variable to domoticz in the domoticz container. Or if you run another container (God forbid!), set -webroot to domoticz.
+# set the WEBROOT variable to domoticz for the domoticz container.
 
 location ^~ /domoticz/ {
     # enable the next two lines for http auth
