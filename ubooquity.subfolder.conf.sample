@@ -1,3 +1,4 @@
+# set the reverse proxy prefix in the admin gui to ubooquity.
 
     location ^~ /ubooquity {
         # enable the next two lines for http auth
