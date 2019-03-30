@@ -1,0 +1,51 @@
+# Make sure that your dns has a cname set for ubooquity and that your ubooquity container is not using a base url
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name ubooquity.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    # enable for ldap auth, fill in ldap details in ldap.conf
+    #include /config/nginx/ldap.conf;
+
+    location / {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable the next two lines for ldap auth
+        #auth_request /auth;
+        #error_page 401 =200 /login;
+        
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_ubooquity ubooquity;
+        proxy_pass http://$upstream_ubooquity:2202;
+    }
+
+    location /admin {
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_ubooquity ubooquity;
+        proxy_pass http://$upstream_ubooquity:2203;
+    }
+
+    location /admin-res {
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_ubooquity ubooquity;
+        proxy_pass http://$upstream_ubooquity:2203;
+    }
+
+    location /admin-api {
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_ubooquity ubooquity;
+        proxy_pass http://$upstream_ubooquity:2203;
+    }
+}
