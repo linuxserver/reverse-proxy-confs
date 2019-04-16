@@ -23,6 +23,12 @@ server {
         proxy_set_header Host $http_host;
     }
 
+    # Capabilities
+    location ^~ /hosting/capabilities {
+        proxy_pass https://$upstream_collabora:9980;
+        proxy_set_header Host $http_host;
+    }
+
     # main websocket
     location ~ ^/lool/(.*)/ws$ {
         proxy_pass https://$upstream_collabora:9980;
