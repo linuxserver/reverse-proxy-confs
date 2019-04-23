@@ -21,7 +21,9 @@ server {
     include /config/nginx/ssl.conf;
 
     client_max_body_size 0;
-
+    
+    add_header Strict-Transport-Security "max-age=15552000; includeSubDomains";
+    
     location / {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
