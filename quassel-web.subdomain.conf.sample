@@ -1,4 +1,5 @@
-# make sure that your dns has a cname set for quassel
+# make sure that your dns has a cname set for quassel and make sure Quassel-Web is running on http 
+# with -e 'HTTPS'='false' or if you're using -e 'ADVANCED'='true' by editing config.json appropriately
 
 server {
     listen 443 ssl;
@@ -25,6 +26,6 @@ server {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_quassel_web quassel-web;
-        proxy_pass https://$upstream_quassel_web:64443;
+        proxy_pass http://$upstream_quassel_web:64080;
     }
 }
