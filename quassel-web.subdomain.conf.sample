@@ -1,0 +1,31 @@
+# make sure that your dns has a cname set for quassel and make sure Quassel-Web is running on http 
+# with -e 'HTTPS'='false' or if you're using -e 'ADVANCED'='true' by editing config.json appropriately
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name quassel.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    # enable for ldap auth, fill in ldap details in ldap.conf
+    #include /config/nginx/ldap.conf;
+
+    location / {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable the next two lines for ldap auth
+        #auth_request /auth;
+        #error_page 401 =200 /login;
+
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_quassel_web quassel-web;
+        proxy_pass http://$upstream_quassel_web:64080;
+    }
+}
