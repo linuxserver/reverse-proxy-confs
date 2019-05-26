@@ -1,0 +1,17 @@
+# The following parameters in /data/gitea/conf/app.ini should be edited to match your setup
+# [server]
+# SSH_DOMAIN       = example.com:2222
+# ROOT_URL         = https://example.com/gitea/
+# DOMAIN           = example.com
+
+location /gitea {
+    return 301 $scheme://$host/gitea/;
+}
+
+location ^~ /gitea/ {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_gitea gitea;
+    rewrite /gitea(.*) $1 break;
+    proxy_pass http://$upstream_gitea:3000;
+}
