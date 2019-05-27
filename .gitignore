@@ -1,0 +1,9 @@
+# Ignore everything
+*
+
+# Do NOT ignore allowed files
+!*.conf.sample
+!.gitattributes
+!.github
+!.gitignore
+!_readme
