@@ -1,0 +1,17 @@
+# Set base-url with docker run command env variable -e 'URL_BASE'='/quassel' and make sure Quassel-Web is running on http 
+# with -e 'HTTPS'='false' or if you're using -e 'ADVANCED'='true' by editing config.json appropriately
+
+location ^~ /quassel {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /login;
+
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_quassel_web quassel-web;
+    proxy_pass http://$upstream_quassel_web:64080;
+}
