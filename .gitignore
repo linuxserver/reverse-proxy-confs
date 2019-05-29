@@ -6,4 +6,5 @@
 !.gitattributes
 !.github
 !.gitignore
-!_readme
+!LICENSE
+!README.md
