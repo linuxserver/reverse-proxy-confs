@@ -45,4 +45,4 @@ If you are reverse proxying linuxserver containers installed on the same host wi
 
 ## To disable the configs:
 
-Simply rename the files to add back the `.sample` to the end, and restart letsencrypt.
+Simply delete the confs and restart letsencrypt.
