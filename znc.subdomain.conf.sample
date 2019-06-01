@@ -26,6 +26,5 @@ server {
         resolver 127.0.0.11 valid=30s;
         set $upstream_znc znc;
         proxy_pass https://$upstream_znc:6501;
-		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 }
