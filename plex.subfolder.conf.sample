@@ -1,7 +1,7 @@
 # plex does not require a base url setting
 # if plex is running in bridge mode, the below config should work as is.
 # for host mode, replace the line "proxy_pass http://$upstream_plex:32400;" with "proxy_pass http://HOSTIP:32400;" HOSTIP being the IP address of plex
-# in plex server settings, under network, fill in "Custom server access URLs" with your domain (ie. "https://yourdomain.url/plex:443")
+# in plex server settings, under network, fill in "Custom server access URLs" with your domain (ie. "https://yourdomain.url:443/plex")
 
 location /plex {
     return 301 $scheme://$host/plex/;
