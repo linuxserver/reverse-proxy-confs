@@ -7,7 +7,7 @@
 location /emby {
     return 301 $scheme://$host/emby/;
 }
-location ^~ /emby/ {
+location /emby/ {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_emby emby;
@@ -17,7 +17,7 @@ location ^~ /emby/ {
     proxy_set_header If-Range $http_if_range;
 }
 
-location ^~ /embywebsocket {
+location /embywebsocket {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_emby emby;

@@ -1,6 +1,6 @@
 # first go into medusa settings, under "Interface" set the URL Base to /medusa and restart the medusa container
 
-location ^~ /medusa {
+location /medusa {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;

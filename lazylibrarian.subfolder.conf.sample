@@ -1,6 +1,6 @@
 # first go into lazylibrarian settings, under "Interface" set the URL Base to /lazylibrarian and restart the lazylibrarian container
 
-location ^~ /lazylibrarian {
+location /lazylibrarian {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;

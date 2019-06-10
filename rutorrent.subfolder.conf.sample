@@ -3,7 +3,7 @@
 location /rutorrent {
     return 301 $scheme://$host/rutorrent/;
 }
-location ^~ /rutorrent/ {
+location /rutorrent/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
@@ -19,7 +19,7 @@ location ^~ /rutorrent/ {
     proxy_pass http://$upstream_rutorrent:80;
 }
 
-location ^~ /rutorrent/RPC2 {
+location /rutorrent/RPC2 {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_rutorrent rutorrent;

@@ -1,7 +1,7 @@
 # Set base-url with docker run command env variable -e 'URL_BASE'='/quassel' and make sure Quassel-Web is running on http 
 # with -e 'HTTPS'='false' or if you're using -e 'ADVANCED'='true' by editing config.json appropriately
 
-location ^~ /quassel {
+location /quassel {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;

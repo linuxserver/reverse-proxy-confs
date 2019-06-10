@@ -1,6 +1,6 @@
 # first go into tautulli settings, under "Web Interface", click on show advanced, set the HTTP root to /tautulli and restart the tautulli container
 
-location ^~ /tautulli {
+location /tautulli {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
@@ -15,7 +15,7 @@ location ^~ /tautulli {
     proxy_pass http://$upstream_tautulli:8181;
 }
 
-location ^~ /tautulli/api {
+location /tautulli/api {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_tautulli tautulli;

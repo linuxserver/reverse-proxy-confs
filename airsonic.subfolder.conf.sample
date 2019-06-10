@@ -1,6 +1,6 @@
 # set the CONTEXT_PATH variable to /airsonic in airsonic container.
 
-location ^~ /airsonic {
+location /airsonic {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;

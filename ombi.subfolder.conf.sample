@@ -4,7 +4,7 @@ location /ombi {
     return 301 $scheme://$host/ombi/;
 }
 
-location ^~ /ombi/ {
+location /ombi/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
@@ -20,7 +20,7 @@ location ^~ /ombi/ {
 }
 
 # This allows access to the actual api
-location ^~ /ombi/api {
+location /ombi/api {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_ombi ombi;
@@ -31,7 +31,7 @@ if ($http_referer ~* /ombi) {
 }
 
 # This allows access to the documentation for the api
-location ^~ /ombi/swagger {
+location /ombi/swagger {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_ombi ombi;

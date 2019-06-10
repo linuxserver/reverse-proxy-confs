@@ -3,7 +3,7 @@
 location /duplicati {
     return 301 $scheme://$host/duplicati/;
 }
-location ^~ /duplicati/ {
+location /duplicati/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;

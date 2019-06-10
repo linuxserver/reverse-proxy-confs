@@ -1,6 +1,6 @@
 # first stop the mylar container and edit the config.ini for mylar and set http_root to /mylar and then start the mylar container
 
-location ^~ /mylar {
+location /mylar {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;

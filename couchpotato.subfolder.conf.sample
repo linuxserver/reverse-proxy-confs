@@ -1,6 +1,6 @@
 # first go into couchpotato settings, under "General" set the URL Base to /couchpotato and restart the couchpotato container
 
-location ^~ /couchpotato {
+location /couchpotato {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;

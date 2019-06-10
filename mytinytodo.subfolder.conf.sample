@@ -1,11 +1,11 @@
 # works with https://github.com/breakall/mytinytodo-docker
 # set the mtt_url to 'https://your.domain.com/todo/' in db/config.php
 
-location ^~ /todo {
+location /todo {
     return 301 $scheme://$host/todo/;
 }
 
-location ^~ /todo/ {
+location /todo/ {
 
     # enable the next two lines for http auth
     # auth_basic "Restricted";

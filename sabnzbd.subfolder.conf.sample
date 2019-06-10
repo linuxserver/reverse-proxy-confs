@@ -1,6 +1,6 @@
 # sabnzbd already uses the base url /sabnzbd by default so you don't need to do anything extra
 
-location ^~ /sabnzbd {
+location /sabnzbd {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
@@ -15,7 +15,7 @@ location ^~ /sabnzbd {
     proxy_pass http://$upstream_sabnzbd:8080;
 }
 
-location ^~ /sabnzbd/api {
+location /sabnzbd/api {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_sabnzbd sabnzbd;

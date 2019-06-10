@@ -12,19 +12,19 @@ server {
     set $upstream_collabora collabora;
 
     # static files
-    location ^~ /loleaflet {
+    location /loleaflet {
         proxy_pass https://$upstream_collabora:9980;
         proxy_set_header Host $http_host;
     }
 
     # WOPI discovery URL
-    location ^~ /hosting/discovery {
+    location /hosting/discovery {
         proxy_pass https://$upstream_collabora:9980;
         proxy_set_header Host $http_host;
     }
 
     # Capabilities
-    location ^~ /hosting/capabilities {
+    location /hosting/capabilities {
         proxy_pass https://$upstream_collabora:9980;
         proxy_set_header Host $http_host;
     }
@@ -45,7 +45,7 @@ server {
     }
 
     # Admin Console websocket
-    location ^~ /lool/adminws {
+    location /lool/adminws {
         proxy_pass https://$upstream_collabora:9980;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "Upgrade";

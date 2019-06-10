@@ -1,6 +1,6 @@
 # first go into nzbhydra settings, set the URL Base to /nzbhydra, then disable CSRF protection on the same page and restart the nzbhydra container
 
-location ^~ /nzbhydra {
+location /nzbhydra {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
@@ -15,7 +15,7 @@ location ^~ /nzbhydra {
     proxy_pass http://$upstream_nzbhydra:5076;
 }
 
-location ^~ /nzbhydra/api {
+location /nzbhydra/api {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_nzbhydra hydra2;

@@ -1,6 +1,6 @@
 # first stop the sickrage container and edit the config.ini for sickrage and set web_root to /sickrage and then start the sickrage container
 
-location ^~ /sickrage {
+location /sickrage {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;

@@ -1,6 +1,6 @@
 # transmission does not require a base url setting
 
-location ^~ /transmission {
+location /transmission {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
@@ -16,7 +16,7 @@ location ^~ /transmission {
     proxy_pass http://$upstream_transmission:9091;
 }
 
-location ^~ /transmission/rpc {
+location /transmission/rpc {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_transmission transmission;
