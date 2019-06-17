@@ -1,0 +1,21 @@
+# calibre-web does not require a base url setting
+
+location /calibre-web {
+    return 301 $scheme://$host/calibre-web/;
+}
+location ^~ /calibre-web/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /login;
+
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_calibre_web calibre-web;
+    proxy_pass http://$upstream_calibre_web:8083;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Scheme $scheme;
+    proxy_set_header X-Script-Name /calibre-web;
+}
