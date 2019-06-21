@@ -11,18 +11,11 @@ location ^~ /jellyfin/ {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_jellyfin jellyfin;
+    rewrite /jellyfin(.*) $1 break;
     proxy_pass http://$upstream_jellyfin:8096;
     
     proxy_set_header Range $http_range;
     proxy_set_header If-Range $http_if_range;
-}
-
-location ^~ /jellyfinwebsocket {
-    include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
-    set $upstream_jellyfin jellyfin;
-    proxy_pass http://$upstream_jellyfin:8096;
-
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection $http_connection;
 }
