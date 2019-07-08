@@ -1,7 +1,7 @@
-# adminer does not require a base url setting
+# adminer does not require a base url setting, but the container needs to be named adminer
 
 location /adminer {
-    return 301 $scheme://$http_host/adminer/;
+    return 301 $scheme://$host/adminer/;
 }
 location ^~ /adminer/ {
     # enable the next two lines for http auth
