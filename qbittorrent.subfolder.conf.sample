@@ -21,3 +21,58 @@ location ^~ /qbittorrent/ {
     proxy_set_header Referer '';
     proxy_set_header Host $upstream_qbittorrent:8080;
 }
+
+location ^~ /qbittorrent/api {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_qbittorrent qbittorrent;
+    rewrite /qbittorrent(.*) $1 break;
+    proxy_pass http://$upstream_qbittorrent:8080;
+
+    proxy_set_header Referer '';
+    proxy_set_header Host $upstream_qbittorrent:8080;
+}
+
+location ^~ /qbittorrent/command {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_qbittorrent qbittorrent;
+    rewrite /qbittorrent(.*) $1 break;
+    proxy_pass http://$upstream_qbittorrent:8080;
+
+    proxy_set_header Referer '';
+    proxy_set_header Host $upstream_qbittorrent:8080;
+}
+
+location ^~ /qbittorrent/query {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_qbittorrent qbittorrent;
+    rewrite /qbittorrent(.*) $1 break;
+    proxy_pass http://$upstream_qbittorrent:8080;
+
+    proxy_set_header Referer '';
+    proxy_set_header Host $upstream_qbittorrent:8080;
+}
+
+location ^~ /qbittorrent/login {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_qbittorrent qbittorrent;
+    rewrite /qbittorrent(.*) $1 break;
+    proxy_pass http://$upstream_qbittorrent:8080;
+
+    proxy_set_header Referer '';
+    proxy_set_header Host $upstream_qbittorrent:8080;
+}
+
+location ^~ /qbittorrent/sync {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_qbittorrent qbittorrent;
+    rewrite /qbittorrent(.*) $1 break;
+    proxy_pass http://$upstream_qbittorrent:8080;
+
+    proxy_set_header Referer '';
+    proxy_set_header Host $upstream_qbittorrent:8080;
+}
