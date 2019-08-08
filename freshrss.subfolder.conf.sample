@@ -1,7 +1,7 @@
 # freshrss does not have a base url setting
 
 location /freshrss {
-    return 301 $scheme://$host/ombi/;
+    return 301 $scheme://$host/freshrss/;
 }
 
 location ^~ /freshrss/ {
@@ -16,6 +16,7 @@ location ^~ /freshrss/ {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_freshrss freshrss;
+    rewrite /freshrss(.*) $1 break;
     proxy_pass http://$upstream_freshrss:80;
     
     proxy_redirect off;
