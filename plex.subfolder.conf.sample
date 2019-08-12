@@ -1,3 +1,5 @@
+#******** This config no longer works, use the subdomain config in the meantime *******
+
 # plex does not require a base url setting
 # if plex is running in bridge mode, the below config should work as is.
 # for host mode, replace the line "proxy_pass http://$upstream_plex:32400;" with "proxy_pass http://HOSTIP:32400;" HOSTIP being the IP address of plex
