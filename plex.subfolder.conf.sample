@@ -1,4 +1,5 @@
-#******** This config no longer works, use the subdomain config in the meantime *******
+#******** This config no longer works as intended. The web app loads, but no direct connection to server is made. *********
+#******** PRs welcome for anyone who figures out how to fix it. Use the subdomain config in the meantime. *******
 
 # plex does not require a base url setting
 # if plex is running in bridge mode, the below config should work as is.
