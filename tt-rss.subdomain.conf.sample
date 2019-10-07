@@ -2,12 +2,6 @@
 # In tt-rss config.php the SELF_URL_PATH should be set to http://tt-rss.server.com/ NOT https://tt-rss.server.com although it will be accessible on https://tt-rss.server.com
 
 server {
-    listen 80;
-        server_name tt-rss.*;
-        return 301 https://$host$request_uri;
-}
-
-server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
