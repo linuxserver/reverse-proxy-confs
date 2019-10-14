@@ -1,4 +1,4 @@
-# In order to use this location block you need to edit the default file one folder up and comment out the / location
+# Only use one rootfolder conf at a time!
 
 location / {
     # enable the next two lines for http auth
