@@ -1,4 +1,6 @@
 # make sure that your dns has a cname set for sabnzbd
+# edit the sabnzbd.ini to sub.domain.tld to the host_whitelist to avoid hostname verification issues. This format:
+# host_whitelist = sabnzbd.domain.com, www.sabnzbd.domain.com
 
 server {
     listen 443 ssl;
