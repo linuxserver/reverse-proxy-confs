@@ -25,11 +25,10 @@ location /nextcloud {
 
 location ^~ /nextcloud/ {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
     set $upstream_nextcloud nextcloud;
     rewrite /nextcloud(.*) $1 break;
     proxy_pass https://$upstream_nextcloud:443;
-    
+
     proxy_max_temp_file_size 2048m;
 
     proxy_set_header Range $http_range;
@@ -37,4 +36,4 @@ location ^~ /nextcloud/ {
     proxy_set_header Connection $http_connection;
     proxy_redirect off;
     proxy_ssl_session_reuse off;
-} 
+}

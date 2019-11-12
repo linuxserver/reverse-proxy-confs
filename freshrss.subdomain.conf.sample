@@ -23,10 +23,9 @@ server {
         #error_page 401 =200 /login;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
         set $upstream_freshrss freshrss;
         proxy_pass http://$upstream_freshrss;
-        
+
         proxy_redirect off;
         proxy_buffering off;
         proxy_set_header Host $host;

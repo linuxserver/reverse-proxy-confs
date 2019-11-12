@@ -12,7 +12,6 @@ location ^~ /duplicati/ {
     #auth_request /auth;
     #error_page 401 =200 /login;
 
-    resolver 127.0.0.11 valid=30s;
     set $upstream_duplicati duplicati;
     rewrite /duplicati(.*) $1 break;
     proxy_pass http://$upstream_duplicati:8200;

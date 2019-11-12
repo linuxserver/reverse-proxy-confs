@@ -22,8 +22,7 @@ server {
         # enable the next two lines for ldap auth
         #auth_request /auth;
         #error_page 401 =200 /login;
-        
-        resolver 127.0.0.11 valid=30s;
+
         set $upstream_tt_rss tt-rss;
         proxy_pass http://$upstream_tt_rss:80;
         proxy_redirect  http://$upstream_tt_rss:80 /;

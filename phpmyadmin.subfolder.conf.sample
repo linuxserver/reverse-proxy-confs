@@ -13,7 +13,6 @@ location ^~ /phpmyadmin/ {
     #error_page 401 =200 /login;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
     set $upstream_phpmyadmin phpmyadmin;
     rewrite /phpmyadmin(.*) $1 break;
     proxy_pass http://$upstream_phpmyadmin:80;

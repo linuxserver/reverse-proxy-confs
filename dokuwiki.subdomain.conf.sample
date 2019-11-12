@@ -1,4 +1,4 @@
-# First complete the setup by appending install.php to URL. 
+# First complete the setup by appending install.php to URL.
 # Make sure that your dns has a cname set for dokuwiki
 
 server {
@@ -24,7 +24,6 @@ server {
         #error_page 401 =200 /login;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
         set $upstream_dokuwiki dokuwiki;
         proxy_pass http://$upstream_dokuwiki:80;
     }

@@ -24,7 +24,6 @@ server {
 
         include /config/nginx/proxy.conf;
         proxy_buffering off;
-        resolver 127.0.0.11 valid=30s;
         set $upstream_guacamole guacamole;
         proxy_pass http://$upstream_guacamole:8080;
     }

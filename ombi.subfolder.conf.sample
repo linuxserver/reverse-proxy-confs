@@ -14,7 +14,6 @@ location ^~ /ombi/ {
     #error_page 401 =200 /login;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
     set $upstream_ombi ombi;
     proxy_pass http://$upstream_ombi:3579;
 }
@@ -22,7 +21,6 @@ location ^~ /ombi/ {
 # This allows access to the actual api
 location ^~ /ombi/api {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
     set $upstream_ombi ombi;
     proxy_pass http://$upstream_ombi:3579;
 }
@@ -33,7 +31,6 @@ if ($http_referer ~* /ombi) {
 # This allows access to the documentation for the api
 location ^~ /ombi/swagger {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
     set $upstream_ombi ombi;
     proxy_pass http://$upstream_ombi:3579;
 }

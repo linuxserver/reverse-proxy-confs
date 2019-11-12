@@ -23,7 +23,6 @@ server {
         #error_page 401 =200 /login;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
         set $upstream_qbittorrent qbittorrent;
         proxy_pass http://$upstream_qbittorrent:8080;
 
@@ -33,7 +32,6 @@ server {
 
     location ^~ /qbittorrent/api {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
         set $upstream_qbittorrent qbittorrent;
         rewrite /qbittorrent(.*) $1 break;
         proxy_pass http://$upstream_qbittorrent:8080;
@@ -44,7 +42,6 @@ server {
 
     location ^~ /qbittorrent/command {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
         set $upstream_qbittorrent qbittorrent;
         rewrite /qbittorrent(.*) $1 break;
         proxy_pass http://$upstream_qbittorrent:8080;
@@ -55,7 +52,6 @@ server {
 
     location ^~ /qbittorrent/query {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
         set $upstream_qbittorrent qbittorrent;
         rewrite /qbittorrent(.*) $1 break;
         proxy_pass http://$upstream_qbittorrent:8080;
@@ -66,7 +62,6 @@ server {
 
     location ^~ /qbittorrent/login {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
         set $upstream_qbittorrent qbittorrent;
         rewrite /qbittorrent(.*) $1 break;
         proxy_pass http://$upstream_qbittorrent:8080;
@@ -77,7 +72,6 @@ server {
 
     location ^~ /qbittorrent/sync {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
         set $upstream_qbittorrent qbittorrent;
         rewrite /qbittorrent(.*) $1 break;
         proxy_pass http://$upstream_qbittorrent:8080;

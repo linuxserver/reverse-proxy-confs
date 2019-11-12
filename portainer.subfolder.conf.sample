@@ -13,7 +13,6 @@ location ^~ /portainer/ {
     #error_page 401 =200 /login;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
     set $upstream_portainer portainer;
     rewrite /portainer(.*) $1 break;
     proxy_pass http://$upstream_portainer:9000;
@@ -22,7 +21,6 @@ location ^~ /portainer/ {
 
 location ^~ /portainer/api/websocket/ {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
     set $upstream_portainer portainer;
     rewrite /portainer(.*) $1 break;
     proxy_pass http://$upstream_portainer:9000;

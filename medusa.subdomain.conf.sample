@@ -25,7 +25,6 @@ server {
         include /config/nginx/proxy.conf;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
-        resolver 127.0.0.11 valid=30s;
         set $upstream_medusa medusa;
         proxy_pass http://$upstream_medusa:8081;
     }

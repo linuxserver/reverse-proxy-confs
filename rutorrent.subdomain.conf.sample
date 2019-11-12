@@ -23,14 +23,12 @@ server {
         #error_page 401 =200 /login;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
         set $upstream_rutorrent rutorrent;
         proxy_pass http://$upstream_rutorrent:80;
     }
 
     location /RPC2 {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
         set $upstream_rutorrent rutorrent;
         proxy_pass http://$upstream_rutorrent:80;
     }

@@ -13,7 +13,6 @@ location ^~ /kanzi/ {
     #error_page 401 =200 /login;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
     set $upstream_kanzi kanzi;
     rewrite /kanzi(.*) $1 break;
     proxy_pass https://$upstream_kanzi:8000;

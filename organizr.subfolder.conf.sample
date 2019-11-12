@@ -10,7 +10,6 @@ location / {
     #error_page 401 =200 /login;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
     set $upstream_organizr organizr;
     proxy_pass http://$upstream_organizr:80;
 }
@@ -19,7 +18,6 @@ location ~ /auth-(admin|user) {
     # This is used for Organizr V1
     internal;
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
     set $upstream_organizr organizr;
     proxy_pass http://$upstream_organizr:80/auth.php?$1;
     proxy_set_header Content-Length "";
@@ -29,7 +27,6 @@ location ~ /auth-([0-9]+) {
     # This is used for Organizr V2
     internal;
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
     set $upstream_organizr organizr;
     proxy_pass http://$upstream_organizr:80/api/?v1/auth&group=$1;
     proxy_set_header Content-Length "";

@@ -21,9 +21,8 @@ server {
         # enable the next two lines for ldap auth
         #auth_request /auth;
         #error_page 401 =200 /login;
-        
+
 	include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
         set $upstream_mstream mstream;
         proxy_pass http://$upstream_mstream:3000;
     }

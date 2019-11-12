@@ -12,7 +12,6 @@ location ^~ /calibre-web/ {
     #auth_request /auth;
     #error_page 401 =200 /login;
 
-    resolver 127.0.0.11 valid=30s;
     set $upstream_calibre_web calibre-web;
     proxy_pass http://$upstream_calibre_web:8083;
     proxy_set_header Host $http_host;
