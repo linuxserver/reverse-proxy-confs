@@ -1,7 +1,7 @@
 # First either add "--base /dozzle" or "-e DOZZLE_BASE=/dozzle" to your docker run command, and restart the Dozzle container
 
 location /dozzle {
-    return 301 $scheme://$http_host/dozzle/;
+    return 301 $scheme://$host/dozzle/;
 }
 location ^~ /dozzle/ {
     # enable the next two lines for http auth
