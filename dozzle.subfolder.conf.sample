@@ -1,0 +1,22 @@
+# First either add "--base /dozzle" or "-e DOZZLE_BASE=/dozzle" to your docker run command, and restart the Dozzle container
+
+location /dozzle {
+    return 301 $scheme://$host/dozzle/;
+}
+location ^~ /dozzle/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /login;
+
+    include /config/nginx/proxy.conf;
+    chunked_transfer_encoding off;
+    proxy_buffering off;
+    proxy_cache off;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_dozzle dozzle;
+    proxy_pass http://$upstream_dozzle:8080;
+}
