@@ -25,6 +25,7 @@ server {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_airsonic airsonic;
+        proxy_set_header X-Forwarded-Host  $http_host;
         proxy_pass http://$upstream_airsonic:4040;
     }
 }
