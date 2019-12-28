@@ -24,7 +24,7 @@ server {
         proxy_set_header If-Range $http_if_range;
     }
 	
-    location ~ (/jellyfin)?/embywebsocket {
+    location ~ (/jellyfin)?/socket {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_jellyfin jellyfin;
