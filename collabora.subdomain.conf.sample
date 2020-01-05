@@ -8,28 +8,34 @@ server {
 
     include /config/nginx/ssl.conf;
 
-    set $upstream_collabora collabora;
-
     # static files
     location ^~ /loleaflet {
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_collabora collabora;
         proxy_pass https://$upstream_collabora:9980;
         proxy_set_header Host $http_host;
     }
 
     # WOPI discovery URL
     location ^~ /hosting/discovery {
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_collabora collabora;
         proxy_pass https://$upstream_collabora:9980;
         proxy_set_header Host $http_host;
     }
 
     # Capabilities
     location ^~ /hosting/capabilities {
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_collabora collabora;
         proxy_pass https://$upstream_collabora:9980;
         proxy_set_header Host $http_host;
     }
 
     # main websocket
     location ~ ^/lool/(.*)/ws$ {
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_collabora collabora;
         proxy_pass https://$upstream_collabora:9980;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "Upgrade";
@@ -39,12 +45,16 @@ server {
 
     # download, presentation and image upload
     location ~ ^/lool {
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_collabora collabora;
         proxy_pass https://$upstream_collabora:9980;
         proxy_set_header Host $http_host;
     }
 
     # Admin Console websocket
     location ^~ /lool/adminws {
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_collabora collabora;
         proxy_pass https://$upstream_collabora:9980;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "Upgrade";
