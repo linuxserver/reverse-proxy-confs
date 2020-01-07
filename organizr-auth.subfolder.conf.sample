@@ -32,5 +32,5 @@ location ~ /auth-([0-9]+) {
 }
 
 # Optional redirect server authentication errors to organizr authentication page
-# NOTE: $server_name must be modified to your public URL when using subdomain proxies
-#error_page 401 $scheme://$server_name/?error=$status&return=$request_uri;
+# NOTE: $host must be modified to your public URL when using subdomain proxies
+#error_page 401 $scheme://$host/?error=$status&return=$request_uri;
