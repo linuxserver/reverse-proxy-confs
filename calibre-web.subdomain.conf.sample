@@ -28,6 +28,5 @@ server {
 		proxy_pass http://$upstream_calibre_web:8083;
 		proxy_set_header Host $http_host;
 		proxy_set_header X-Scheme $scheme;
-		proxy_set_header X-Script-Name /calibre;
 	}
 }
