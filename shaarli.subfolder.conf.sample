@@ -3,6 +3,9 @@ location /shaarli {
 }
 
 location ^~ /shaarli/ {
+    # enable for ldap auth, fill in ldap details in ldap.conf
+    #include /config/nginx/ldap.conf;
+
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_shaarli shaarli;
