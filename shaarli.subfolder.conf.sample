@@ -1,0 +1,17 @@
+location /shaarli {
+    return 301 $scheme://$host/shaarli/;
+}
+
+location ^~ /shaarli/ {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_shaarli shaarli;
+    rewrite /shaarli(.*) $1 break;
+    proxy_pass http://$upstream_shaarli:80;
+    
+    proxy_set_header Range $http_range;
+    proxy_set_header If-Range $http_if_range;
+    proxy_set_header Connection $http_connection;
+    proxy_redirect off;
+    proxy_ssl_session_reuse off;
+} 
