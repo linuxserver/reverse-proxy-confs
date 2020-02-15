@@ -1,11 +1,12 @@
 # make sure that your dns has a cname set for statping and that your statping container is not using a base url
-# the default url is status.yourdomain.tld, but you can change it to whatever you want
+# If you are using the SSL docker-compose.yml on the statping repo, then the container name will be set to statup.
+# On other compose examples, it might be named statping. In that case, change $upstream_statping statup to $upstream_statping statping
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name status.*;
+    server_name statping.*;
 
     include /config/nginx/ssl.conf;
 
