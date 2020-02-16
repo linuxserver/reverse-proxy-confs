@@ -1,6 +1,4 @@
 # make sure that your dns has a cname set for osticket and that your osticket container is named osticket.
-# change  the port number here to match the port you have the container on and you have set the "Helpdesk URL"
-# to help.youdomain.com:$port in Admin panel > Settings > System > Helpdesk URL
 
 server {
     listen 443 ssl;
