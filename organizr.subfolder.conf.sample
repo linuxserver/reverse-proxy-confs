@@ -11,8 +11,8 @@ location / {
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_organizr organizr;
-    proxy_pass http://$upstream_organizr:80;
+    set $upstream_app organizr;
+    proxy_pass http://$upstream_app:80;
 }
 
 # Optional redirect server errors to organizr error pages

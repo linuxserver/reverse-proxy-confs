@@ -11,6 +11,6 @@ location ^~ /couchpotato {
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_couchpotato couchpotato;
-    proxy_pass http://$upstream_couchpotato:5050;
+    set $upstream_app couchpotato;
+    proxy_pass http://$upstream_app:5050;
 }

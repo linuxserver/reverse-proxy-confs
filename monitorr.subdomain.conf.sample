@@ -24,7 +24,7 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_monitorr monitorr;
-        proxy_pass http://$upstream_monitorr:80;
+        set $upstream_app monitorr;
+        proxy_pass http://$upstream_app:80;
     }
 }

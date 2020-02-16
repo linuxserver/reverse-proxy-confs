@@ -24,9 +24,9 @@ server {
         #error_page 401 =200 /login;
         
         resolver 127.0.0.11 valid=30s;
-        set $upstream_tt_rss tt-rss;
-        proxy_pass http://$upstream_tt_rss:80;
-        proxy_redirect  http://$upstream_tt_rss:80 /;
+        set $upstream_app tt-rss;
+        proxy_pass http://$upstream_app:80;
+        proxy_redirect  http://$upstream_app:80 /;
         proxy_read_timeout 60s;
         proxy_set_header          Host            $host;
         proxy_set_header          X-Real-IP       $remote_addr;

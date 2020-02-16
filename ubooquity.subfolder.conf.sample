@@ -11,13 +11,13 @@
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_ubooquity ubooquity;
-        proxy_pass http://$upstream_ubooquity:2202;
+        set $upstream_app ubooquity;
+        proxy_pass http://$upstream_app:2202;
     }
 
     location ^~ /ubooquity/admin {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_ubooquity ubooquity;
-        proxy_pass http://$upstream_ubooquity:2203;
+        set $upstream_app ubooquity;
+        proxy_pass http://$upstream_app:2203;
     }

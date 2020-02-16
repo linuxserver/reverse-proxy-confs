@@ -24,15 +24,15 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_transmission transmission;
+        set $upstream_app transmission;
         proxy_pass_header  X-Transmission-Session-Id;
-        proxy_pass http://$upstream_transmission:9091;
+        proxy_pass http://$upstream_app:9091;
     }
 
     location ~ (/transmission)?/rpc {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_transmission transmission;
-        proxy_pass http://$upstream_transmission:9091;
+        set $upstream_app transmission;
+        proxy_pass http://$upstream_app:9091;
     }
 }

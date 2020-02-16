@@ -13,7 +13,7 @@ location ^~ /calibre/ {
     #error_page 401 =200 /login;
 
     resolver 127.0.0.11 valid=30s;
-    set $upstream_calibre calibre;
+    set $upstream_app calibre;
     rewrite /calibre(.*) $1 break;
-    proxy_pass http://$upstream_calibre:8080;
+    proxy_pass http://$upstream_app:8080;
 }

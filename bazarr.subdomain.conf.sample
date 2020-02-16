@@ -24,7 +24,7 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_bazarr bazarr;
-        proxy_pass http://$upstream_bazarr:6767;
+        set $upstream_app bazarr;
+        proxy_pass http://$upstream_app:6767;
     }
 }

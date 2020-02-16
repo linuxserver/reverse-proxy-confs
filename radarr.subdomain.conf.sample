@@ -24,14 +24,14 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_radarr radarr;
-        proxy_pass http://$upstream_radarr:7878;
+        set $upstream_app radarr;
+        proxy_pass http://$upstream_app:7878;
     }
 
     location ~ (/radarr)?/api {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_radarr radarr;
-        proxy_pass http://$upstream_radarr:7878;
+        set $upstream_app radarr;
+        proxy_pass http://$upstream_app:7878;
     }
 }

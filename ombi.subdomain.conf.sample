@@ -24,24 +24,24 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_ombi ombi;
-        proxy_pass http://$upstream_ombi:3579;
+        set $upstream_app ombi;
+        proxy_pass http://$upstream_app:3579;
     }
 
     # This allows access to the actual api
     location ~ (/ombi)?/api {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_ombi ombi;
-        proxy_pass http://$upstream_ombi:3579;
+        set $upstream_app ombi;
+        proxy_pass http://$upstream_app:3579;
    }
 
     # This allows access to the documentation for the api
     location ~ (/ombi)?/swagger {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_ombi ombi;
-        proxy_pass http://$upstream_ombi:3579;
+        set $upstream_app ombi;
+        proxy_pass http://$upstream_app:3579;
    }
    if ($http_referer ~* /ombi) {
        rewrite ^/swagger/(.*) /ombi/swagger/$1? redirect;

@@ -25,15 +25,15 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_bitwarden bitwarden;
-        proxy_pass http://$upstream_bitwarden:80;
+        set $upstream_app bitwarden;
+        proxy_pass http://$upstream_app:80;
     }
 
     location /notifications/hub {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_bitwarden bitwarden;
-        proxy_pass http://$upstream_bitwarden:80;
+        set $upstream_app bitwarden;
+        proxy_pass http://$upstream_app:80;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "Upgrade";
     }
@@ -41,8 +41,8 @@ server {
     location /notifications/hub/negotiate {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_bitwarden bitwarden;
-        proxy_pass http://$upstream_bitwarden:80;
+        set $upstream_app bitwarden;
+        proxy_pass http://$upstream_app:80;
     }
 
 }

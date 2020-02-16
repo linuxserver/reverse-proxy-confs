@@ -24,8 +24,8 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_unifi unifi-controller;
-        proxy_pass https://$upstream_unifi:8443;
+        set $upstream_app unifi-controller;
+        proxy_pass https://$upstream_app:8443;
     }
 
     location /wss {
@@ -39,8 +39,8 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_unifi unifi-controller;
-        proxy_pass https://$upstream_unifi:8443;
+        set $upstream_app unifi-controller;
+        proxy_pass https://$upstream_app:8443;
         proxy_buffering off;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "Upgrade";

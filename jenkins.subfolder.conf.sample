@@ -24,6 +24,6 @@ location ^~ /jenkins/ {
     proxy_request_buffering off;
     proxy_buffering off;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_jenkins jenkins;    
-    proxy_pass http://$upstream_jenkins:8080;
+    set $upstream_app jenkins;    
+    proxy_pass http://$upstream_app:8080;
 }

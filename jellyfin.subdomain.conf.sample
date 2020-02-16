@@ -1,6 +1,6 @@
 # make sure that your dns has a cname set for jellyfin, if jellyfin is running in bridge mode, the below config should work as is, although,
-# the container name is expected to be "jellyfin", if not, replace the lines "set $upstream_jellyfin jellyfin;" with "set $upstream_jellyfin <containername>;"
-# for host mode, replace the lines "proxy_pass http://$upstream_jellyfin:8096;" with "proxy_pass http://HOSTIP:8096;" HOSTIP being the IP address of jellyfin
+# the container name is expected to be "jellyfin", if not, replace the lines "set $upstream_app jellyfin;" with "set $upstream_app <containername>;"
+# for host mode, replace the lines "proxy_pass http://$upstream_app:8096;" with "proxy_pass http://HOSTIP:8096;" HOSTIP being the IP address of jellyfin
 # in jellyfin settings, under "Advanced/Networking" change the public https port to 443, leave the local ports as is,
 # and set the "Secure connection mode" to "Handled by reverse proxy"
 
@@ -17,8 +17,8 @@ server {
     location / {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_jellyfin jellyfin;
-        proxy_pass http://$upstream_jellyfin:8096;
+        set $upstream_app jellyfin;
+        proxy_pass http://$upstream_app:8096;
 		
         proxy_set_header Range $http_range;
         proxy_set_header If-Range $http_if_range;
@@ -27,8 +27,8 @@ server {
     location ~ (/jellyfin)?/socket {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_jellyfin jellyfin;
-        proxy_pass http://$upstream_jellyfin:8096;
+        set $upstream_app jellyfin;
+        proxy_pass http://$upstream_app:8096;
 		
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection $http_connection;

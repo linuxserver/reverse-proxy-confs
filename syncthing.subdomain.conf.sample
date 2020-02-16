@@ -24,7 +24,7 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_syncthing syncthing;
-        proxy_pass http://$upstream_syncthing:8384;
+        set $upstream_app syncthing;
+        proxy_pass http://$upstream_app:8384;
     }
 }

@@ -24,7 +24,7 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_kanzi kanzi;
-        proxy_pass https://$upstream_kanzi:8000;
+        set $upstream_app kanzi;
+        proxy_pass https://$upstream_app:8000;
     }
 }

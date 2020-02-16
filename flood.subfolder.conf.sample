@@ -14,7 +14,7 @@ location ^~ /flood/ {
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_flood flood;
+    set $upstream_app flood;
     rewrite /flood(.*) $1 break;
-    proxy_pass http://$upstream_flood:3000;
+    proxy_pass http://$upstream_app:3000;
 }
