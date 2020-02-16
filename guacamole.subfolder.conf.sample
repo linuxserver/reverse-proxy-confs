@@ -15,7 +15,7 @@ location ^~ /guacamole/ {
     include /config/nginx/proxy.conf;
     proxy_buffering off;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_guacamole guacamole;
+    set $upstream_app guacamole;
     rewrite /guacamole(.*) $1 break;
-    proxy_pass http://$upstream_guacamole:8080;
+    proxy_pass http://$upstream_app:8080;
 }

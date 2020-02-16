@@ -25,7 +25,7 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_dokuwiki dokuwiki;
-        proxy_pass http://$upstream_dokuwiki:80;
+        set $upstream_app dokuwiki;
+        proxy_pass http://$upstream_app:80;
     }
 }

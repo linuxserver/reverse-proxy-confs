@@ -11,6 +11,6 @@ location ^~ /domoticz/ {
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_domoticz domoticz;
-    proxy_pass http://$upstream_domoticz:8080;
+    set $upstream_app domoticz;
+    proxy_pass http://$upstream_app:8080;
 }

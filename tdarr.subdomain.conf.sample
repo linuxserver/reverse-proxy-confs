@@ -24,7 +24,7 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_tdarr tdarr;
-        proxy_pass http://$upstream_tdarr:8265;
+        set $upstream_app tdarr;
+        proxy_pass http://$upstream_app:8265;
     }
 }

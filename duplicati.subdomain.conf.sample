@@ -23,7 +23,7 @@ server {
         #error_page 401 =200 /login;
 
         resolver 127.0.0.11 valid=30s;
-        set $upstream_duplicati duplicati;
-        proxy_pass http://$upstream_duplicati:8200;
+        set $upstream_app duplicati;
+        proxy_pass http://$upstream_app:8200;
     }
 }

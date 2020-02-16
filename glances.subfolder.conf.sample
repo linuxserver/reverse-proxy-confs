@@ -14,7 +14,7 @@ location ^~ /glances/ {
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_glances glances;
+    set $upstream_app glances;
     rewrite /glances(.*) $1 break;
-    proxy_pass http://$upstream_glances:61208;
+    proxy_pass http://$upstream_app:61208;
 }

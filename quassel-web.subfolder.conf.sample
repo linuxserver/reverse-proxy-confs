@@ -12,6 +12,6 @@ location ^~ /quassel {
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_quassel_web quassel-web;
-    proxy_pass http://$upstream_quassel_web:64080;
+    set $upstream_app quassel-web;
+    proxy_pass http://$upstream_app:64080;
 }

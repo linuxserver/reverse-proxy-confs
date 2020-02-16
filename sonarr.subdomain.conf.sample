@@ -24,14 +24,14 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_sonarr sonarr;
-        proxy_pass http://$upstream_sonarr:8989;
+        set $upstream_app sonarr;
+        proxy_pass http://$upstream_app:8989;
     }
 
     location ~ (/sonarr)?/api {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_sonarr sonarr;
-        proxy_pass http://$upstream_sonarr:8989;
+        set $upstream_app sonarr;
+        proxy_pass http://$upstream_app:8989;
    }
 }

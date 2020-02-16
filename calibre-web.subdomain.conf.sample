@@ -24,8 +24,8 @@ server {
 
     include /config/nginx/proxy.conf;
 		resolver 127.0.0.11 valid=30s;
-		set $upstream_calibre_web calibre-web;
-		proxy_pass http://$upstream_calibre_web:8083;
+		set $upstream_app calibre-web;
+		proxy_pass http://$upstream_app:8083;
 		proxy_set_header Host $http_host;
 		proxy_set_header X-Scheme $scheme;
 	}

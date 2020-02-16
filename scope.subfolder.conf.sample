@@ -14,9 +14,9 @@ location ^~ /scope/ {
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_scope scope;
+    set $upstream_app scope;
     rewrite /scope(.*) $1 break;
-    proxy_pass http://$upstream_scope:4040;
+    proxy_pass http://$upstream_app:4040;
     proxy_set_header Upgrade $http_upgrade;
 	proxy_set_header Connection "upgrade";
 }

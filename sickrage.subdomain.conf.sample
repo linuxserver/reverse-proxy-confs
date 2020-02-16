@@ -24,7 +24,7 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_sickrage sickrage;
-        proxy_pass http://$upstream_sickrage:8081;
+        set $upstream_app sickrage;
+        proxy_pass http://$upstream_app:8081;
     }
 }

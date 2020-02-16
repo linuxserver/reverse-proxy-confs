@@ -1,5 +1,5 @@
 # make sure that your dns has a cname set for plex, if plex is running in bridge mode, the below config should work as is, for host mode,
-# replace the line "proxy_pass http://$upstream_plex:32400;" with "proxy_pass http://HOSTIP:32400;" HOSTIP being the IP address of plex
+# replace the line "proxy_pass http://$upstream_app:32400;" with "proxy_pass http://HOSTIP:32400;" HOSTIP being the IP address of plex
 # in plex server settings, under network, fill in "Custom server access URLs" with your domain (ie. "https://plex.yourdomain.url:443")
 
 server {
@@ -29,8 +29,8 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_plex plex;
-        proxy_pass http://$upstream_plex:32400;
+        set $upstream_app plex;
+        proxy_pass http://$upstream_app:32400;
 
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";

@@ -14,7 +14,7 @@ location ^~ /thelounge/ {
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_thelounge thelounge;
+    set $upstream_app thelounge;
     rewrite /thelounge(.*) $1 break;
-    proxy_pass http://$upstream_thelounge:9000;
+    proxy_pass http://$upstream_app:9000;
 }

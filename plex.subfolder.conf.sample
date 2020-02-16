@@ -3,7 +3,7 @@
 
 # plex does not require a base url setting
 # if plex is running in bridge mode, the below config should work as is.
-# for host mode, replace the line "proxy_pass http://$upstream_plex:32400;" with "proxy_pass http://HOSTIP:32400;" HOSTIP being the IP address of plex
+# for host mode, replace the line "proxy_pass http://$upstream_app:32400;" with "proxy_pass http://HOSTIP:32400;" HOSTIP being the IP address of plex
 # in plex server settings, under network, fill in "Custom server access URLs" with your domain (ie. "https://yourdomain.url:443/plex")
 
 location /plex {
@@ -20,9 +20,9 @@ location ^~ /plex/ {
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_plex plex;
+    set $upstream_app plex;
     rewrite /plex(.*) $1 break;
-    proxy_pass http://$upstream_plex:32400;
+    proxy_pass http://$upstream_app:32400;
 
     proxy_set_header X-Plex-Client-Identifier $http_x_plex_client_identifier;
     proxy_set_header X-Plex-Device $http_x_plex_device;

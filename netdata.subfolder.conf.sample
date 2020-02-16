@@ -14,7 +14,7 @@ location ^~ /netdata/ {
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_netdata netdata;
+    set $upstream_app netdata;
     rewrite /netdata(.*) $1 break;
-    proxy_pass http://$upstream_netdata:19999;
+    proxy_pass http://$upstream_app:19999;
 }

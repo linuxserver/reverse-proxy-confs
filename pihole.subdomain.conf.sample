@@ -24,8 +24,8 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_pihole pihole;
-        proxy_pass http://$upstream_pihole:80;
+        set $upstream_app pihole;
+        proxy_pass http://$upstream_app:80;
         proxy_hide_header X-Frame-Options;
     }
 
@@ -40,8 +40,8 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_pihole pihole;
-        proxy_pass http://$upstream_pihole:80;
+        set $upstream_app pihole;
+        proxy_pass http://$upstream_app:80;
         proxy_hide_header X-Frame-Options;
     }
 }

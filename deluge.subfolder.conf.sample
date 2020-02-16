@@ -14,8 +14,8 @@ location ^~ /deluge/ {
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_deluge deluge;
+    set $upstream_app deluge;
     rewrite /deluge(.*) $1 break;
-    proxy_pass http://$upstream_deluge:8112;
+    proxy_pass http://$upstream_app:8112;
     proxy_set_header X-Deluge-Base "/deluge/";
 }

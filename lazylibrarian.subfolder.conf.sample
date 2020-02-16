@@ -11,6 +11,6 @@ location ^~ /lazylibrarian {
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_lazylibrarian lazylibrarian;
-    proxy_pass http://$upstream_lazylibrarian:5299;
+    set $upstream_app lazylibrarian;
+    proxy_pass http://$upstream_app:5299;
 }
