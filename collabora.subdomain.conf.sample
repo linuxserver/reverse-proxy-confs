@@ -12,7 +12,10 @@ server {
     location ^~ /loleaflet {
         resolver 127.0.0.11 valid=30s;
         set $upstream_app collabora;
-        proxy_pass https://$upstream_app:9980;
+        set $upstream_port 9980;
+        set $upstream_proto https;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
         proxy_set_header Host $http_host;
     }
 
@@ -20,7 +23,10 @@ server {
     location ^~ /hosting/discovery {
         resolver 127.0.0.11 valid=30s;
         set $upstream_app collabora;
-        proxy_pass https://$upstream_app:9980;
+        set $upstream_port 9980;
+        set $upstream_proto https;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
         proxy_set_header Host $http_host;
     }
 
@@ -28,7 +34,10 @@ server {
     location ^~ /hosting/capabilities {
         resolver 127.0.0.11 valid=30s;
         set $upstream_app collabora;
-        proxy_pass https://$upstream_app:9980;
+        set $upstream_port 9980;
+        set $upstream_proto https;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
         proxy_set_header Host $http_host;
     }
 
@@ -36,7 +45,10 @@ server {
     location ~ ^/lool/(.*)/ws$ {
         resolver 127.0.0.11 valid=30s;
         set $upstream_app collabora;
-        proxy_pass https://$upstream_app:9980;
+        set $upstream_port 9980;
+        set $upstream_proto https;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "Upgrade";
         proxy_set_header Host $http_host;
@@ -47,7 +59,10 @@ server {
     location ~ ^/lool {
         resolver 127.0.0.11 valid=30s;
         set $upstream_app collabora;
-        proxy_pass https://$upstream_app:9980;
+        set $upstream_port 9980;
+        set $upstream_proto https;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
         proxy_set_header Host $http_host;
     }
 
@@ -55,7 +70,10 @@ server {
     location ^~ /lool/adminws {
         resolver 127.0.0.11 valid=30s;
         set $upstream_app collabora;
-        proxy_pass https://$upstream_app:9980;
+        set $upstream_port 9980;
+        set $upstream_proto https;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "Upgrade";
         proxy_set_header Host $http_host;

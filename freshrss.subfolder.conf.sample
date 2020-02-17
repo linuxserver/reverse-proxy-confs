@@ -16,9 +16,11 @@ location ^~ /freshrss/ {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_app freshrss;
+    set $upstream_port 80;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     rewrite /freshrss(.*) $1 break;
-    proxy_pass http://$upstream_app:80;
-    
     proxy_redirect off;
     proxy_buffering off;
     proxy_set_header Host $host;

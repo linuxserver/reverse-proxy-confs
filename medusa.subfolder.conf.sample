@@ -14,5 +14,8 @@ location ^~ /medusa {
     proxy_set_header Connection "upgrade";
     resolver 127.0.0.11 valid=30s;
     set $upstream_app medusa;
-    proxy_pass http://$upstream_app:8081;
+    set $upstream_port 8081;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
 }

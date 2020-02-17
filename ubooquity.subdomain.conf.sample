@@ -21,31 +21,43 @@ server {
         # enable the next two lines for ldap auth
         #auth_request /auth;
         #error_page 401 =200 /login;
-        
+
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app ubooquity;
-        proxy_pass http://$upstream_app:2202;
+        set $upstream_port 2202;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 
     location /admin {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app ubooquity;
-        proxy_pass http://$upstream_app:2203;
+        set $upstream_port 2203;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 
     location /admin-res {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app ubooquity;
-        proxy_pass http://$upstream_app:2203;
+        set $upstream_port 2203;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 
     location /admin-api {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app ubooquity;
-        proxy_pass http://$upstream_app:2203;
+        set $upstream_port 2203;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 }
