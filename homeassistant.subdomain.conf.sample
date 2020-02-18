@@ -25,13 +25,19 @@ server {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app homeassistant;
-        proxy_pass http://$upstream_app:8123;
+        set $upstream_port 8123;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 
     location /api/websocket {
         resolver 127.0.0.11 valid=30s;
         set $upstream_app homeassistant;
-        proxy_pass http://$upstream_app:8123;
+        set $upstream_port 8123;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
         proxy_set_header Host $host;
 
         proxy_http_version 1.1;

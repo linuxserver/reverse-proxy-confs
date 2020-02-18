@@ -4,8 +4,6 @@
 # ROOT_URL         = https://gitea.server.com/
 # DOMAIN           = gitea.server.com
 
-
-
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
@@ -31,6 +29,9 @@ server {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app gitea;
-        proxy_pass http://$upstream_app:3000;
+        set $upstream_port 3000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 }

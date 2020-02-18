@@ -14,6 +14,9 @@ location ^~ /duplicati/ {
 
     resolver 127.0.0.11 valid=30s;
     set $upstream_app duplicati;
+    set $upstream_port 8200;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     rewrite /duplicati(.*) $1 break;
-    proxy_pass http://$upstream_app:8200;
 }

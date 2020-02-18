@@ -16,7 +16,10 @@ location ^~ /ombi/ {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_app ombi;
-    proxy_pass http://$upstream_app:3579;
+    set $upstream_port 3579;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
 }
 
 # This allows access to the actual api
@@ -24,7 +27,10 @@ location ^~ /ombi/api {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_app ombi;
-    proxy_pass http://$upstream_app:3579;
+    set $upstream_port 3579;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
 }
 if ($http_referer ~* /ombi) {
     rewrite ^/api/(.*) /ombi/api/$1? redirect;
@@ -35,7 +41,10 @@ location ^~ /ombi/swagger {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_app ombi;
-    proxy_pass http://$upstream_app:3579;
+    set $upstream_port 3579;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
 }
 if ($http_referer ~* /ombi) {
     rewrite ^/swagger/(.*) /ombi/swagger/$1? redirect;
