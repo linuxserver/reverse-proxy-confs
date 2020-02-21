@@ -33,7 +33,7 @@ server {
         proxy_set_header Host $upstream_app:8080;
     }
 
-    location ^~ /qbittorrent/api {
+    location ~ (/qbittorrent)?/api {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app qbittorrent;
@@ -47,7 +47,7 @@ server {
         proxy_set_header Host $upstream_app:8080;
     }
 
-    location ^~ /qbittorrent/command {
+    location ~ (/qbittorrent)?/command {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app qbittorrent;
@@ -61,7 +61,7 @@ server {
         proxy_set_header Host $upstream_app:8080;
     }
 
-    location ^~ /qbittorrent/query {
+    location ~ (/qbittorrent)?/query {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app qbittorrent;
@@ -75,7 +75,7 @@ server {
         proxy_set_header Host $upstream_app:8080;
     }
 
-    location ^~ /qbittorrent/login {
+    location ~ (/qbittorrent)?/login {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app qbittorrent;
@@ -89,7 +89,7 @@ server {
         proxy_set_header Host $upstream_app:8080;
     }
 
-    location ^~ /qbittorrent/sync {
+    location ~ (/qbittorrent)?/sync {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app qbittorrent;
