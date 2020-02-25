@@ -1,6 +1,6 @@
 # In order to use this location block you need to edit the default file one folder up and comment out the / location
 
-location / {
+location /organizr {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
