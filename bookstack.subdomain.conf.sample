@@ -1,0 +1,32 @@
+# make sure that your dns has a cname set for bookstack and that your bookstack container is named bookstack
+# Ensure you have the APP_URL Environment Variable set correctly in your Docker Run/Compose or in BookStack Env File (/www/.env)
+# https://github.com/linuxserver/docker-bookstack#docker
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name bookstack.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    location / {
+        #enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable the next two lines for ldap auth
+        #auth_request /auth;
+        #error_page 401 =200 /login;
+
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_app bookstack;
+        set $upstream_port 80;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }   
+}
