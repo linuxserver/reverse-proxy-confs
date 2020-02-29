@@ -1,4 +1,5 @@
 # In order to use this location block you need to edit the default file one folder up and comment out the / location
+# Alternatively, you can change "location /" to "location/something" in this file
 
 location / {
     # enable the next two lines for http auth
