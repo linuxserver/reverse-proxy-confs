@@ -1,0 +1,37 @@
+# Make sure that your dns has a cname set for onlyoffice named "documentserver"
+# Make sure that the onlyoffice documentserver container is named "documentserver"
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name documentserver.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    #enable for ldap auth, fill in ldap details in ldap.conf
+    #include /config/nginx/ldap.conf;
+
+    location / {
+        #enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        #enable the next two lines for ldap auth
+        #auth_request /auth;
+        #error_page 401 =200 /login;
+
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_app documentserver;
+        set $upstream_port 80;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+        
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection upgrade;
+
+    }
+}
