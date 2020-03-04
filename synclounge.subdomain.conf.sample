@@ -30,29 +30,28 @@ server {
         set $upstream_app synclounge;
         set $upstream_port 8088;
         set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
-
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
     }
 
     ###
     # Server
     ###
 
-    # SyncLounge container contains both the client and server for the `latest` and `alpine` tags
+    # Change `/slserver` to what you set your server root to, if you change it.
     location /slserver {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app synclounge;
         set $upstream_port 8089;
         set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
 
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
     }
 
     # Due to a bug in SyncLounge, some websockets calls don't respect the base url (server root) setting
@@ -62,10 +61,10 @@ server {
         set $upstream_app synclounge;
         set $upstream_port 8089;
         set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port/slserver/socket.io/;
 
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
 
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port/slserver/socket.io/;
     }
 }
