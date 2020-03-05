@@ -1,0 +1,70 @@
+# Use this if you are using the `latest` or `alpine` tags for the container, which contains both the web client and server applications.
+# Make sure that your dns has a cname set for synclounge
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name synclounge.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+    proxy_redirect off;
+    proxy_buffering off;
+
+    # enable for ldap auth, fill in ldap details in ldap.conf
+    #include /config/nginx/ldap.conf;
+
+    location / {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable the next two lines for ldap auth
+        #auth_request /auth;
+        #error_page 401 =200 /login;
+
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_app synclounge;
+        set $upstream_port 8088;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    ###
+    # Server
+    ###
+
+    # Change `/slserver` to what you set your server root to, if you change it.
+    location /slserver {
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_app synclounge;
+        set $upstream_port 8089;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+    }
+
+    # Due to a bug in SyncLounge, some websockets calls don't respect the base url (server root) setting
+    # TODO: Update when fixed
+    location /socket.io {
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_app synclounge;
+        set $upstream_port 8089;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port/slserver/socket.io/;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+    }
+}
