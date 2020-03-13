@@ -17,10 +17,10 @@ location ~ /auth-([0-9]+) {
     internal;
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_app organizr;
-    set $upstream_port 80;
-    set $upstream_proto http;
-    proxy_pass $upstream_proto://$upstream_app:$upstream_port/api/?v1/auth&group=$1;
+    set $upstream_auth_app organizr;
+    set $upstream_auth_port 80;
+    set $upstream_auth_proto http;
+    proxy_pass $upstream_auth_proto://$upstream_auth_app:$upstream_auth_port/api/?v1/auth&group=$1;
     proxy_set_header Content-Length "";
 
     # Do not uncomment the lines below, these are examples for usue in other proxy configs
