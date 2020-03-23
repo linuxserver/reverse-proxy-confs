@@ -20,11 +20,12 @@ location /slweb {
     set $upstream_app synclounge;
     set $upstream_port 8088;
     set $upstream_proto http;
+    
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection "upgrade";
 
-    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 }
 if ($http_referer ~* /slweb) {
     # Due to a bug in SyncLounge, some requests like /config don't respect the base url (web root) setting
@@ -45,10 +46,11 @@ location /slserver {
     set $upstream_port 8089;
     set $upstream_proto http;
 
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection "upgrade";
 
-    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 }
 if ($http_referer ~* /slserver) {
     # Due to a bug in SyncLounge, some requests like socket.io don't respect the base url (server root) setting
