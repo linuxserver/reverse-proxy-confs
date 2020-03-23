@@ -1,0 +1,58 @@
+# Use this if you are using the `latest` or `alpine` tags for the container, which contains both the web client and server applications.
+# Make sure that you have set the web base url (webroot/WEB_ROOT setting) to '/slweb' or change all occurrences of `/slweb` below to match your settings.
+# The server base url (serverroot/SERVER_ROOT) defaults to '/slserver'. If you change this setting, change all occurrences of '/slserver' below
+
+###
+# Client
+###
+
+location /slweb {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /login;
+
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_app synclounge;
+    set $upstream_port 8088;
+    set $upstream_proto http;
+    
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+
+}
+if ($http_referer ~* /slweb) {
+    # Due to a bug in SyncLounge, some requests like /config don't respect the base url (web root) setting
+    rewrite ^/config /slweb/config redirect;
+    # I think this is a bug as well
+    rewrite ^/socket.io/(.*) /slserver/socket.io/$1? redirect;
+}
+
+###
+# Server
+###
+
+# Proxy for the server
+location /slserver {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_app synclounge;
+    set $upstream_port 8089;
+    set $upstream_proto http;
+
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+
+}
+if ($http_referer ~* /slserver) {
+    # Due to a bug in SyncLounge, some requests like socket.io don't respect the base url (server root) setting
+    rewrite ^/socket.io/(.*) /slserver/socket.io/$1? redirect;
+}
