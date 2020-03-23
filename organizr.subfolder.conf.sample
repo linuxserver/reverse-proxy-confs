@@ -1,6 +1,6 @@
 # In order to use this location block you need to edit the default file one folder up and comment out the / location
 
-location / {
+location ^~ / {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
@@ -10,6 +10,7 @@ location / {
     #error_page 401 =200 /login;
 
     include /config/nginx/proxy.conf;
+    proxy_intercept_errors on;
     resolver 127.0.0.11 valid=30s;
     set $upstream_app organizr;
     set $upstream_port 80;
