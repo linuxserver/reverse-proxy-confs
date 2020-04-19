@@ -11,7 +11,7 @@ location ^~ /nzbhydra {
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_app hydra2;
+    set $upstream_app nzbhydra2;
     set $upstream_port 5076;
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
@@ -21,7 +21,7 @@ location ^~ /nzbhydra {
 location ^~ /nzbhydra/api {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_app hydra2;
+    set $upstream_app nzbhydra2;
     set $upstream_port 5076;
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
@@ -31,7 +31,7 @@ location ^~ /nzbhydra/api {
 location ^~ /nzbhydra/getnzb {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_app hydra2;
+    set $upstream_app nzbhydra2;
     set $upstream_port 5076;
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
@@ -41,7 +41,7 @@ location ^~ /nzbhydra/getnzb {
 location ^~ /nzbhydra/gettorrent {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_app hydra2;
+    set $upstream_app nzbhydra2;
     set $upstream_port 5076;
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
@@ -51,7 +51,7 @@ location ^~ /nzbhydra/gettorrent {
 location ^~ /nzbhydra/rss {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_app hydra2;
+    set $upstream_app nzbhydra2;
     set $upstream_port 5076;
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
@@ -61,7 +61,7 @@ location ^~ /nzbhydra/rss {
 location ^~ /nzbhydra/torznab/api {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_app hydra2;
+    set $upstream_app nzbhydra2;
     set $upstream_port 5076;
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
