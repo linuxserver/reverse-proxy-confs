@@ -1,0 +1,46 @@
+# mailu does not require a base url setting, but the container needs to be named front
+
+# This config have been tested with "TLS_FLAVOR=mail"
+# To avoid errors you must change in docker-compose ports: 80 and 443, more info: https://mailu.io/1.7/reverse.html
+
+location /admin{
+    return 301 $scheme://$host/admin/;
+}
+location ^~ /admin/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /login;
+    
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_app front;
+    set $upstream_port 80;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+}
+
+location /webmail{
+    return 301 $scheme://$host/webmail/;
+}
+location ^~ /webmail/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /login;
+    
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_app front;
+    set $upstream_port 80;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+}
