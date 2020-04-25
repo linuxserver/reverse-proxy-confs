@@ -22,7 +22,7 @@ location ^~ /qbittorrent/ {
     rewrite /qbittorrent(.*) $1 break;
 
     proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:8080;
+    proxy_set_header Host $upstream_app:$upstream_port;
 }
 
 location ^~ /qbittorrent/api {
@@ -36,7 +36,7 @@ location ^~ /qbittorrent/api {
     rewrite /qbittorrent(.*) $1 break;
 
     proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:8080;
+    proxy_set_header Host $upstream_app:$upstream_port;
 }
 
 location ^~ /qbittorrent/command {
@@ -50,7 +50,7 @@ location ^~ /qbittorrent/command {
     rewrite /qbittorrent(.*) $1 break;
 
     proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:8080;
+    proxy_set_header Host $upstream_app:$upstream_port;
 }
 
 location ^~ /qbittorrent/query {
@@ -64,7 +64,7 @@ location ^~ /qbittorrent/query {
     rewrite /qbittorrent(.*) $1 break;
 
     proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:8080;
+    proxy_set_header Host $upstream_app:$upstream_port;
 }
 
 location ^~ /qbittorrent/login {
@@ -78,7 +78,7 @@ location ^~ /qbittorrent/login {
     rewrite /qbittorrent(.*) $1 break;
 
     proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:8080;
+    proxy_set_header Host $upstream_app:$upstream_port;
 }
 
 location ^~ /qbittorrent/sync {
@@ -92,5 +92,5 @@ location ^~ /qbittorrent/sync {
     rewrite /qbittorrent(.*) $1 break;
 
     proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:8080;
+    proxy_set_header Host $upstream_app:$upstream_port;
 }
