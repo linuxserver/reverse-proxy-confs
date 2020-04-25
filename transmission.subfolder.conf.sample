@@ -1,4 +1,14 @@
-# transmission does not require a base url setting
+# Transmission does not require a base url setting
+#
+# Some Transmission Chrome extensions cannot handle HTTP/2 proxies as they
+# rely on the HTTP Status Text to determine if they should add the
+# X-Transmission-Session-Id header or not. HTTP/2 does not return this text
+# so jQuery responses are empty. This causes RPCs to fail.
+#
+# If your extension is affected, you can remove http2 from the default server
+# in /config/nginx/site-confs/default or listen on a different port that has
+# no http2 servers defined. Better yet, submit a bug report with the
+# extension developer to fix their extensions to support HTTP/2.
 
 location ^~ /transmission {
     # enable the next two lines for http auth
