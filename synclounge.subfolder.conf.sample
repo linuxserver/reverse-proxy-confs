@@ -1,10 +1,38 @@
-# Use this if you are using the `latest` or `alpine` tags for the container, which contains both the web client and server applications.
-# Make sure that you have set the web base url (webroot/WEB_ROOT setting) to '/slweb' or change all occurrences of `/slweb` below to match your settings.
-# The server base url (serverroot/SERVER_ROOT) defaults to '/slserver'. If you change this setting, change all occurrences of '/slserver' below
+# Use this if you are using the LSIO SyncLounge container which has the web base url set to '/slweb' and the server base url set to '/slserver'
+# If you are using a different container or hosting natively make sure that you have set the web base url (webroot/WEB_ROOT setting) to '/slweb'
+#
+# To allow non-secure connections (http), which is required by some Plex clients, modify the first block in site-confs/default to look something like this:
+#server {
+#        listen 80 default_server;
+#        listen [::]:80 default_server;
+#        server_name _;
+#
+#        # Don't force redirect SyncLounge to https
+#        include /config/nginx/proxy-confs/synclounge.subfolder.conf;
+#
+#        location / {
+#            return 301 https://$host$request_uri;
+#        }
+#}
+
+
+# Uncomment to force SyncLounge to always load over http. Only use this if you've allowed http per the above instructions.
+#if ($scheme = https) {
+#    return 301 http://$host$request_uri;
+#}
 
 ###
-# Client
+# Webapp
 ###
+
+# Uncomment this to use a different base URL for the webapp. Change all instances of /synclounge to whatever you want.
+# location /synclounge {
+#     # Transparently redirect /synclounge to /slweb
+#     rewrite ^/synclounge/(.*)$ /slweb/$1 last;
+#     # Add trailing / after /synclounge if it doesn't exist
+#     rewrite ^/synclounge$ /synclounge/ permanent;
+#     return 404;
+# }
 
 location /slweb {
     # enable the next two lines for http auth
@@ -20,7 +48,7 @@ location /slweb {
     set $upstream_app synclounge;
     set $upstream_port 8088;
     set $upstream_proto http;
-    
+
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     proxy_set_header Upgrade $http_upgrade;
@@ -28,9 +56,9 @@ location /slweb {
 
 }
 if ($http_referer ~* /slweb) {
-    # Due to a bug in SyncLounge, some requests like /config don't respect the base url (web root) setting
+    # Some requests like /config don't respect the base url (web root) setting
     rewrite ^/config /slweb/config redirect;
-    # I think this is a bug as well
+    # Probably a bug as well
     rewrite ^/socket.io/(.*) /slserver/socket.io/$1? redirect;
 }
 
@@ -53,6 +81,6 @@ location /slserver {
 
 }
 if ($http_referer ~* /slserver) {
-    # Due to a bug in SyncLounge, some requests like socket.io don't respect the base url (server root) setting
+    # Some requests like socket.io don't respect the base url (server root) setting
     rewrite ^/socket.io/(.*) /slserver/socket.io/$1? redirect;
 }
