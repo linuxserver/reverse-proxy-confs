@@ -13,6 +13,9 @@ location ^~ /jenkins/ {
     #auth_request /auth;
     #error_page 401 =200 /login;
 
+    # enable for Authelia
+    #include /config/nginx/authelia-location.conf;
+
 	# This is the maximum upload size
 	client_max_body_size 10m;
 

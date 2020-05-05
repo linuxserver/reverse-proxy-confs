@@ -14,6 +14,9 @@ location ^~ /admin/ {
     # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
     #auth_request /auth;
     #error_page 401 =200 /login;
+
+    # enable for Authelia
+    #include /config/nginx/authelia-location.conf;
     
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
@@ -35,6 +38,9 @@ location ^~ /webmail/ {
     # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
     #auth_request /auth;
     #error_page 401 =200 /login;
+
+    # enable for Authelia
+    #include /config/nginx/authelia-location.conf;
     
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
