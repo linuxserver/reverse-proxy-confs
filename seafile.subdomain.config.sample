@@ -1,0 +1,26 @@
+# For use with the official Seafile Docker image (https://download.seafile.com/published/seafile-manual/docker/deploy%20seafile%20with%20docker.md)
+# Requires that the seafile container uses the following env variables:
+#     SEAFILE_SERVER_LETSENCRYPT=true
+#     SEAFILE_SERVER_HOSTNAME=seafile.yourdomain.com
+# Restart or create the seafile container after enabling this subdomain and restarting the letsencrypt contianer
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name seafile.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    location / {
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_app seafile;
+        set $upstream_port 443;
+        set $upstream_proto https;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
+}
