@@ -15,7 +15,7 @@ location ^~ /admin/ {
     #auth_request /auth;
     #error_page 401 =200 /login;
 
-    # enable for Authelia
+    # enable for Authelia, also enable authelia-server.conf in the default site config
     #include /config/nginx/authelia-location.conf;
     
     include /config/nginx/proxy.conf;
@@ -39,7 +39,7 @@ location ^~ /webmail/ {
     #auth_request /auth;
     #error_page 401 =200 /login;
 
-    # enable for Authelia
+    # enable for Authelia, also enable authelia-server.conf in the default site config
     #include /config/nginx/authelia-location.conf;
     
     include /config/nginx/proxy.conf;
