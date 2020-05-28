@@ -1,4 +1,4 @@
-# In order to use this location block you need to edit the default file one folder up and comment out the / location
+# In order to use this location block you need to edit the default file one folder up and comment out the / and ~ \.php$ locations
 
 location / {
     # enable the next two lines for http auth
