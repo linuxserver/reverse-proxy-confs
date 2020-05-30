@@ -12,6 +12,9 @@ location ^~ /qbittorrent/ {
     #auth_request /auth;
     #error_page 401 =200 /login;
 
+    # enable for Authelia, also enable authelia-server.conf in the default site config
+    #include /config/nginx/authelia-location.conf;
+
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_app qbittorrent;
@@ -22,7 +25,7 @@ location ^~ /qbittorrent/ {
     rewrite /qbittorrent(.*) $1 break;
 
     proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:8080;
+    proxy_set_header Host $upstream_app:$upstream_port;
 }
 
 location ^~ /qbittorrent/api {
@@ -36,7 +39,7 @@ location ^~ /qbittorrent/api {
     rewrite /qbittorrent(.*) $1 break;
 
     proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:8080;
+    proxy_set_header Host $upstream_app:$upstream_port;
 }
 
 location ^~ /qbittorrent/command {
@@ -50,7 +53,7 @@ location ^~ /qbittorrent/command {
     rewrite /qbittorrent(.*) $1 break;
 
     proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:8080;
+    proxy_set_header Host $upstream_app:$upstream_port;
 }
 
 location ^~ /qbittorrent/query {
@@ -64,7 +67,7 @@ location ^~ /qbittorrent/query {
     rewrite /qbittorrent(.*) $1 break;
 
     proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:8080;
+    proxy_set_header Host $upstream_app:$upstream_port;
 }
 
 location ^~ /qbittorrent/login {
@@ -78,7 +81,7 @@ location ^~ /qbittorrent/login {
     rewrite /qbittorrent(.*) $1 break;
 
     proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:8080;
+    proxy_set_header Host $upstream_app:$upstream_port;
 }
 
 location ^~ /qbittorrent/sync {
@@ -92,5 +95,5 @@ location ^~ /qbittorrent/sync {
     rewrite /qbittorrent(.*) $1 break;
 
     proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:8080;
+    proxy_set_header Host $upstream_app:$upstream_port;
 }
