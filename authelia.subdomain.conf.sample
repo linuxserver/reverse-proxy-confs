@@ -1,4 +1,8 @@
 # make sure that your dns has a cname set for authelia
+# the default authelia-server and authelia-location confs included with letsencrypt rely on
+# subfolder proxy at "/authelia" and enabling of this proxy conf is not necessary.
+# But if you'd like to use authelia via subdomain, you can enable this proxy and set up your own
+# authelia-server and authelia-location confs as described in authelia docs.
 
 server {
     listen 443 ssl;
