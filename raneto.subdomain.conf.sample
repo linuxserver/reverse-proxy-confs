@@ -22,7 +22,7 @@ server {
 
         #enable the next two lines for ldap auth
         #auth_request /auth;
-        #error_page 401 =200 /login;
+        #error_page 401 =200 /ldaplogin;
 
         # enable for Authelia
         #include /config/nginx/authelia-location.conf;
