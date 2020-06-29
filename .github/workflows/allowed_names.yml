@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  Check Allowed File Names:
+  check-allowed-file-names:
     runs-on: ubuntu-latest
 
     steps:
