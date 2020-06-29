@@ -15,7 +15,7 @@ jobs:
 
     - name: Check Allowed File Names
       run: |
-        NOT_SAMPLES=$(find . -not -path '*/\.*' -type f ! \( -name '*.sample' -o -name 'README.md' -o -name 'LICENSE' \))
+        NOT_SAMPLES=$(find . -not -path '*/\.*' -type f ! \( -name '*.conf.sample' -o -name 'README.md' -o -name 'LICENSE' \))
         NOT_SAMPLES_COUNT=$(echo "${NOT_SAMPLES}" | wc -w)
         if (( NOT_SAMPLES_COUNT > 0 )); then
             echo "The following files are not allowed:"
