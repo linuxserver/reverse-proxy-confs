@@ -1,4 +1,4 @@
-sickchill.subdomain.conf.sample# make sure that your dns has a cname set for sickchill
+# make sure that your dns has a cname set for sickchill
 
 server {
     listen 443 ssl;
