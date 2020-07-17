@@ -39,3 +39,46 @@ server {
         proxy_set_header Connection upgrade;
     }
 }
+
+# Support for code-server subdomain proxy
+# See https://github.com/cdr/code-server/blob/master/doc/FAQ.md#sub-domains
+# This example restricts access to ports 5000 through 5999 of the $upstream_app
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    
+    server_name ~^(?<subdomain>[5][0-9][0-9][0-9])\.code-server.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    # enable for ldap auth, fill in ldap details in ldap.conf
+    #include /config/nginx/ldap.conf;
+
+    # enable for Authelia
+    #include /config/nginx/authelia-server.conf;
+
+    location / {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable the next two lines for ldap auth
+        #auth_request /auth;
+        #error_page 401 =200 /ldaplogin;
+
+        # enable for Authelia
+        #include /config/nginx/authelia-location.conf;
+
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_app code-server;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$subdomain;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection upgrade;
+        proxy_redirect http://$host https://$host;
+    }
+}
