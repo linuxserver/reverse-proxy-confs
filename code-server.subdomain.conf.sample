@@ -4,7 +4,7 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name code-server.*;
+    server_name code-server.* "~^[0-9]{1,10}\.code-server\..*$";
 
     include /config/nginx/ssl.conf;
 
