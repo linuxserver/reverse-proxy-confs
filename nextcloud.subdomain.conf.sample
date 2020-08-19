@@ -1,7 +1,7 @@
 # make sure that your dns has a cname set for nextcloud
-# assuming this container is called "letsencrypt", edit your nextcloud container's config
+# assuming this container is called "swag", edit your nextcloud container's config
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
-#  'trusted_proxies' => ['letsencrypt'],
+#  'trusted_proxies' => ['swag'],
 #  'overwrite.cli.url' => 'https://nextcloud.your-domain.com/',
 #  'overwritehost' => 'nextcloud.your-domain.com',
 #  'overwriteprotocol' => 'https',

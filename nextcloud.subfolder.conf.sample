@@ -1,6 +1,6 @@
-# Assuming this container is called "letsencrypt", edit your nextcloud container's config
+# Assuming this container is called "swag", edit your nextcloud container's config
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
-#  'trusted_proxies' => ['letsencrypt'],
+#  'trusted_proxies' => ['swag'],
 #  'overwritewebroot' => '/nextcloud',
 #  'overwrite.cli.url' => 'https://your-domain.com/nextcloud',
 #
