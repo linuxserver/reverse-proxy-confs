@@ -3,6 +3,7 @@
 location /bazarr {
     return 301 $scheme://$host/bazarr/;
 }
+
 location ^~ /bazarr/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
@@ -22,8 +23,6 @@ location ^~ /bazarr/ {
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "Upgrade";
 }
 
 location ^~ /bazarr/api {
@@ -34,6 +33,4 @@ location ^~ /bazarr/api {
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "Upgrade";
 }

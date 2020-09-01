@@ -40,8 +40,6 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
     }
 
     ###
@@ -57,9 +55,6 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-
     }
 
     # Due to a bug in SyncLounge, some websockets calls don't respect the base url (server root) setting
@@ -70,9 +65,6 @@ server {
         set $upstream_port 8089;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port/slserver/socket.io/;
-
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
 
     }
 }

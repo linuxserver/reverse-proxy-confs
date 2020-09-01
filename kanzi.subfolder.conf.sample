@@ -3,6 +3,7 @@
 location /kanzi {
     return 301 $scheme://$host/kanzi/;
 }
+
 location ^~ /kanzi/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";

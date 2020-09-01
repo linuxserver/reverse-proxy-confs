@@ -6,6 +6,7 @@
 location /admin{
     return 301 $scheme://$host/admin/;
 }
+
 location ^~ /admin/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
@@ -17,7 +18,7 @@ location ^~ /admin/ {
 
     # enable for Authelia, also enable authelia-server.conf in the default site config
     #include /config/nginx/authelia-location.conf;
-    
+
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_app front;
@@ -30,6 +31,7 @@ location ^~ /admin/ {
 location /webmail{
     return 301 $scheme://$host/webmail/;
 }
+
 location ^~ /webmail/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
@@ -41,7 +43,7 @@ location ^~ /webmail/ {
 
     # enable for Authelia, also enable authelia-server.conf in the default site config
     #include /config/nginx/authelia-location.conf;
-    
+
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
     set $upstream_app front;

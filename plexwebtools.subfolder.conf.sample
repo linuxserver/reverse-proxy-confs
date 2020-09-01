@@ -3,6 +3,7 @@
 location /plexwebtools {
     return 301 $scheme://$host/plexwebtools/;
 }
+
 location ^~ /plexwebtools/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";

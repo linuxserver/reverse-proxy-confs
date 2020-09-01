@@ -3,6 +3,7 @@
 location /guacamole {
     return 301 $scheme://$host/guacamole/;
 }
+
 location ^~ /guacamole/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";

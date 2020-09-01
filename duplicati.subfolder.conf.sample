@@ -3,6 +3,7 @@
 location /duplicati {
     return 301 $scheme://$host/duplicati/;
 }
+
 location ^~ /duplicati/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";

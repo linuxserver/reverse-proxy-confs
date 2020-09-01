@@ -3,6 +3,7 @@
 location /adminer {
     return 301 $scheme://$host/adminer/;
 }
+
 location ^~ /adminer/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";

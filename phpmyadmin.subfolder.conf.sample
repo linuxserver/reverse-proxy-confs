@@ -3,6 +3,7 @@
 location /phpmyadmin {
     return 301 $scheme://$host/phpmyadmin/;
 }
+
 location ^~ /phpmyadmin/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";

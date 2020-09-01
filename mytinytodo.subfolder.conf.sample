@@ -4,6 +4,7 @@
 location /todo {
     return 301 $scheme://$host/todo/;
 }
+
 location ^~ /todo/ {
 
     # enable the next two lines for http auth

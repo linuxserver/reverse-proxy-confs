@@ -35,6 +35,7 @@ location ^~ /ombi/api {
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
 }
+
 if ($http_referer ~* /ombi) {
     rewrite ^/api/(.*) /ombi/api/$1? redirect;
 }
@@ -49,6 +50,7 @@ location ^~ /ombi/swagger {
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
 }
+
 if ($http_referer ~* /ombi) {
     rewrite ^/swagger/(.*) /ombi/swagger/$1? redirect;
 }

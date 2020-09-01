@@ -15,7 +15,6 @@
 #        }
 #}
 
-
 # Uncomment to force SyncLounge to always load over http. Only use this if you've allowed http per the above instructions.
 #if ($scheme = https) {
 #    return 301 http://$host$request_uri;
@@ -54,10 +53,8 @@ location /slweb {
 
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-
 }
+
 if ($http_referer ~* /slweb) {
     # Some requests like /config don't respect the base url (web root) setting
     rewrite ^/config /slweb/config redirect;
@@ -79,10 +76,8 @@ location /slserver {
 
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-
 }
+
 if ($http_referer ~* /slserver) {
     # Some requests like socket.io don't respect the base url (server root) setting
     rewrite ^/socket.io/(.*) /slserver/socket.io/$1? redirect;

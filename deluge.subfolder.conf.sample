@@ -3,6 +3,7 @@
 location /deluge {
     return 301 $scheme://$host/deluge/;
 }
+
 location ^~ /deluge/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";

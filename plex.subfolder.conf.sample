@@ -9,6 +9,7 @@
 location /plex {
     return 301 $scheme://$host/plex/;
 }
+
 location ^~ /plex/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
@@ -43,6 +44,7 @@ location ^~ /plex/ {
     proxy_set_header X-Plex-Device-Vendor $http_x_plex_device_vendor;
     proxy_set_header X-Plex-Model $http_x_plex_model;
 }
+
 if ($http_referer ~* /plex) {
     rewrite ^/web/(.*) /plex/web/$1? redirect;
 }
