@@ -3,6 +3,7 @@
 location /calibre {
     return 301 $scheme://$host/calibre/;
 }
+
 location ^~ /calibre/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";

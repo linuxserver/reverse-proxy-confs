@@ -86,5 +86,4 @@ server {
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     }
-
 }

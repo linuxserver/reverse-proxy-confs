@@ -3,6 +3,7 @@
 location /monitorr {
     return 301 $scheme://$host/monitorr/;
 }
+
 location ^~ /monitorr/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";

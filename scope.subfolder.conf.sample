@@ -3,6 +3,7 @@
 location /scope {
     return 301 $scheme://$host/scope/;
 }
+
 location ^~ /scope/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
@@ -23,6 +24,4 @@ location ^~ /scope/ {
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     rewrite /scope(.*) $1 break;
-    proxy_set_header Upgrade $http_upgrade;
-	proxy_set_header Connection "upgrade";
 }

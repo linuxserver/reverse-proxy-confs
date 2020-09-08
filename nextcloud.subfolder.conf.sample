@@ -36,7 +36,6 @@ location ^~ /nextcloud/ {
 
     proxy_set_header Range $http_range;
     proxy_set_header If-Range $http_if_range;
-    proxy_set_header Connection $http_connection;
-    proxy_redirect off;
+        proxy_redirect off;
     proxy_ssl_session_reuse off;
 }

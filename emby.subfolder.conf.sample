@@ -8,6 +8,7 @@
 location /emby {
     return 301 $scheme://$host/emby/;
 }
+
 location ^~ /emby/ {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
@@ -28,6 +29,4 @@ location ^~ /embywebsocket {
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection $http_connection;
 }

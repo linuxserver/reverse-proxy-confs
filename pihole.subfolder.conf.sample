@@ -3,6 +3,7 @@
 location /pihole {
     return 301 $scheme://$host/pihole/;
 }
+
 location ^~ /pihole/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
@@ -29,6 +30,7 @@ location ^~ /pihole/ {
 location /pihole/admin {
     return 301 $scheme://$host/pihole/admin/;
 }
+
 location ^~ /pihole/admin/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";

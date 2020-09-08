@@ -3,6 +3,7 @@
 location /netdata {
     return 301 $scheme://$host/netdata/;
 }
+
 location ^~ /netdata/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";

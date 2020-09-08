@@ -29,8 +29,6 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
         resolver 127.0.0.11 valid=30s;
         set $upstream_app medusa;
         set $upstream_port 8081;
