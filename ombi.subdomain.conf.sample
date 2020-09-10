@@ -13,6 +13,9 @@ server {
     # enable for ldap auth, fill in ldap details in ldap.conf
     #include /config/nginx/ldap.conf;
 
+    # enable for Authelia
+    #include /config/nginx/authelia-server.conf;
+
     location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
@@ -20,29 +23,42 @@ server {
 
         # enable the next two lines for ldap auth
         #auth_request /auth;
-        #error_page 401 =200 /login;
+        #error_page 401 =200 /ldaplogin;
+
+        # enable for Authelia
+        #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_ombi ombi;
-        proxy_pass http://$upstream_ombi:3579;
+        set $upstream_app ombi;
+        set $upstream_port 3579;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 
     # This allows access to the actual api
     location ~ (/ombi)?/api {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_ombi ombi;
-        proxy_pass http://$upstream_ombi:3579;
+        set $upstream_app ombi;
+        set $upstream_port 3579;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
    }
 
     # This allows access to the documentation for the api
     location ~ (/ombi)?/swagger {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_ombi ombi;
-        proxy_pass http://$upstream_ombi:3579;
+        set $upstream_app ombi;
+        set $upstream_port 3579;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
    }
+
    if ($http_referer ~* /ombi) {
        rewrite ^/swagger/(.*) /ombi/swagger/$1? redirect;
    }

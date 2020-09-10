@@ -1,4 +1,14 @@
-# make sure that your dns has a cname set for transmission
+# Make sure that DNS has a cname set for transmission
+#
+# Some Transmission Chrome extensions cannot handle HTTP/2 proxies as they
+# rely on the HTTP Status Text to determine if they should add the
+# X-Transmission-Session-Id header or not. HTTP/2 does not return this text
+# so jQuery responses are empty. This causes RPCs to fail.
+#
+# If your extension is affected, you can remove http2 from the default server
+# in /config/nginx/site-confs/default or listen on a different port that has
+# no http2 servers defined. Better yet, submit a bug report with the
+# extension developer to fix their extensions to support HTTP/2.
 
 server {
     listen 443 ssl;
@@ -13,6 +23,9 @@ server {
     # enable for ldap auth, fill in ldap details in ldap.conf
     #include /config/nginx/ldap.conf;
 
+    # enable for Authelia
+    #include /config/nginx/authelia-server.conf;
+
     location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
@@ -20,19 +33,28 @@ server {
 
         # enable the next two lines for ldap auth
         #auth_request /auth;
-        #error_page 401 =200 /login;
+        #error_page 401 =200 /ldaplogin;
+
+        # enable for Authelia
+        #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_transmission transmission;
+        set $upstream_app transmission;
+        set $upstream_port 9091;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
         proxy_pass_header  X-Transmission-Session-Id;
-        proxy_pass http://$upstream_transmission:9091;
     }
 
     location ~ (/transmission)?/rpc {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_transmission transmission;
-        proxy_pass http://$upstream_transmission:9091;
+        set $upstream_app transmission;
+        set $upstream_port 9091;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 }

@@ -2,12 +2,6 @@
 # In tt-rss config.php the SELF_URL_PATH should be set to http://tt-rss.server.com/ NOT https://tt-rss.server.com although it will be accessible on https://tt-rss.server.com
 
 server {
-    listen 80;
-        server_name tt-rss.*;
-        return 301 https://$server_name$request_uri;
-}
-
-server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
@@ -20,6 +14,9 @@ server {
     # enable for ldap auth, fill in ldap details in ldap.conf
     #include /config/nginx/ldap.conf;
 
+    # enable for Authelia
+    #include /config/nginx/authelia-server.conf;
+
     location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
@@ -27,12 +24,18 @@ server {
 
         # enable the next two lines for ldap auth
         #auth_request /auth;
-        #error_page 401 =200 /login;
-        
+        #error_page 401 =200 /ldaplogin;
+
+        # enable for Authelia
+        #include /config/nginx/authelia-location.conf;
+
         resolver 127.0.0.11 valid=30s;
-        set $upstream_tt_rss tt-rss;
-        proxy_pass http://$upstream_tt_rss:80;
-        proxy_redirect  http://$upstream_tt_rss:80 /;
+        set $upstream_app tt-rss;
+        set $upstream_port 80;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_redirect  http://$upstream_app:80 /;
         proxy_read_timeout 60s;
         proxy_set_header          Host            $host;
         proxy_set_header          X-Real-IP       $remote_addr;

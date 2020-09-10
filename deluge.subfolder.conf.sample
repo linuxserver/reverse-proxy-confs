@@ -3,6 +3,7 @@
 location /deluge {
     return 301 $scheme://$host/deluge/;
 }
+
 location ^~ /deluge/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
@@ -10,12 +11,18 @@ location ^~ /deluge/ {
 
     # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
     #auth_request /auth;
-    #error_page 401 =200 /login;
+    #error_page 401 =200 /ldaplogin;
+
+    # enable for Authelia, also enable authelia-server.conf in the default site config
+    #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_deluge deluge;
+    set $upstream_app deluge;
+    set $upstream_port 8112;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     rewrite /deluge(.*) $1 break;
-    proxy_pass http://$upstream_deluge:8112;
     proxy_set_header X-Deluge-Base "/deluge/";
 }

@@ -7,14 +7,18 @@ location /beets {
 
     # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
     #auth_request /auth;
-    #error_page 401 =200 /login;
+    #error_page 401 =200 /ldaplogin;
+
+    # enable for Authelia, also enable authelia-server.conf in the default site config
+    #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_beets beets;
-    proxy_pass http://$upstream_beets:8337;
-    proxy_set_header Host $host;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    set $upstream_app beets;
+    set $upstream_port 8337;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     proxy_set_header X-Scheme $scheme;
     proxy_set_header X-Script-Name /beets;
 }

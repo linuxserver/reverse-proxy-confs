@@ -3,6 +3,7 @@
 location /plexwebtools {
     return 301 $scheme://$host/plexwebtools/;
 }
+
 location ^~ /plexwebtools/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
@@ -10,10 +11,16 @@ location ^~ /plexwebtools/ {
 
     # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
     #auth_request /auth;
-    #error_page 401 =200 /login;
+    #error_page 401 =200 /ldaplogin;
+
+    # enable for Authelia, also enable authelia-server.conf in the default site config
+    #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_plex plex;
-    proxy_pass http://$upstream_plex:33400;
+    set $upstream_app plex;
+    set $upstream_port 33400;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
 }

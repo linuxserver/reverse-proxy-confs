@@ -13,6 +13,9 @@ server {
     # enable for ldap auth, fill in ldap details in ldap.conf
     #include /config/nginx/ldap.conf;
 
+    # enable for Authelia
+    #include /config/nginx/authelia-server.conf;
+
     location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
@@ -20,14 +23,19 @@ server {
 
         # enable the next two lines for ldap auth
         #auth_request /auth;
-        #error_page 401 =200 /login;
+        #error_page 401 =200 /ldaplogin;
 
+        # enable for Authelia
+        #include /config/nginx/authelia-location.conf;
+
+        include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_portainer portainer;
-        proxy_pass http://$upstream_portainer:9000;
-        proxy_set_header Connection "";
-        proxy_http_version 1.1;
-        proxy_hide_header X-Frame-Options; # Possibly nott needed after Portainer 1.20.0
+        set $upstream_app portainer;
+        set $upstream_port 9000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_hide_header X-Frame-Options; # Possibly not needed after Portainer 1.20.0
     }
 
     location /api/websocket/ {
@@ -37,14 +45,18 @@ server {
 
         # enable the next two lines for ldap auth
         #auth_request /auth;
-        #error_page 401 =200 /login;
+        #error_page 401 =200 /ldaplogin;
 
+        # enable for Authelia
+        #include /config/nginx/authelia-location.conf;
+
+        include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_portainer portainer;
-        proxy_pass http://$upstream_portainer:9000;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_http_version 1.1;
-        proxy_hide_header X-Frame-Options; # Possibly nott needed after Portainer 1.20.0
+        set $upstream_app portainer;
+        set $upstream_port 9000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_hide_header X-Frame-Options; # Possibly not needed after Portainer 1.20.0
     }
 }

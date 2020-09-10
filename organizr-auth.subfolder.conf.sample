@@ -1,0 +1,38 @@
+# To use config this with subfolder proxies:
+#   Rename this file to organizr-auth.subfolder.conf
+#   Add one of the auth_request lines from the comments below
+#   ex:
+#     auth_request /auth-0;
+#
+# To use config this with subdomain proxies:
+#   Rename this file to organizr-auth.subfolder.conf (the subfolder file name is still used)
+#   Add the following line in your other subdomain proxy configs
+#     include /config/nginx/proxy-confs/organizr-auth.subfolder.conf;
+#   Add one of the auth_request lines from the comments below
+#   ex:
+#     include /config/nginx/proxy-confs/organizr-auth.subfolder.conf;
+#     auth_request /auth-0;
+
+location ~ /auth-([0-9]+) {
+    internal;
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_auth_app organizr;
+    set $upstream_auth_port 80;
+    set $upstream_auth_proto http;
+    proxy_pass $upstream_auth_proto://$upstream_auth_app:$upstream_auth_port/api/?v1/auth&group=$1;
+    proxy_set_header Content-Length "";
+
+    # Do not uncomment the lines below, these are examples for usue in other proxy configs
+    #auth_request /auth-0;   #=Admin
+    #auth_request /auth-1;   #=Co-Admin
+    #auth_request /auth-2;   #=Super User
+    #auth_request /auth-3;   #=Power User
+    #auth_request /auth-4;   #=User
+    #auth_request /auth-998; #=Logged In
+    #auth_request /auth-999; #=Guest
+}
+
+# Optional redirect server authentication errors to organizr authentication page
+# NOTE: $host must be modified to your public URL when using subdomain proxies
+#error_page 401 $scheme://$host/?error=$status&return=$request_uri;

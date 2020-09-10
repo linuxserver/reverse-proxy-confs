@@ -1,0 +1,84 @@
+# Use this if you are using the LSIO SyncLounge container which has the web base url set to '/slweb' and the server base url set to '/slserver'
+# If you are using a different container or hosting natively make sure that you have set the web base url (webroot/WEB_ROOT setting) to '/slweb'
+#
+# To allow non-secure connections (http), which is required by some Plex clients, modify the first block in site-confs/default to look something like this:
+#server {
+#        listen 80 default_server;
+#        listen [::]:80 default_server;
+#        server_name _;
+#
+#        # Don't force redirect SyncLounge to https
+#        include /config/nginx/proxy-confs/synclounge.subfolder.conf;
+#
+#        location / {
+#            return 301 https://$host$request_uri;
+#        }
+#}
+
+# Uncomment to force SyncLounge to always load over http. Only use this if you've allowed http per the above instructions.
+#if ($scheme = https) {
+#    return 301 http://$host$request_uri;
+#}
+
+###
+# Webapp
+###
+
+# Uncomment this to use a different base URL for the webapp. Change all instances of /synclounge to whatever you want.
+# location /synclounge {
+#     # Transparently redirect /synclounge to /slweb
+#     rewrite ^/synclounge/(.*)$ /slweb/$1 last;
+#     # Add trailing / after /synclounge if it doesn't exist
+#     rewrite ^/synclounge$ /synclounge/ permanent;
+#     return 404;
+# }
+
+location /slweb {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /ldaplogin;
+
+    # enable for Authelia, also enable authelia-server.conf in the default site config
+    #include /config/nginx/authelia-location.conf;
+
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_app synclounge;
+    set $upstream_port 8088;
+    set $upstream_proto http;
+
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+}
+
+if ($http_referer ~* /slweb) {
+    # Some requests like /config don't respect the base url (web root) setting
+    rewrite ^/config /slweb/config redirect;
+    # Probably a bug as well
+    rewrite ^/socket.io/(.*) /slserver/socket.io/$1? redirect;
+}
+
+###
+# Server
+###
+
+# Proxy for the server
+location /slserver {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_app synclounge;
+    set $upstream_port 8089;
+    set $upstream_proto http;
+
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+}
+
+if ($http_referer ~* /slserver) {
+    # Some requests like socket.io don't respect the base url (server root) setting
+    rewrite ^/socket.io/(.*) /slserver/socket.io/$1? redirect;
+}

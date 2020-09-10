@@ -1,7 +1,7 @@
 # make sure that your dns has a cname set for nextcloud
-# assuming this container is called "letsencrypt", edit your nextcloud container's config
+# assuming this container is called "swag", edit your nextcloud container's config
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
-#  'trusted_proxies' => ['letsencrypt'],
+#  'trusted_proxies' => ['swag'],
 #  'overwrite.cli.url' => 'https://nextcloud.your-domain.com/',
 #  'overwritehost' => 'nextcloud.your-domain.com',
 #  'overwriteprotocol' => 'https',
@@ -25,8 +25,11 @@ server {
     location / {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_nextcloud nextcloud;
+        set $upstream_app nextcloud;
+        set $upstream_port 443;
+        set $upstream_proto https;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
         proxy_max_temp_file_size 2048m;
-        proxy_pass https://$upstream_nextcloud:443;
     }
 }

@@ -13,6 +13,9 @@ server {
     # enable for ldap auth, fill in ldap details in ldap.conf
     #include /config/nginx/ldap.conf;
 
+    # enable for Authelia
+    #include /config/nginx/authelia-server.conf;
+
     location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
@@ -20,32 +23,47 @@ server {
 
         # enable the next two lines for ldap auth
         #auth_request /auth;
-        #error_page 401 =200 /login;
-        
+        #error_page 401 =200 /ldaplogin;
+
+        # enable for Authelia
+        #include /config/nginx/authelia-location.conf;
+
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_ubooquity ubooquity;
-        proxy_pass http://$upstream_ubooquity:2202;
+        set $upstream_app ubooquity;
+        set $upstream_port 2202;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 
     location /admin {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_ubooquity ubooquity;
-        proxy_pass http://$upstream_ubooquity:2203;
+        set $upstream_app ubooquity;
+        set $upstream_port 2203;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 
     location /admin-res {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_ubooquity ubooquity;
-        proxy_pass http://$upstream_ubooquity:2203;
+        set $upstream_app ubooquity;
+        set $upstream_port 2203;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 
     location /admin-api {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_ubooquity ubooquity;
-        proxy_pass http://$upstream_ubooquity:2203;
+        set $upstream_app ubooquity;
+        set $upstream_port 2203;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 }

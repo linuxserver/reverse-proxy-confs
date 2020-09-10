@@ -1,5 +1,7 @@
-# make sure that your dns has a cname set for plex, if plex is running in bridge mode, the below config should work as is, for host mode,
-# replace the line "proxy_pass http://$upstream_plex:32400;" with "proxy_pass http://HOSTIP:32400;" HOSTIP being the IP address of plex
+# make sure that your dns has a cname set for plex
+# if plex is running in bridge mode and the container is named "plex", the below config should work as is
+# if not, replace the line "set $upstream_app plex;" with "set $upstream_app <containername>;"
+# or "set $upstream_app <HOSTIP>;" for host mode, HOSTIP being the IP address of plex
 # in plex server settings, under network, fill in "Custom server access URLs" with your domain (ie. "https://plex.yourdomain.url:443")
 
 server {
@@ -17,7 +19,8 @@ server {
     # enable for ldap auth, fill in ldap details in ldap.conf
     #include /config/nginx/ldap.conf;
 
-
+    # enable for Authelia
+    #include /config/nginx/authelia-server.conf;
     location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
@@ -25,15 +28,17 @@ server {
 
         # enable the next two lines for ldap auth
         #auth_request /auth;
-        #error_page 401 =200 /login;
+        #error_page 401 =200 /ldaplogin;
+
+        # enable for Authelia
+        #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_plex plex;
-        proxy_pass http://$upstream_plex:32400;
-
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
+        set $upstream_app plex;
+        set $upstream_port 32400;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
         proxy_set_header X-Plex-Client-Identifier $http_x_plex_client_identifier;
         proxy_set_header X-Plex-Device $http_x_plex_device;

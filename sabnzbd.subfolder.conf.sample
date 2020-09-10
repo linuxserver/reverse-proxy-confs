@@ -7,17 +7,26 @@ location ^~ /sabnzbd {
 
     # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
     #auth_request /auth;
-    #error_page 401 =200 /login;
+    #error_page 401 =200 /ldaplogin;
+
+    # enable for Authelia, also enable authelia-server.conf in the default site config
+    #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_sabnzbd sabnzbd;
-    proxy_pass http://$upstream_sabnzbd:8080;
+    set $upstream_app sabnzbd;
+    set $upstream_port 8080;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
 }
 
 location ^~ /sabnzbd/api {
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_sabnzbd sabnzbd;
-    proxy_pass http://$upstream_sabnzbd:8080;
+    set $upstream_app sabnzbd;
+    set $upstream_port 8080;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
 }

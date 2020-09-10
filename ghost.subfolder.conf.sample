@@ -1,0 +1,24 @@
+# Make sure you are using a subfolder in your ghost config file. https://ghost.org/docs/concepts/config/#url
+# Note: /ghost/ is by default used for the admin page. See https://ghost.org/docs/concepts/config/#admin-url
+
+location /blog {
+  # enable the next two lines for http auth
+  #uth_basic "Restricted";
+  #auth_basic_user_file /config/nginx/.htpasswd;
+
+  #enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+  #auth_request /auth;
+  #error_page 401 =200 /ldaplogin;
+
+    # enable for Authelia, also enable authelia-server.conf in the default site config
+    #include /config/nginx/authelia-location.conf;
+
+  include /config/nginx/proxy.conf;
+  resolver 127.0.0.11 valid=30s;
+  set $upstream_app ghost;
+  set $upstream_port 2368;
+  set $upstream_proto http;
+  proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+  proxy_redirect off;
+}

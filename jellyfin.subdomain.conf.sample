@@ -1,7 +1,8 @@
-# make sure that your dns has a cname set for jellyfin, if jellyfin is running in bridge mode, the below config should work as is, although,
-# the container name is expected to be "jellyfin", if not, replace the lines "set $upstream_jellyfin jellyfin;" with "set $upstream_jellyfin <containername>;"
-# for host mode, replace the lines "proxy_pass http://$upstream_jellyfin:8096;" with "proxy_pass http://HOSTIP:8096;" HOSTIP being the IP address of jellyfin
-# in jellyfin settings, under "Advanced" change the public https port to 443, leave the local ports as is, set the "external domain" to your url,
+# make sure that your dns has a cname set for jellyfin
+# if jellyfin is running in bridge mode and the container is named "jellyfin", the below config should work as is
+# if not, replace the line "set $upstream_app jellyfin;" with "set $upstream_app <containername>;"
+# or "set $upstream_app <HOSTIP>;" for host mode, HOSTIP being the IP address of jellyfin
+# in jellyfin settings, under "Advanced/Networking" change the public https port to 443, leave the local ports as is,
 # and set the "Secure connection mode" to "Handled by reverse proxy"
 
 server {
@@ -17,20 +18,22 @@ server {
     location / {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_jellyfin jellyfin;
-        proxy_pass http://$upstream_jellyfin:8096;
-		
+        set $upstream_app jellyfin;
+        set $upstream_port 8096;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
         proxy_set_header Range $http_range;
         proxy_set_header If-Range $http_if_range;
     }
-	
+
     location ~ (/jellyfin)?/socket {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_jellyfin jellyfin;
-        proxy_pass http://$upstream_jellyfin:8096;
-		
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection $http_connection;
-   }
+        set $upstream_app jellyfin;
+        set $upstream_port 8096;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
 }

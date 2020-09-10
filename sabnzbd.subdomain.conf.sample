@@ -1,4 +1,6 @@
 # make sure that your dns has a cname set for sabnzbd
+# edit the sabnzbd.ini host_whitelist to avoid hostname verification issues. This format:
+# host_whitelist = sabnzbd.domain.com, www.sabnzbd.domain.com
 
 server {
     listen 443 ssl;
@@ -13,6 +15,9 @@ server {
     # enable for ldap auth, fill in ldap details in ldap.conf
     #include /config/nginx/ldap.conf;
 
+    # enable for Authelia
+    #include /config/nginx/authelia-server.conf;
+
     location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
@@ -20,18 +25,27 @@ server {
 
         # enable the next two lines for ldap auth
         #auth_request /auth;
-        #error_page 401 =200 /login;
+        #error_page 401 =200 /ldaplogin;
+
+        # enable for Authelia
+        #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_sabnzbd sabnzbd;
-        proxy_pass http://$upstream_sabnzbd:8080;
+        set $upstream_app sabnzbd;
+        set $upstream_port 8080;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 
     location ~ (/sabnzbd)?/api {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_sabnzbd sabnzbd;
-        proxy_pass http://$upstream_sabnzbd:8080;
+        set $upstream_app sabnzbd;
+        set $upstream_port 8080;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 }

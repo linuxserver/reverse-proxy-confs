@@ -3,6 +3,7 @@
 location /qbittorrent {
     return 301 $scheme://$host/qbittorrent/;
 }
+
 location ^~ /qbittorrent/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
@@ -10,14 +11,90 @@ location ^~ /qbittorrent/ {
 
     # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
     #auth_request /auth;
-    #error_page 401 =200 /login;
+    #error_page 401 =200 /ldaplogin;
+
+    # enable for Authelia, also enable authelia-server.conf in the default site config
+    #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
     resolver 127.0.0.11 valid=30s;
-    set $upstream_qbittorrent qbittorrent;
+    set $upstream_app qbittorrent;
+    set $upstream_port 8080;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     rewrite /qbittorrent(.*) $1 break;
-    proxy_pass http://$upstream_qbittorrent:8080;
 
     proxy_set_header Referer '';
-    proxy_set_header Host $upstream_qbittorrent:8080;
+    proxy_set_header Host $upstream_app:$upstream_port;
+}
+
+location ^~ /qbittorrent/api {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_app qbittorrent;
+    set $upstream_port 8080;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    rewrite /qbittorrent(.*) $1 break;
+
+    proxy_set_header Referer '';
+    proxy_set_header Host $upstream_app:$upstream_port;
+}
+
+location ^~ /qbittorrent/command {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_app qbittorrent;
+    set $upstream_port 8080;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    rewrite /qbittorrent(.*) $1 break;
+
+    proxy_set_header Referer '';
+    proxy_set_header Host $upstream_app:$upstream_port;
+}
+
+location ^~ /qbittorrent/query {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_app qbittorrent;
+    set $upstream_port 8080;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    rewrite /qbittorrent(.*) $1 break;
+
+    proxy_set_header Referer '';
+    proxy_set_header Host $upstream_app:$upstream_port;
+}
+
+location ^~ /qbittorrent/login {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_app qbittorrent;
+    set $upstream_port 8080;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    rewrite /qbittorrent(.*) $1 break;
+
+    proxy_set_header Referer '';
+    proxy_set_header Host $upstream_app:$upstream_port;
+}
+
+location ^~ /qbittorrent/sync {
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_app qbittorrent;
+    set $upstream_port 8080;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    rewrite /qbittorrent(.*) $1 break;
+
+    proxy_set_header Referer '';
+    proxy_set_header Host $upstream_app:$upstream_port;
 }
