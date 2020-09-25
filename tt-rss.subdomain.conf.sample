@@ -29,6 +29,7 @@ server {
         # enable for Authelia
         #include /config/nginx/authelia-location.conf;
 
+        include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app tt-rss;
         set $upstream_port 80;
@@ -36,9 +37,5 @@ server {
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
         proxy_redirect  http://$upstream_app:80 /;
-        proxy_read_timeout 60s;
-        proxy_set_header          Host            $host;
-        proxy_set_header          X-Real-IP       $remote_addr;
-        proxy_set_header          X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 }

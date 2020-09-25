@@ -35,7 +35,5 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
