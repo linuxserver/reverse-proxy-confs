@@ -21,6 +21,7 @@ location ~ /auth-([0-9]+) {
     set $upstream_auth_port 80;
     set $upstream_auth_proto http;
     proxy_pass $upstream_auth_proto://$upstream_auth_app:$upstream_auth_port/api/?v1/auth&group=$1;
+
     proxy_set_header Content-Length "";
 
     # Do not uncomment the lines below, these are examples for usue in other proxy configs

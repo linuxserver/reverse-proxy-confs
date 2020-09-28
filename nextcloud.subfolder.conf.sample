@@ -33,9 +33,8 @@ location ^~ /nextcloud/ {
 
     rewrite /nextcloud(.*) $1 break;
     proxy_max_temp_file_size 2048m;
-
     proxy_set_header Range $http_range;
     proxy_set_header If-Range $http_if_range;
-        proxy_redirect off;
+    proxy_redirect off;
     proxy_ssl_session_reuse off;
 }
