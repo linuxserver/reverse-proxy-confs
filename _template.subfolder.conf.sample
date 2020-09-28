@@ -1,0 +1,43 @@
+# REMOVE THIS LINE BEFORE SUBMITTING: The structure of the file (all of the existing lines) should be kept as close as possible to this template.
+# REMOVE THIS LINE BEFORE SUBMITTING: Look through this file for <tags> and replace them. Review other sample files to see how things are done.
+# REMOVE THIS LINE BEFORE SUBMITTING: The comment lines at the top of the file (below this line) should explain any prerequisites for using the proxy such as DNS or app settings.
+# first go into <container_name> settings, under "General" set the URL Base to /<container_name>/ and restart the <container_name> container
+
+location /<container_name> {
+    return 301 $scheme://$host/<container_name>/;
+}
+
+location ^~ /<container_name>/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /ldaplogin;
+
+    # enable for Authelia, also enable authelia-server.conf in the default site config
+    #include /config/nginx/authelia-location.conf;
+
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_app <container_name>;
+    set $upstream_port <port_number>;
+    set $upstream_proto <http or https>;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    # REMOVE THIS LINE BEFORE SUBMITTING: Additional proxy settings such as headers go below this line, leave the blank line above.
+}
+
+# REMOVE THIS LINE BEFORE SUBMITTING: Some proxies require one or more additional location blocks for things like API or RPC endpoints.
+# REMOVE THIS LINE BEFORE SUBMITTING: If the proxy you are making a sample for does not require an additional location block please remove the commented out section below.
+# location ^~ /<container_name>/api {
+#     include /config/nginx/proxy.conf;
+#     resolver 127.0.0.11 valid=30s;
+#     set $upstream_app <container_name>;
+#     set $upstream_port <port_number>;
+#     set $upstream_proto <http or https>;
+#     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+# 
+#     # REMOVE THIS LINE BEFORE SUBMITTING: Additional proxy settings such as headers go below this line, leave the blank line above.
+# }
