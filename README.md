@@ -20,7 +20,7 @@ Make sure that your default site config contains the following lines in the appr
 
 ### Ensure you have a custom docker network
 
-These confs assume that the letsencrypt container can reach other containers via their dns hostnames (defaults to container name) resolved via docker's internal dns. This is achieved through having the containers attached to the same user defined docker bridge network. 
+These confs assume that the swag container can reach other containers via their dns hostnames (defaults to container name) resolved via docker's internal dns. This is achieved through having the containers attached to the same user defined docker bridge network. 
 
 - If you are using docker-compose and the containers are managed through the same yaml file, docker-compose will automatically create a custom network and attach all containers to it. Nothing extra is required.
 
@@ -28,14 +28,14 @@ These confs assume that the letsencrypt container can reach other containers via
 
 - If you are using a gui manager like portainer, you can create a custom bridge network in the gui, and select it when creating a new container.
 
-- If you are using unraid, create a custom network in command line via `docker network create [networkname]`, then go to docker service settings (under advanced) and set the option `Preserve user defined networks:` to `Yes`. Then in each container setting, including the LetsEncrypt container, in the network type dropdown, select `Custom : [networkname]`.  This is a necessary step as the bridge network that unraid uses by default does not allow container to container communication.
+- If you are using unraid, create a custom network in command line via `docker network create [networkname]`, then go to docker service settings (under advanced) and set the option `Preserve user defined networks:` to `Yes`. Then in each container setting, including the swag container, in the network type dropdown, select `Custom : [networkname]`.  This is a necessary step as the bridge network that unraid uses by default does not allow container to container communication.
 
 If the reverse proxied containers are not reachable via dns or they are running on a different machine, you will have to modify these confs to fit your needs.
 
 ### Rename the required proxy configs
 
 1) Rename the conf files and remove the `.sample` at the end (ie. `sonarr.subfolder.conf`)
-2) Restart the letsencrypt container
+2) Restart the swag container
 
 ### Make any necessary changes detailed in the config
 
@@ -45,4 +45,4 @@ If you are reverse proxying linuxserver containers installed on the same host wi
 
 ## To disable the configs:
 
-Simply delete the confs and restart letsencrypt.
+Simply delete the confs and restart swag.
