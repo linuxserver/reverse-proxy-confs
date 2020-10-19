@@ -1,4 +1,4 @@
-# make sure that your dns has a cname set for pixelfed
+# make sure that your dns has a cname set for pixelfed and the container is named pixelfed
 
 server {
     listen 443 ssl;
