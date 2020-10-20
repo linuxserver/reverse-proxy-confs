@@ -38,6 +38,21 @@ server {
     }
 
     location /RPC2 {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable the next two lines for ldap auth
+        #auth_request /auth;
+        #error_page 401 =200 /ldaplogin;
+
+        # enable for Authelia
+        #include /config/nginx/authelia-location.conf;
+
+        # block rpc access by default because it is unprotected
+        # you can comment out the next line to enable remote rpc calls
+        deny all;
+
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app rutorrent;
