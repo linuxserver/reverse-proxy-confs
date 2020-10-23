@@ -4,6 +4,8 @@
 
 This folder contains sample reverse proxy configs for various docker images linuxserver provides and other commonly used applications. 
 
+NOTE: We avoid providing samples that publicly expose server management software (ex: syno, qnap, unraid, proxmox, esxi, etc). Pull requests to add samples for this category of applications will not be accepted.
+
 They are grouped in two:
 
 1. `subfolder` these will allow accessing services at https://yourdomain.com/servicename
