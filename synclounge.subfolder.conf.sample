@@ -1,5 +1,4 @@
-# Use this if you are using the LSIO SyncLounge container which has the web base url set to '/slweb' and the server base url set to '/slserver'
-# If you are using a different container or hosting natively make sure that you have set the web base url (webroot/WEB_ROOT setting) to '/slweb'
+# Use this with SyncLounge v3 or up
 #
 # To allow non-secure connections (http), which is required by some Plex clients, modify the first block in site-confs/default to look something like this:
 #server {
@@ -20,20 +19,11 @@
 #    return 301 http://$host$request_uri;
 #}
 
-###
-# Webapp
-###
+location /synclounge {
+    return 301 $scheme://$host/synclounge/;
+}
 
-# Uncomment this to use a different base URL for the webapp. Change all instances of /synclounge to whatever you want.
-# location /synclounge {
-#     # Transparently redirect /synclounge to /slweb
-#     rewrite ^/synclounge/(.*)$ /slweb/$1 last;
-#     # Add trailing / after /synclounge if it doesn't exist
-#     rewrite ^/synclounge$ /synclounge/ permanent;
-#     return 404;
-# }
-
-location /slweb {
+location /synclounge/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
@@ -50,35 +40,16 @@ location /slweb {
     set $upstream_app synclounge;
     set $upstream_port 8088;
     set $upstream_proto http;
-
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-}
+    rewrite /synclounge(.*) $1 break;
 
-if ($http_referer ~* /slweb) {
-    # Some requests like /config don't respect the base url (web root) setting
-    rewrite ^/config /slweb/config redirect;
-    # Probably a bug as well
-    rewrite ^/socket.io/(.*) /slserver/socket.io/$1? redirect;
-}
+    proxy_redirect off;
+    proxy_buffering off;
+    proxy_socket_keepalive on;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Sec-WebSocket-Extensions $http_sec_websocket_extensions;
+    proxy_set_header Sec-WebSocket-Key $http_sec_websocket_key;
+    proxy_set_header Sec-WebSocket-Version $http_sec_websocket_version;
 
-###
-# Server
-###
-
-# Proxy for the server
-location /slserver {
-    include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
-    set $upstream_app synclounge;
-    set $upstream_port 8089;
-    set $upstream_proto http;
-
-    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-}
-
-if ($http_referer ~* /slserver) {
-    # Some requests like socket.io don't respect the base url (server root) setting
-    rewrite ^/socket.io/(.*) /slserver/socket.io/$1? redirect;
 }
