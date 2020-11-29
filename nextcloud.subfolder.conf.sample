@@ -37,4 +37,5 @@ location ^~ /nextcloud/ {
     proxy_set_header If-Range $http_if_range;
     proxy_redirect off;
     proxy_ssl_session_reuse off;
+    add_header Strict-Transport-Security "max-age=15552000; includeSubDomains; preload;";
 }
