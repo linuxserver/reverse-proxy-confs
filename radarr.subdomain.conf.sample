@@ -35,6 +35,10 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
+        #SignalR - Radarr V3
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $http_connection;
+
     }
 
     location ~ (/radarr)?/api {
