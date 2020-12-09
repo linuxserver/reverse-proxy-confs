@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # Make sure that your dns has a cname set for ubooquity and that your ubooquity container is not using a base url
 
 server {

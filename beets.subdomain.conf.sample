@@ -1,3 +1,4 @@
+## Version 2020/12/09
 #First edit beets.yml and enable the reverse proxy settings, under "web" add "reverse_proxy: true" and restart the beets container.
 #Make sure that your dns has a cname set for beets and that your beets container is not using a base url
 

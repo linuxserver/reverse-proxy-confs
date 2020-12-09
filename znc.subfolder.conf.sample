@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # edit /config/configs/znc.conf and add URIPrefix = /znc/ in the line above </Listener> and restart the znc container
 
 location /znc {

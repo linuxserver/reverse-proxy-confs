@@ -1,3 +1,4 @@
+## Version 2020/12/09
 #first edit beets.yml and enable the reverse proxy settings, under "web" add "reverse_proxy: true" and restart the beets container
 
 location /beets {

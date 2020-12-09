@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # Make sure that your dns has a cname set for onlyoffice named "documentserver"
 # Make sure that the onlyoffice documentserver container is named "documentserver"
 

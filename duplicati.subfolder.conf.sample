@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # duplicati does not require a base url setting. DUPLICATI AUTH WILL NOT WORK WITH THIS CONFIG, use the auth options below
 
 location /duplicati {

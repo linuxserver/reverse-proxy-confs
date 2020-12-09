@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # grafana requires environment variables set thus:
 #    environment:
 #      - "GF_SERVER_ROOT_URL=https://my.domain.com/grafana"

@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # deluge does not require a base url setting
 
 location /deluge {

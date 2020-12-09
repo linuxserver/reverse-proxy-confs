@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # make sure that your dns has a cname set for bookstack and that your bookstack container is named bookstack
 # Ensure you have the APP_URL Environment Variable set correctly in your Docker Run/Compose or in BookStack Env File (/www/.env)
 # https://github.com/linuxserver/docker-bookstack#docker

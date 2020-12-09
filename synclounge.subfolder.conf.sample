@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # Use this with SyncLounge v3 or up
 #
 # To allow non-secure connections (http), which is required by some Plex clients, modify the first block in site-confs/default to look something like this:

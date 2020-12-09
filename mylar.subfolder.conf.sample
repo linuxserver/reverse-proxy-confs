@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # first stop the mylar container and edit the config.ini for mylar and set http_root to /mylar and then start the mylar container
 
 location ^~ /mylar {

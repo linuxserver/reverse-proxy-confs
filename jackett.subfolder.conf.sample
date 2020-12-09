@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # first go into jackett settings, set the URL Base to /jackett and restart the jackett container
 
 location ^~ /jackett {

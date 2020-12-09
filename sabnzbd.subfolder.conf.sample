@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # sabnzbd already uses the base url /sabnzbd by default so you don't need to do anything extra
 
 location ^~ /sabnzbd {

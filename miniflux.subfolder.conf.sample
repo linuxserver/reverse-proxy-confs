@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # set the environment variable "BASE_URL" to "https://yourdomain.url/miniflux/", or follow this guide to create a config file for Miniflux: https://miniflux.app/docs/configuration.html
 
 location /miniflux {

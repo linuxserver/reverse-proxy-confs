@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # make sure that your dns has a cname set for emby and that your emby container is not using a base url
 # if emby is running in bridge mode and the container is named "emby", the below config should work as is
 # if not, replace the line "set $upstream_app emby;" with "set $upstream_app <containername>;"

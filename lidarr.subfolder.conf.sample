@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # first go into lidarr settings, under "General" set the URL Base to /lidarr and restart the lidarr container
 
 location ^~ /lidarr {

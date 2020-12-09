@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # First either add "--base /dozzle" or "-e DOZZLE_BASE=/dozzle" to your docker run command, and restart the Dozzle container
 
 location /dozzle {

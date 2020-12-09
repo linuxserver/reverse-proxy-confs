@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # first go into sonarr settings, under "General" set the URL Base to /sonarr and restart the sonarr container
 
 location ^~ /sonarr {
