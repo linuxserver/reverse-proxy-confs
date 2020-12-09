@@ -1,4 +1,4 @@
-name: Check Allowed File Names
+name: Check Samples
 
 on:
   push:
@@ -20,5 +20,15 @@ jobs:
         if (( NOT_SAMPLES_COUNT > 0 )); then
             echo "The following files are not allowed:"
             echo "${NOT_SAMPLES}"
+            exit 1
+        fi
+
+    - name: Check Version Date Line Exists
+      run: |
+        VERSION_LINE_MISSING=$(find . -not -path '*/\.*' -type f -name '*.conf.sample' -exec grep -H -c -P '^## Version \d{4}/\d{2}/\d{2}$' {} \; | grep 0$ | cut -d':' -f1)
+        VERSION_LINE_MISSING_COUNT=$(echo "${VERSION_LINE_MISSING}" | wc -w)
+        if (( VERSION_LINE_MISSING_COUNT > 0 )); then
+            echo "The following files are missing the version date line:"
+            echo "${VERSION_LINE_MISSING}"
             exit 1
         fi
