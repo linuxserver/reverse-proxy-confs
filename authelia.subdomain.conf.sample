@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # make sure that your dns has a cname set for authelia
 # the default authelia-server and authelia-location confs included with letsencrypt rely on
 # subfolder proxy at "/authelia" and enabling of this proxy conf is not necessary.

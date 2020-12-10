@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # guacamole does not require a base url setting
 
 location /guacamole {

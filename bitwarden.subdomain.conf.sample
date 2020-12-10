@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # make sure that your dns has a cname set for bitwarden and that your bitwarden container is not using a base url
 # make sure your bitwarden container is named "bitwarden"
 # set the environment variable WEBSOCKET_ENABLED=true on your bitwarden container

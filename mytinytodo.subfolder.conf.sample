@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # works with https://github.com/breakall/mytinytodo-docker
 # set the mtt_url to 'https://your.domain.com/todo/' in db/config.php
 

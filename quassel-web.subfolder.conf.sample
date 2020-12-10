@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # Set base-url with docker run command env variable -e 'URL_BASE'='/quassel' and make sure Quassel-Web is running on http
 # with -e 'HTTPS'='false' or if you're using -e 'ADVANCED'='true' by editing config.json appropriately
 

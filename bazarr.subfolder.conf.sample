@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # first go into bazarr settings, under "General" set the URL Base to /bazarr/ and restart the bazarr container
 
 location /bazarr {

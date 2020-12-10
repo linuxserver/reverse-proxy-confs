@@ -1,3 +1,4 @@
+## Version 2020/12/09
 #******** This config no longer works as intended. The web app loads, but no direct connection to server is made. *********
 #******** PRs welcome for anyone who figures out how to fix it. Use the subdomain config in the meantime. *******
 

@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # first go into medusa settings, under "Interface" set the URL Base to /medusa and restart the medusa container
 
 location ^~ /medusa {

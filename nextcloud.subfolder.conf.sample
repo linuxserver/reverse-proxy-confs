@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # Assuming this container is called "swag", edit your nextcloud container's config
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
 #  'trusted_proxies' => ['swag'],

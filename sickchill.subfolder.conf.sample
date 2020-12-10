@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # first stop the sickchill container and edit the config.ini for sickchill and set web_root to /sickchill and then start the sickchill container
 
 location ^~ /sickchill {

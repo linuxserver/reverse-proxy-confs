@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # make sure you have added the following environmental variables to your run command/compose file
 # CMD_DOMAIN=codimd.server.com
 # CMD_PROTOCOL_USESSL=true

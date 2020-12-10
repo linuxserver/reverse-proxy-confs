@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # For use with the official Seafile Docker image (https://download.seafile.com/published/seafile-manual/docker/deploy%20seafile%20with%20docker.md)
 # Requires that the seafile container uses the following env variables:
 #     SEAFILE_SERVER_LETSENCRYPT=true

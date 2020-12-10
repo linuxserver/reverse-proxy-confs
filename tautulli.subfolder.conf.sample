@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # first go into tautulli settings, under "Web Interface", click on show advanced, set the HTTP root to /tautulli and restart the tautulli container
 
 location ^~ /tautulli {

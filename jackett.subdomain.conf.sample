@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # make sure that your dns has a cname set for jackett and that your jackett container is not using a base url
 
 server {

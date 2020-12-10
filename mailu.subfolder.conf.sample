@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # mailu does not require a base url setting, but the container needs to be named front
 
 # This config have been tested with "TLS_FLAVOR=mail"

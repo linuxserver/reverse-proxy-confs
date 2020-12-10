@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # first go into nzbhydra settings, set the URL Base to /nzbhydra, then disable CSRF protection on the same page and restart the nzbhydra container
 
 location ^~ /nzbhydra {

@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # make sure that your dns has a cname set for plex
 # if plex is running in bridge mode and the container is named "plex", the below config should work as is
 # if not, replace the line "set $upstream_app plex;" with "set $upstream_app <containername>;"

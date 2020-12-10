@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # Use this with SyncLounge v3 and up.
 # Make sure that you do not have HSTS enabled, otherwise http access won't work
 # Make sure that your dns has a cname set for synclounge

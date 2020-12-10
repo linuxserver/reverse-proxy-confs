@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # set the URL_PREFIX environment variable for the metube container to "/metube"
 
 location /metube {

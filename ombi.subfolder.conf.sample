@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # first go into ombi settings, under the menu "Ombi" set the base url to /ombi and restart the ombi container
 
 location /ombi {

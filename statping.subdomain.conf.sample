@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # make sure that your dns has a cname set for statping and that your statping container is not using a base url
 # If you are using the SSL docker-compose.yml on the statping repo, then the container name will be set to statup.
 # On other compose examples, it might be named statping. In that case, change $upstream_app statup to $upstream_app statping

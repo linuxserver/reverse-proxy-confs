@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # make sure that your dns has a cname set for gitea and the following parameters in /data/gitea/conf/app.ini are edited
 # [server]
 # SSH_DOMAIN       = gitea.server.com

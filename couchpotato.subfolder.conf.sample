@@ -1,3 +1,4 @@
+## Version 2020/12/09
 # first go into couchpotato settings, under "General" set the URL Base to /couchpotato and restart the couchpotato container
 
 location ^~ /couchpotato {
