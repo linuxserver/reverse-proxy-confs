@@ -39,6 +39,7 @@ server {
     
     location /api {
         include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
         set $upstream_app homeassistant;
         set $upstream_port 8123;
         set $upstream_proto http;
