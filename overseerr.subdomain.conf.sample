@@ -1,3 +1,5 @@
+## Version 2020/12/16
+
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
