@@ -1,4 +1,5 @@
 ## Version 2020/12/16
+# Ensure your DNS has a CNAME set for Overseerr and that Overseerr container is not using a base URL. 
 
 server {
     listen 443 ssl;
