@@ -1,0 +1,28 @@
+## Version 2021/01/06
+# first go into dokuwiki settings (Admin on the top left when Logged in), under "Configuration Settings" set the "basedir" to /dokuwiki/ and restart the dokuwiki container
+
+location /dokuwiki {
+    return 301 $scheme://$host/dokuwiki/;
+}
+
+location ^~ /dokuwiki/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /ldaplogin;
+
+    # enable for Authelia, also enable authelia-server.conf in the default site config
+    #include /config/nginx/authelia-location.conf;
+
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_app dokuwiki;
+    set $upstream_port 80;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    rewrite /dokuwiki(.*) $1 break;
+}
