@@ -1,6 +1,6 @@
 ## Version 2020/12/09
 # make sure that your dns has a cname set for znc
-# To additionally port foward the irc port uncomment the stream section in /config/nginx/nginx.conf and append these lines (without #) to znc.conf:
+# To additionally port forward the irc port, expose port 6501, Uncomment the stream section in /config/nginx/nginx.conf and append these lines (without #) to znc.conf:
 #TrustedProxy = 127.0.0.1
 #TrustedProxy = ::1
 server {
