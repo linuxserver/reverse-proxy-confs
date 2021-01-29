@@ -1,5 +1,6 @@
-## Version 2020/12/09
-# make sure that your dns has a cname set for pixelfed and the container is named pixelfed
+## Version 2021/01/29
+# make sure that your dns has a cname set for pixelfed and the container is named pixelfed_app_1
+# Note: pixelfed_app_1 is the default name in the docker config files of pixelfed
 
 server {
     listen 443 ssl;
@@ -31,7 +32,7 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_app pixelfed;
+        set $upstream_app pixelfed_app_1;
         set $upstream_port 80;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
