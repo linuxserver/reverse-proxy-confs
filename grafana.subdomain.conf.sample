@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/01/29
 # make sure that your dns has a cname set for grafana and that your grafana container is not using a base url
 
 server {
@@ -35,6 +35,9 @@ server {
         set $upstream_port 3000;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+        
+        # Clear Authorization Header if you are using http auth and normal Grafana auth
+        #proxy_set_header    Authorization       "";        
 
     }
 }

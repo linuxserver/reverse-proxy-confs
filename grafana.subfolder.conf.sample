@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/01/29
 # grafana requires environment variables set thus:
 #    environment:
 #      - "GF_SERVER_ROOT_URL=https://my.domain.com/grafana"
@@ -22,6 +22,10 @@ location ^~ /grafana/ {
     set $upstream_port 3000;
     set $upstream_proto http;
     proxy_pass http://$upstream_grafana:$upstream_port ;
+    
+    # Clear Authorization Header if you are using http auth and normal Grafana auth
+    #proxy_set_header    Authorization       "";
+    
     rewrite ^/grafana/(.*)$ /$1 break;
 
 }
