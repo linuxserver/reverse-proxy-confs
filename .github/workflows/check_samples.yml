@@ -25,7 +25,8 @@ jobs:
 
     - name: Check Version Date Line Exists
       run: |
-        VERSION_LINE_MISSING=$(find . -not -path '*/\.*' -type f -name '*.conf.sample' -exec grep -H -c -P '^## Version (?:19|20|21)(?:(?:[13579][26]|[02468][048])\/(?:(?:0[1-9]|1[0-2])\/(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])\/(?:30))|(?:(?:0[13578]|1[02])\/31))|(?:[0-9]{2}\/(?:0[1-9]|1[0-2])\/(?:0[1-9]|1[0-9]|2[0-8])|(?:(?!02)(?:0[1-9]|1[0-2])\/(?:29|30))|(?:(?:0[13578]|1[02])\/31)))$' {} \; | grep 0$ | cut -d':' -f1)
+        # Date regex based on https://www.html5pattern.com/Dates
+        VERSION_LINE_MISSING=$(find . -not -path '*/\.*' -type f -name '*.conf.sample' -exec grep -H -c -P '^## Version (?:19|20|21)[0-9]{2}/(?:(?:0[1-9]|1[0-2])/(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])/(?:30))|(?:(?:0[13578]|1[02])/31))$' {} \; | grep 0$ | cut -d':' -f1)
         VERSION_LINE_MISSING_COUNT=$(echo "${VERSION_LINE_MISSING}" | wc -w)
         if (( VERSION_LINE_MISSING_COUNT > 0 )); then
             echo "The following files are missing the version date line or it is not formatted correctly (YYYY/MM/DD):"
