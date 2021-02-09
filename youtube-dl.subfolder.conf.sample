@@ -23,6 +23,7 @@ location ^~ /youtube-dl/ {
 
     proxy_redirect  off;
     proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:8080;
+    # next line doesn't work with the latest version of: https://github.com/nbr23/youtube-dl-server
+    # proxy_set_header Host $upstream_app:8080;
     rewrite /youtube-dl(.*) $1 break;
 }
