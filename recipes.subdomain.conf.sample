@@ -21,9 +21,9 @@ server {
     # enable for Authelia
     #include /config/nginx/authelia-server.conf;
 	
-	# serve media files
+    # serve media files
     location /media/ {
-      alias /media/;
+        alias /media/;
     }
 	
     location / {
