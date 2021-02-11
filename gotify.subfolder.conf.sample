@@ -1,0 +1,26 @@
+## Version 2021/02/02
+# gotify doesn't require a base url
+
+location /gotify {
+    return 301 $scheme://$host/gotify/;
+}
+
+location /gotify/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /login;
+
+    # enable for Authelia
+    #include /config/nginx/authelia-location.conf;
+
+    include /config/nginx/proxy.conf;
+    resolver 127.0.0.11 valid=30s;
+    set $upstream_app gotify;
+    set $upstream_port 80;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+}
