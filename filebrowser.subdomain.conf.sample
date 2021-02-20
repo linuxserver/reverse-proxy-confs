@@ -1,4 +1,4 @@
-## Version 2021/01/03
+## Version 2021/02/19
 # make sure that your dns has a cname set for filebrowser and that your filebrowser container is not using a base url
 
 server {
@@ -37,8 +37,25 @@ server {
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
     }
 
-    # Allow anonymous access to shared files/folders when auth is enabled
-    location ~ /(static|share|api/public)/ {
+    location ~ (/filebrowser)?/api/public {
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_app filebrowser;
+        set $upstream_port 8080;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+
+    location ~ (/filebrowser)?/share {
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+        set $upstream_app filebrowser;
+        set $upstream_port 8080;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+
+    location ~ (/filebrowser)?/static {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app filebrowser;
