@@ -33,4 +33,20 @@ server {
 
         proxy_max_temp_file_size 2048m;
     }
+    
+    location = /robots.txt {
+        allow all;
+        log_not_found off;
+        access_log off;
+    }
+    
+    location ^~ /.well-known {
+        # The following 6 rules are borrowed from `.htaccess`
+        location = /.well-known/carddav     { return 301 /remote.php/dav/; }
+        location = /.well-known/caldav      { return 301 /remote.php/dav/; }
+        # Anything else is dynamically handled by Nextcloud
+        location ^~ /.well-known            { return 301 /index.php$uri; }
+
+        try_files $uri $uri/ =404;
+    }
 }
