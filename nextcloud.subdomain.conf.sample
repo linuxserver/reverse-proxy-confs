@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/02/23
 # make sure that your dns has a cname set for nextcloud
 # assuming this container is called "swag", edit your nextcloud container's config
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
@@ -32,5 +32,16 @@ server {
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
         proxy_max_temp_file_size 2048m;
+    }
+    
+    location ^~ /.well-known {
+        # The following 6 rules are borrowed from `.htaccess`
+
+        location = /.well-known/carddav     { return 301 /remote.php/dav/; }
+        location = /.well-known/caldav      { return 301 /remote.php/dav/; }
+        # Anything else is dynamically handled by Nextcloud
+        location ^~ /.well-known            { return 301 /index.php$uri; }
+
+        try_files $uri $uri/ =404;
     }
 }
