@@ -1,6 +1,6 @@
 ## Version 2021/02/22
 # make sure to set 'base_url: /flexget' under your flexget's config.yml web_server block
-
+# 
 location /flexget {
     return 301 $scheme://$host/flexget/;
 }
@@ -22,18 +22,14 @@ location /flexget {
         set $upstream_app flexget;
         set $upstream_port 5050;
         set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-        
-        
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;    
     }
    
-    location ^~ /flexget/api {
+    location ^~ /flexget/api/ {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app flexget;
         set $upstream_port 5050;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-        
-        
     }
