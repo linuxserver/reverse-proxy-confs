@@ -12,6 +12,13 @@
 #    0 => '192.168.0.1:444', # This line may look different on your setup, don't modify it.
 #    1 => 'nextcloud.your-domain.com',
 #  ),
+#
+# To finish resolving the webfinger/nodeinfo warnings in the overview, edit /config/www/nextcloud/.htaccess
+# and at the bottom of the <IfModule mod_rewrite.c> block, add:
+# RewriteRule ^.well-known/webfinger /index.php/.well-known/webfinger [R=301,L]
+# RewriteRule ^.well-known/nodeinfo /index.php/.well-known/nodeinfo [R=301,L]
+# Best bet is to copy that .htaccess out to your host, edit it, then bind mount it rather than just
+# editing it within the container itself.
 
 server {
     listen 443 ssl;
@@ -23,6 +30,11 @@ server {
 
     client_max_body_size 0;
 
+    location = /.well-known/carddav   { return 301 $scheme://$host/remote.php/dav; }
+    location = /.well-known/caldav    { return 301 $scheme://$host/remote.php/dav; }
+    location = /.well-known/webfinger { return 301 $scheme://$host/index.php/.well-known/webfinger; }
+    location = /.well-known/nodeinfo  { return 301 $scheme://$host/index.php/.well-known/nodeinfo; }
+
     location / {
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
@@ -32,5 +44,12 @@ server {
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
         proxy_max_temp_file_size 2048m;
+
+        # Uncomment the following 2 lines if you want to allow loading in a frame (i.e. for Organizr)
+        #proxy_hide_header Content-Security-Policy;
+        #proxy_hide_header X-Frame-Options;
+
+        # Fix the warning on the overview page
+        add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload";
     }
 }
