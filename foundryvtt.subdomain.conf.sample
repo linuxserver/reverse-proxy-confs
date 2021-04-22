@@ -31,8 +31,8 @@ server {
 
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
-        set $upstream_app <container-name>;
-        set $upstream_port <port>;
+        set $upstream_app foundry;
+        set $upstream_port 30000;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
