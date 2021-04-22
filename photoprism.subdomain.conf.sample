@@ -1,4 +1,4 @@
-## Version 2020/12/18
+## Version 2021/04/28
 # Ensure your DNS has a CNAME set for Photoprism and that Photoprism container is not using a base URL. 
 
 server {
