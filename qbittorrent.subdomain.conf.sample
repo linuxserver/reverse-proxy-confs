@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # make sure that your dns has a cname set for qbittorrent and that your qbittorrent container is not using a base url
 
 server {
@@ -30,7 +30,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app qbittorrent;
         set $upstream_port 8080;
         set $upstream_proto http;
@@ -42,7 +42,7 @@ server {
 
     location ~ (/qbittorrent)?/api {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app qbittorrent;
         set $upstream_port 8080;
         set $upstream_proto http;
@@ -56,7 +56,7 @@ server {
 
     location ~ (/qbittorrent)?/command {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app qbittorrent;
         set $upstream_port 8080;
         set $upstream_proto http;
@@ -70,7 +70,7 @@ server {
 
     location ~ (/qbittorrent)?/query {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app qbittorrent;
         set $upstream_port 8080;
         set $upstream_proto http;
@@ -84,7 +84,7 @@ server {
 
     location ~ (/qbittorrent)?/login {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app qbittorrent;
         set $upstream_port 8080;
         set $upstream_proto http;
@@ -98,7 +98,7 @@ server {
 
     location ~ (/qbittorrent)?/sync {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app qbittorrent;
         set $upstream_port 8080;
         set $upstream_proto http;

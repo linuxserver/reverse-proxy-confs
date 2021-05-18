@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # sabnzbd already uses the base url /sabnzbd by default so you don't need to do anything extra
 
 location ^~ /sabnzbd {
@@ -14,7 +14,7 @@ location ^~ /sabnzbd {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app sabnzbd;
     set $upstream_port 8080;
     set $upstream_proto http;
@@ -24,7 +24,7 @@ location ^~ /sabnzbd {
 
 location ^~ /sabnzbd/api {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app sabnzbd;
     set $upstream_port 8080;
     set $upstream_proto http;

@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # Use this with SyncLounge v3 or up
 #
 # To allow non-secure connections (http), which is required by some Plex clients, modify the first block in site-confs/default to look something like this:
@@ -37,7 +37,7 @@ location /synclounge/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app synclounge;
     set $upstream_port 8088;
     set $upstream_proto http;

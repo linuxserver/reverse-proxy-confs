@@ -1,4 +1,4 @@
-## Version 2021/02/19
+## Version 2021/05/18
 # make sure that your dns has a cname set for filebrowser and that your filebrowser container is not using a base url
 
 server {
@@ -30,7 +30,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app filebrowser;
         set $upstream_port 8080;
         set $upstream_proto http;
@@ -39,7 +39,7 @@ server {
 
     location ~ (/filebrowser)?/api/public {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app filebrowser;
         set $upstream_port 8080;
         set $upstream_proto http;
@@ -48,7 +48,7 @@ server {
 
     location ~ (/filebrowser)?/share {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app filebrowser;
         set $upstream_port 8080;
         set $upstream_proto http;
@@ -57,7 +57,7 @@ server {
 
     location ~ (/filebrowser)?/static {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app filebrowser;
         set $upstream_port 8080;
         set $upstream_proto http;

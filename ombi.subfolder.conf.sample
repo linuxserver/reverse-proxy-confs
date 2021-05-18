@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # first go into ombi settings, under the menu "Ombi" set the base url to /ombi and restart the ombi container
 
 location /ombi {
@@ -18,7 +18,7 @@ location ^~ /ombi/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app ombi;
     set $upstream_port 3579;
     set $upstream_proto http;
@@ -29,7 +29,7 @@ location ^~ /ombi/ {
 # This allows access to the actual api
 location ^~ /ombi/api {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app ombi;
     set $upstream_port 3579;
     set $upstream_proto http;
@@ -44,7 +44,7 @@ if ($http_referer ~* /ombi) {
 # This allows access to the documentation for the api
 location ^~ /ombi/swagger {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app ombi;
     set $upstream_port 3579;
     set $upstream_proto http;

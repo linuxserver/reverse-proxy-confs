@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # first go into radarr settings, under "General" set the URL Base to /radarr and restart the radarr container
 
 location ^~ /radarr {
@@ -14,7 +14,7 @@ location ^~ /radarr {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app radarr;
     set $upstream_port 7878;
     set $upstream_proto http;
@@ -24,7 +24,7 @@ location ^~ /radarr {
 
 location ^~ /radarr/api {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app radarr;
     set $upstream_port 7878;
     set $upstream_proto http;

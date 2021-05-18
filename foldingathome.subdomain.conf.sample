@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # make sure that your dns has a cname set for foldingathome
 
 server {
@@ -31,7 +31,7 @@ server {
 
         include /config/nginx/proxy.conf;
         proxy_buffering off;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app foldingathome;
         set $upstream_port 7396;
         set $upstream_proto http;

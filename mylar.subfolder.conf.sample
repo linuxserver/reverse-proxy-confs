@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # first stop the mylar container and edit the config.ini for mylar and set http_root to /mylar and then start the mylar container
 
 location ^~ /mylar {
@@ -14,7 +14,7 @@ location ^~ /mylar {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app mylar;
     set $upstream_port 8090;
     set $upstream_proto http;

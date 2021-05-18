@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # Make sure that your dns has a cname set for raneto
 server {
     listen 443 ssl;
@@ -29,7 +29,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app raneto;
         set $upstream_port 3000;
         set $upstream_proto http;

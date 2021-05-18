@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # first go into nzbhydra settings, set the URL Base to /nzbhydra, then disable CSRF protection on the same page and restart the nzbhydra container
 
 location ^~ /nzbhydra {
@@ -14,7 +14,7 @@ location ^~ /nzbhydra {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app nzbhydra2;
     set $upstream_port 5076;
     set $upstream_proto http;
@@ -24,7 +24,7 @@ location ^~ /nzbhydra {
 
 location ^~ /nzbhydra/api {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app nzbhydra2;
     set $upstream_port 5076;
     set $upstream_proto http;
@@ -34,7 +34,7 @@ location ^~ /nzbhydra/api {
 
 location ^~ /nzbhydra/getnzb {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app nzbhydra2;
     set $upstream_port 5076;
     set $upstream_proto http;
@@ -44,7 +44,7 @@ location ^~ /nzbhydra/getnzb {
 
 location ^~ /nzbhydra/gettorrent {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app nzbhydra2;
     set $upstream_port 5076;
     set $upstream_proto http;
@@ -54,7 +54,7 @@ location ^~ /nzbhydra/gettorrent {
 
 location ^~ /nzbhydra/rss {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app nzbhydra2;
     set $upstream_port 5076;
     set $upstream_proto http;
@@ -64,7 +64,7 @@ location ^~ /nzbhydra/rss {
 
 location ^~ /nzbhydra/torznab/api {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app nzbhydra2;
     set $upstream_port 5076;
     set $upstream_proto http;

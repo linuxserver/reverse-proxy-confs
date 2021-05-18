@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # make sure that your dns has a cname set for sabnzbd
 # edit the sabnzbd.ini host_whitelist to avoid hostname verification issues. This format:
 # host_whitelist = sabnzbd.domain.com, www.sabnzbd.domain.com
@@ -32,7 +32,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app sabnzbd;
         set $upstream_port 8080;
         set $upstream_proto http;
@@ -42,7 +42,7 @@ server {
 
     location ~ (/sabnzbd)?/api {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app sabnzbd;
         set $upstream_port 8080;
         set $upstream_proto http;

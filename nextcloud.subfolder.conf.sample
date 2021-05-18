@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # Assuming this container is called "swag", edit your nextcloud container's config
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
 #  'trusted_proxies' => ['swag'],
@@ -26,7 +26,7 @@ location /nextcloud {
 
 location ^~ /nextcloud/ {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app nextcloud;
     set $upstream_port 443;
     set $upstream_proto https;

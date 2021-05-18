@@ -1,4 +1,4 @@
-## Version 2021/01/06
+## Version 2021/05/18
 # first go into dokuwiki settings (Admin on the top left when Logged in), under "Configuration Settings" set the "basedir" to /dokuwiki/ and restart the dokuwiki container
 
 location /dokuwiki {
@@ -18,7 +18,7 @@ location ^~ /dokuwiki/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app dokuwiki;
     set $upstream_port 80;
     set $upstream_proto http;

@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # first go into jackett settings, set the URL Base to /jackett and restart the jackett container
 
 location ^~ /jackett {
@@ -14,7 +14,7 @@ location ^~ /jackett {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app jackett;
     set $upstream_port 9117;
     set $upstream_proto http;
@@ -24,7 +24,7 @@ location ^~ /jackett {
 
 location ^~ /jackett/api {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app jackett;
     set $upstream_port 9117;
     set $upstream_proto http;
@@ -34,7 +34,7 @@ location ^~ /jackett/api {
 
 location ^~ /jackett/dl {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app jackett;
     set $upstream_port 9117;
     set $upstream_proto http;

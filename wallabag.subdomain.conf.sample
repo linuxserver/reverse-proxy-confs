@@ -1,4 +1,4 @@
-## Version 2021/02/16
+## Version 2021/05/18
 # make sure that your dns has a cname set for wallabag and that your wallabag container is not using a base url.
 # also, make sure your env var in your docker run or compose match the full domain, incl. https://
 # i.e. - SYMFONY__ENV__DOMAIN_NAME=https://wallabag.yourdomain.com
@@ -32,7 +32,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app wallabag;
         set $upstream_port 80;
         set $upstream_proto http;

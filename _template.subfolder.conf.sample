@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # REMOVE THIS LINE BEFORE SUBMITTING: The structure of the file (all of the existing lines) should be kept as close as possible to this template.
 # REMOVE THIS LINE BEFORE SUBMITTING: Look through this file for <tags> and replace them. Review other sample files to see how things are done.
 # REMOVE THIS LINE BEFORE SUBMITTING: The comment lines at the top of the file (below this line) should explain any prerequisites for using the proxy such as DNS or app settings.
@@ -21,7 +21,7 @@ location ^~ /<container_name>/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app <container_name>;
     set $upstream_port <port_number>;
     set $upstream_proto <http or https>;
@@ -34,7 +34,7 @@ location ^~ /<container_name>/ {
 # REMOVE THIS LINE BEFORE SUBMITTING: If the proxy you are making a sample for does not require an additional location block please remove the commented out section below.
 # location ^~ /<container_name>/api {
 #     include /config/nginx/proxy.conf;
-#     resolver 127.0.0.11 valid=30s;
+#     include /config/nginx/resolver.conf;
 #     set $upstream_app <container_name>;
 #     set $upstream_port <port_number>;
 #     set $upstream_proto <http or https>;

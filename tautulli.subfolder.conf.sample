@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # first go into tautulli settings, under "Web Interface", click on show advanced, set the HTTP root to /tautulli and restart the tautulli container
 
 location ^~ /tautulli {
@@ -14,7 +14,7 @@ location ^~ /tautulli {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app tautulli;
     set $upstream_port 8181;
     set $upstream_proto http;
@@ -24,7 +24,7 @@ location ^~ /tautulli {
 
 location ^~ /tautulli/api {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app tautulli;
     set $upstream_port 8181;
     set $upstream_proto http;
@@ -34,7 +34,7 @@ location ^~ /tautulli/api {
 
 location ^~ /tautulli/newsletter {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app tautulli;
     set $upstream_port 8181;
     set $upstream_proto http;
@@ -44,7 +44,7 @@ location ^~ /tautulli/newsletter {
 
 location ^~ /tautulli/image {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app tautulli;
     set $upstream_port 8181;
     set $upstream_proto http;

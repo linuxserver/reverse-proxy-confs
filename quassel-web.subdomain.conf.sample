@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # make sure that your dns has a cname set for quassel and make sure Quassel-Web is running on http
 # with -e 'HTTPS'='false' or if you're using -e 'ADVANCED'='true' by editing config.json appropriately
 
@@ -31,7 +31,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app quassel-web;
         set $upstream_port 64080;
         set $upstream_proto http;

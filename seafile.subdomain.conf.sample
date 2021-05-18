@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # For use with the official Seafile Docker image (https://download.seafile.com/published/seafile-manual/docker/deploy%20seafile%20with%20docker.md)
 # Requires that the seafile container uses the following env variables:
 #     SEAFILE_SERVER_LETSENCRYPT=true
@@ -17,7 +17,7 @@ server {
 
     location / {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app seafile;
         set $upstream_port 443;
         set $upstream_proto https;
