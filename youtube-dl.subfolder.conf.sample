@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # Works with this youtube-dl Fork: https://github.com/nbr23/youtube-dl-server
 
 location /youtube-dl {
@@ -15,7 +15,7 @@ location ^~ /youtube-dl/ {
     #error_page 401 =200 /login;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app  youtube-dl-server;
     set $upstream_port 8080;
     set $upstream_proto http;

@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 #******** This config no longer works as intended. The web app loads, but no direct connection to server is made. *********
 #******** PRs welcome for anyone who figures out how to fix it. Use the subdomain config in the meantime. *******
 
@@ -24,7 +24,7 @@ location ^~ /plex/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app plex;
     set $upstream_port 32400;
     set $upstream_proto http;

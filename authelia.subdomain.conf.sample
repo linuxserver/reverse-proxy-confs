@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # make sure that your dns has a cname set for authelia
 # the default authelia-server and authelia-location confs included with letsencrypt rely on
 # subfolder proxy at "/authelia" and enabling of this proxy conf is not necessary.
@@ -18,7 +18,7 @@ server {
     location / {
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app authelia;
         set $upstream_port 9091;
         set $upstream_proto http;

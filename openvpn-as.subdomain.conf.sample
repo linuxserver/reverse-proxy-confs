@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # make sure that your dns has a cname set for openvpn-as and that your openvpn-as container is not using a base url
 
 server {
@@ -30,7 +30,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app openvpn-as;
         set $upstream_port 943;
         set $upstream_proto https;
@@ -51,7 +51,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app openvpn-as;
         set $upstream_port 943;
         set $upstream_proto https;

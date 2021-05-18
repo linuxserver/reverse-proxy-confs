@@ -1,4 +1,4 @@
-## Version 2021/01/03
+## Version 2021/05/18
 # make sure that your dns has a cname set for huginn
 
 server {
@@ -30,7 +30,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app huginn;
         set $upstream_port 3000;
         set $upstream_proto http;

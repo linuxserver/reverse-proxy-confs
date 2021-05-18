@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # make sure that your dns has a cname set for jellyfin
 # if jellyfin is running in bridge mode and the container is named "jellyfin", the below config should work as is
 # if not, replace the line "set $upstream_app jellyfin;" with "set $upstream_app <containername>;"
@@ -12,7 +12,7 @@ location /jellyfin {
 
 location ^~ /jellyfin/ {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app jellyfin;
     set $upstream_port 8096;
     set $upstream_proto http;

@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # set the reverse proxy prefix in the admin gui to ubooquity.
 
     location ^~ /ubooquity {
@@ -14,7 +14,7 @@
     #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app ubooquity;
         set $upstream_port 2202;
         set $upstream_proto http;
@@ -24,7 +24,7 @@
 
     location ^~ /ubooquity/admin {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app ubooquity;
         set $upstream_port 2203;
         set $upstream_proto http;

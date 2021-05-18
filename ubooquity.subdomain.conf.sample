@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # Make sure that your dns has a cname set for ubooquity and that your ubooquity container is not using a base url
 
 server {
@@ -30,7 +30,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app ubooquity;
         set $upstream_port 2202;
         set $upstream_proto http;
@@ -40,7 +40,7 @@ server {
 
     location /admin {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app ubooquity;
         set $upstream_port 2203;
         set $upstream_proto http;
@@ -50,7 +50,7 @@ server {
 
     location /admin-res {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app ubooquity;
         set $upstream_port 2203;
         set $upstream_proto http;
@@ -60,7 +60,7 @@ server {
 
     location /admin-api {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app ubooquity;
         set $upstream_port 2203;
         set $upstream_proto http;

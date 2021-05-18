@@ -1,4 +1,4 @@
-## Version 2021/01/29
+## Version 2021/05/18
 # add BASE_PATH=/chronograf environment variable to your docker compose/run
 
 location /chronograf {
@@ -18,7 +18,7 @@ location ^~ /chronograf/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app chronograf;
     set $upstream_port 8888;
     set $upstream_proto http;

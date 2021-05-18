@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # first stop the sickchill container and edit the config.ini for sickchill and set web_root to /sickchill and then start the sickchill container
 
 location ^~ /sickchill {
@@ -14,7 +14,7 @@ location ^~ /sickchill {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app sickchill;
     set $upstream_port 8081;
     set $upstream_proto http;

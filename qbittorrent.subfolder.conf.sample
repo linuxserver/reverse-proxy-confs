@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # qbittorrent does not require a base url setting
 
 location /qbittorrent {
@@ -18,7 +18,7 @@ location ^~ /qbittorrent/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app qbittorrent;
     set $upstream_port 8080;
     set $upstream_proto http;
@@ -32,7 +32,7 @@ location ^~ /qbittorrent/ {
 
 location ^~ /qbittorrent/api {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app qbittorrent;
     set $upstream_port 8080;
     set $upstream_proto http;
@@ -46,7 +46,7 @@ location ^~ /qbittorrent/api {
 
 location ^~ /qbittorrent/command {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app qbittorrent;
     set $upstream_port 8080;
     set $upstream_proto http;
@@ -60,7 +60,7 @@ location ^~ /qbittorrent/command {
 
 location ^~ /qbittorrent/query {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app qbittorrent;
     set $upstream_port 8080;
     set $upstream_proto http;
@@ -74,7 +74,7 @@ location ^~ /qbittorrent/query {
 
 location ^~ /qbittorrent/login {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app qbittorrent;
     set $upstream_port 8080;
     set $upstream_proto http;
@@ -88,7 +88,7 @@ location ^~ /qbittorrent/login {
 
 location ^~ /qbittorrent/sync {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app qbittorrent;
     set $upstream_port 8080;
     set $upstream_proto http;

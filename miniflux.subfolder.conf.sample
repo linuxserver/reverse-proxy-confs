@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # set the environment variable "BASE_URL" to "https://yourdomain.url/miniflux/", or follow this guide to create a config file for Miniflux: https://miniflux.app/docs/configuration.html
 
 location /miniflux {
@@ -18,7 +18,7 @@ location /miniflux/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app miniflux;
     set $upstream_port 8080;
     set $upstream_proto http;

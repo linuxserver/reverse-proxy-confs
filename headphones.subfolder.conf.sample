@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # first stop the headphones container and edit the config.ini for headphones and set http_root to /headphones and then start the headphones container
 
 location ^~ /headphones {
@@ -14,7 +14,7 @@ location ^~ /headphones {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app headphones;
     set $upstream_port 8181;
     set $upstream_proto http;

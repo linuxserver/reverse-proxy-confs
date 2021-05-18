@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # make sure that your dns has a cname set for nzbhydra and that your nzbhydra container is not using a base url
 
 server {
@@ -30,7 +30,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app nzbhydra2;
         set $upstream_port 5076;
         set $upstream_proto http;
@@ -40,7 +40,7 @@ server {
 
     location ~ (/nzbhydra)?/api {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app nzbhydra2;
         set $upstream_port 5076;
         set $upstream_proto http;
@@ -50,7 +50,7 @@ server {
 
     location ~ (/nzbhydra)?/getnzb {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app nzbhydra2;
         set $upstream_port 5076;
         set $upstream_proto http;
@@ -60,7 +60,7 @@ server {
 
     location ~ (/nzbhydra)?/gettorrent {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app nzbhydra2;
         set $upstream_port 5076;
         set $upstream_proto http;
@@ -70,7 +70,7 @@ server {
 
     location ~ (/nzbhydra)?/rss {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app nzbhydra2;
         set $upstream_port 5076;
         set $upstream_proto http;
@@ -80,7 +80,7 @@ server {
 
     location ~ (/nzbhydra)?/torznab/api {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app nzbhydra2;
         set $upstream_port 5076;
         set $upstream_proto http;

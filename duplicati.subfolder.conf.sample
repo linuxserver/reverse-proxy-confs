@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # duplicati does not require a base url setting. DUPLICATI AUTH WILL NOT WORK WITH THIS CONFIG, use the auth options below
 
 location /duplicati {
@@ -18,7 +18,7 @@ location ^~ /duplicati/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app duplicati;
     set $upstream_port 8200;
     set $upstream_proto http;

@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # make sure that your dns has a cname set for airsonic and that your airsonic container is not using a base url
 # add `server.use-forward-headers=true` to `/config/application.properties` to ensure logs contain real source IP
 
@@ -31,7 +31,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app airsonic;
         set $upstream_port 4040;
         set $upstream_proto http;

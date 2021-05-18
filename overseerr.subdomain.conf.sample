@@ -1,4 +1,4 @@
-## Version 2020/12/18
+## Version 2021/05/18
 # Ensure your DNS has a CNAME set for Overseerr and that Overseerr container is not using a base URL. 
 
 server {
@@ -14,7 +14,7 @@ server {
     location / {
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app overseerr;
         set $upstream_port 5055;
         set $upstream_proto http;

@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # glances does not require a base url setting
 
 location /glances {
@@ -18,7 +18,7 @@ location ^~ /glances/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app glances;
     set $upstream_port 61208;
     set $upstream_proto http;

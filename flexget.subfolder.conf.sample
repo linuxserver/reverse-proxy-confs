@@ -1,4 +1,4 @@
-## Version 2021/02/22
+## Version 2021/05/18
 # make sure to set 'base_url: /flexget' under your flexget's config.yml web_server block
 # 
 location /flexget {
@@ -18,7 +18,7 @@ location /flexget {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app flexget;
         set $upstream_port 5050;
         set $upstream_proto http;
@@ -27,7 +27,7 @@ location /flexget {
    
     location ^~ /flexget/api/ {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app flexget;
         set $upstream_port 5050;
         set $upstream_proto http;

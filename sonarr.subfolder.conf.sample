@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # first go into sonarr settings, under "General" set the URL Base to /sonarr and restart the sonarr container
 
 location ^~ /sonarr {
@@ -14,7 +14,7 @@ location ^~ /sonarr {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app sonarr;
     set $upstream_port 8989;
     set $upstream_proto http;
@@ -24,7 +24,7 @@ location ^~ /sonarr {
 
 location ^~ /sonarr/api {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app sonarr;
     set $upstream_port 8989;
     set $upstream_proto http;

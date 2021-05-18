@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # make sure that your dns has a cname set for bitwarden and that your bitwarden container is not using a base url
 # make sure your bitwarden container is named "bitwarden"
 # set the environment variable WEBSOCKET_ENABLED=true on your bitwarden container
@@ -32,7 +32,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app bitwarden;
         set $upstream_port 80;
         set $upstream_proto http;
@@ -53,7 +53,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app bitwarden;
         set $upstream_port 80;
         set $upstream_proto http;
@@ -63,7 +63,7 @@ server {
 
     location /notifications/hub {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app bitwarden;
         set $upstream_port 3012;
         set $upstream_proto http;
@@ -73,7 +73,7 @@ server {
 
     location /notifications/hub/negotiate {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app bitwarden;
         set $upstream_port 80;
         set $upstream_proto http;

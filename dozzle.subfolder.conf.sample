@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # First either add "--base /dozzle" or "-e DOZZLE_BASE=/dozzle" to your docker run command, and restart the Dozzle container
 
 location /dozzle {
@@ -18,7 +18,7 @@ location ^~ /dozzle/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app dozzle;
     set $upstream_port 8080;
     set $upstream_proto http;

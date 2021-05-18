@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # works with https://github.com/breakall/mytinytodo-docker
 # set the mtt_url to 'https://your.domain.com/todo/' in db/config.php
 
@@ -20,7 +20,7 @@ location ^~ /todo/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app mytinytodo;
     set $upstream_port 80;
     set $upstream_proto http;

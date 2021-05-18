@@ -1,4 +1,4 @@
-## Version 2021/02/05
+## Version 2021/05/18
 ## Environmental Variable DOMAIN=https://<DOMAIN>/bitwarden must be set in bitwarden container including subfolder.
 ## This is using ports 80 and 3012
 location /bitwarden {
@@ -18,7 +18,7 @@ location ^~ /bitwarden/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app bitwarden;
     set $upstream_port 80;
     set $upstream_proto http;
@@ -28,7 +28,7 @@ location ^~ /bitwarden/ {
 
 location /notifications/hub {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app bitwarden;
     set $upstream_port 3012;
     set $upstream_proto http;
@@ -38,7 +38,7 @@ location /notifications/hub {
 
 location /notifications/hub/negotiate {
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app bitwarden;
     set $upstream_port 80;
     set $upstream_proto http;

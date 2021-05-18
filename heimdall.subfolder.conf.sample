@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # In order to use this location block you need to edit the default file one folder up and comment out the / location
 
 location / {
@@ -14,7 +14,7 @@ location / {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app heimdall;
     set $upstream_port 443;
     set $upstream_proto https;

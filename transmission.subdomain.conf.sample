@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # Make sure that DNS has a cname set for transmission
 #
 # Some Transmission Chrome extensions cannot handle HTTP/2 proxies as they
@@ -40,7 +40,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app transmission;
         set $upstream_port 9091;
         set $upstream_proto http;
@@ -51,7 +51,7 @@ server {
 
     location ~ (/transmission)?/rpc {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app transmission;
         set $upstream_port 9091;
         set $upstream_proto http;
