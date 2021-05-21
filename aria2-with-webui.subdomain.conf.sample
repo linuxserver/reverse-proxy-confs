@@ -1,4 +1,4 @@
-## Version 2020/12/09
+## Version 2021/05/18
 # Make sure that your dns has a cname set for aria2 and that your aria2-with-webui container is not using a base url
 #
 # The RPC port will need to be changed to 443 in the AriaNg/WebUI-Aria2 settings or by using the AriaNg command api
@@ -34,7 +34,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app aria2-with-webui;
         set $upstream_port 80;
         set $upstream_proto http;
@@ -44,7 +44,7 @@ server {
 	
     location ~ (/aria2-with-webui)?/jsonrpc {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app aria2-with-webui;
         set $upstream_port 6800;
         set $upstream_proto http;
@@ -54,7 +54,7 @@ server {
 
     location ~ (/aria2-with-webui)?/rpc {
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app aria2-with-webui;
         set $upstream_port 6800;
         set $upstream_proto http;
