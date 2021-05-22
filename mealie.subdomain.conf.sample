@@ -14,7 +14,7 @@ server {
     location / {
 
         include /config/nginx/proxy.conf;
-        resolver 127.0.0.11 valid=30s;
+        include /config/nginx/resolver.conf;
         set $upstream_app mealie;
         set $upstream_port 80;
         set $upstream_proto http;
