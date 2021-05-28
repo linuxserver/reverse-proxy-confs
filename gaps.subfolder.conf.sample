@@ -1,11 +1,11 @@
-## Version 2021/04/08
-# In your Docker compose (or docker run) add the environment variable: BASE_URL: /gaps
+## Version 2021/04/23
+# first go into petio settings, under "Base path" set the URL Base to /petio and restart the petio container
 
-location /gaps {
-    return 301 $scheme://$host/gaps/;
+location /petio {
+    return 301 $scheme://$host/petio/;
 }
 
-location ^~ /gaps/ {
+location ^~ /petio/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
@@ -18,12 +18,10 @@ location ^~ /gaps/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
-    set $upstream_app gaps;
-    set $upstream_port 8484;
+    include /config/nginx/resolver.conf;
+    set $upstream_app petio;
+    set $upstream_port 7777;
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    # Uncomment to allow loading in an iframe (i.e. Organizr)
-    #proxy_hide_header X-Frame-Options;
 }
