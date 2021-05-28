@@ -20,6 +20,7 @@ location ^~ /portainer/ {
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;
     set $upstream_app portainer;
+    set $upstream_port 8000;
     set $upstream_port 9000;
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
@@ -32,6 +33,7 @@ location ^~ /portainer/api/websocket/ {
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;
     set $upstream_app portainer;
+    set $upstream_port 8000;
     set $upstream_port 9000;
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
