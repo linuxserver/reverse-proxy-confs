@@ -35,16 +35,15 @@ server {
         set $upstream_port 9696;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
     }
 
-    location ~ (/prowlarr)?/api {
+    location ~ (/prowlarr)?(/[0-9]+)?/api {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app prowlarr;
         set $upstream_port 9696;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
     }
+
 }

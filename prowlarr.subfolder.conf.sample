@@ -1,7 +1,7 @@
 ## Version 2021/05/28
 # first go into prowlarr settings, under "General" set the URL Base to /prowlarr and restart the prowlarr container
 
-location ^~ /prowlarr {
+location /prowlarr {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
@@ -22,7 +22,7 @@ location ^~ /prowlarr {
 
 }
 
-location ^~ /prowlarr/api {
+location ~ /prowlarr(/[0-9]+)?/api {
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;
     set $upstream_app prowlarr;
