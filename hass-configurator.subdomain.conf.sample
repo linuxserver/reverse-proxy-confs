@@ -1,5 +1,5 @@
-# version 2021/06/01
-# make sure that your dns has a cname set for tasmobackup
+## Version 2021/06/02
+# make sure that your dns has a cname set for hass configurator
 # this proxy configuration file is for the hass-configurator-docker container that is used 
 # in the hassos addon store (https://github.com/CausticLab/hass-configurator-docker)
 
