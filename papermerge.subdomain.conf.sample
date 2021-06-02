@@ -1,3 +1,6 @@
+## Version 2021/06/01
+# make sure that your dns has a cname set for papermerge
+
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
@@ -32,5 +35,6 @@ server {
         set $upstream_port 8000;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+        
     }
 }
