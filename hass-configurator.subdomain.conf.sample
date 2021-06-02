@@ -1,5 +1,9 @@
+# version 2021/06/01
+# make sure that your dns has a cname set for tasmobackup
 # this proxy configuration file is for the hass-configurator-docker container that is used 
 # in the hassos addon store (https://github.com/CausticLab/hass-configurator-docker)
+
+
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
