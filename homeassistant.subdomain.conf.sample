@@ -41,11 +41,6 @@ server {
         
         # in case the service is running on `host` networking, use this instead:
         # proxy_pass $upstream_proto://$upstream_IP:$upstream_port;
-
-        # these seem to be needed:
-        proxy_set_header Host $host;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
     }
     
     location /api {
@@ -59,8 +54,6 @@ server {
         # in case the service is running on `host` networking, use this instead:
         # proxy_pass $upstream_proto://$upstream_IP:$upstream_port;
 
-        # these seem to be needed:
-        proxy_set_header Host $host;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
     }
