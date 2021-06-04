@@ -1,11 +1,11 @@
-## Version 2021/04/23
-# first go into petio settings, under "Base path" set the URL Base to /petio and restart the petio container
+## Version 2021/03/30
+# crontabui does not require a base url setting
 
-location /petio {
-    return 301 $scheme://$host/petio/;
+location /crontabui {
+    return 301 $scheme://$host/crontabui/;
 }
 
-location ^~ /petio/ {
+location ^~ /crontabui/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
@@ -19,9 +19,10 @@ location ^~ /petio/ {
 
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;
-    set $upstream_app petio;
-    set $upstream_port 7777;
+    set $upstream_app crontabui;
+    set $upstream_port 8000;
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
+    rewrite /crontabui(.*) $1 break;
 }
