@@ -1,0 +1,49 @@
+## Version 2021/06/05
+# make sure that your dns has a cname set for foundryvtt 
+# Ensure that your Foundry VTT's {userData}/Config/options.json file is configured as follows: 
+# "hostname": "your.hostname.com",
+# "routePrefix": null,
+# "sslCert": null,
+# "sslKey": null,
+# "port": 30000,
+# "proxyPort": 443,
+# "proxySSL": true
+# Refer to https://foundryvtt.com/article/nginx/ for the latest Foundry configuration information
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name foundryvtt.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 300M;
+
+    # enable for ldap auth, fill in ldap details in ldap.conf
+    #include /config/nginx/ldap.conf;
+
+    # enable for Authelia
+    #include /config/nginx/authelia-server.conf;
+
+    location / {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable the next two lines for ldap auth
+        #auth_request /auth;
+        #error_page 401 =200 /ldaplogin;
+
+        # enable for Authelia
+        #include /config/nginx/authelia-location.conf;
+
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app foundryvtt;
+        set $upstream_port 30000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+		
+    }
+}
