@@ -1,0 +1,28 @@
+## Version 2021/03/30
+# crontabui does not require a base url setting
+
+location /crontabui {
+    return 301 $scheme://$host/crontabui/;
+}
+
+location ^~ /crontabui/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /ldaplogin;
+
+    # enable for Authelia, also enable authelia-server.conf in the default site config
+    #include /config/nginx/authelia-location.conf;
+
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+    set $upstream_app crontabui;
+    set $upstream_port 8000;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    rewrite /crontabui(.*) $1 break;
+}
