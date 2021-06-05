@@ -1,0 +1,27 @@
+## Version 2021/04/23
+# first go into petio settings, under "Base path" set the URL Base to /petio and restart the petio container
+
+location /petio {
+    return 301 $scheme://$host/petio/;
+}
+
+location ^~ /petio/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /ldaplogin;
+
+    # enable for Authelia, also enable authelia-server.conf in the default site config
+    #include /config/nginx/authelia-location.conf;
+
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+    set $upstream_app petio;
+    set $upstream_port 7777;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+}
