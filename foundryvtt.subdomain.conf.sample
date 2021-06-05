@@ -1,5 +1,14 @@
 ## Version 2021/06/05
-# make sure that your dns has a cname set for foundryvtt
+# make sure that your dns has a cname set for foundryvtt 
+# Ensure that your Foundry VTT's {userData}/Config/options.json file is configured as follows: 
+# "hostname": "your.hostname.com",
+# "routePrefix": null,
+# "sslCert": null,
+# "sslKey": null,
+# "port": 30000,
+# "proxyPort": 443,
+# "proxySSL": true
+# Refer to https://foundryvtt.com/article/nginx/ for the latest Foundry configuration information
 
 server {
     listen 443 ssl;
