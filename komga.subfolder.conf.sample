@@ -18,7 +18,7 @@ location ^~ /komga/ {
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
-    resolver 127.0.0.11 valid=30s;
+    include /config/nginx/resolver.conf;
     set $upstream_app komga;
     set $upstream_port 8080 ;
     set $upstream_proto http;
@@ -28,7 +28,7 @@ location ^~ /komga/ {
 
  location ^~ /komga/api {
      include /config/nginx/proxy.conf;
-     resolver 127.0.0.11 valid=30s;
+     include /config/nginx/resolver.conf;
      set $upstream_app komga;
      set $upstream_port 8080;
      set $upstream_proto http;
