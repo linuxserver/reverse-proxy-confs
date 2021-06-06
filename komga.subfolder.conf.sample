@@ -1,4 +1,4 @@
-## Version 2021/04/22
+## Version 2021/06/06
 # First make sure your Container has set an Baseurl set via docker-compose File "envirnoment: SERVER_SERVLET_CONTEXT_PATH=/komga" and recreate the container.
 
 location /komga {
