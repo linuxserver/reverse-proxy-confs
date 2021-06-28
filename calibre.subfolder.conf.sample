@@ -1,5 +1,5 @@
-## Version 2021/05/18
-# calibre does not require a base url setting
+## Version 2021/06/28
+# In calibre docker arguments, set an env variable for SUBFOLDER=/calibre/
 
 location /calibre {
     return 301 $scheme://$host/calibre/;
@@ -24,5 +24,4 @@ location ^~ /calibre/ {
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    rewrite /calibre(.*) $1 break;
 }
