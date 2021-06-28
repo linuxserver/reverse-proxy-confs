@@ -1,5 +1,5 @@
-## Version 2021/05/18
-# boinc does not require a base url setting
+## Version 2021/06/28
+# In boinc docker arguments, set an env variable for SUBFOLDER=/boinc/
 
 location /boinc {
     return 301 $scheme://$host/boinc/;
@@ -24,6 +24,5 @@ location ^~ /boinc/ {
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    rewrite /boinc(.*) $1 break;
     proxy_buffering off;
 }
