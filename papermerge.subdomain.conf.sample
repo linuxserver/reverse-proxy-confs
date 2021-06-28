@@ -30,7 +30,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf
+        include /config/nginx/resolver.conf;
         set $upstream_app papermerge;
         set $upstream_port 8000;
         set $upstream_proto http;
