@@ -12,7 +12,7 @@
 #    0 => '192.168.0.1:444', # This line may look different on your setup, don't modify it.
 #    1 => 'nextcloud.your-domain.com',
 #  ),
-
+add_header Strict-Transport-Security "max-age=15552000; includeSubDomains; preload";
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
