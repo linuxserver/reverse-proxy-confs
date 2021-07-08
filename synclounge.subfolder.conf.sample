@@ -1,4 +1,4 @@
-## Version 2021/05/18
+## Version 2021/07/08
 # Use this with SyncLounge v3 or up
 #
 # To allow non-secure connections (http), which is required by some Plex clients, modify the first block in site-confs/default to look something like this:
@@ -45,7 +45,6 @@ location /synclounge/ {
 
     rewrite /synclounge(.*) $1 break;
 
-    proxy_redirect off;
     proxy_buffering off;
     proxy_socket_keepalive on;
     proxy_set_header X-Forwarded-Proto $scheme;
