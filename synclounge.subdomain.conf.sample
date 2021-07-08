@@ -1,4 +1,4 @@
-## Version 2021/05/18
+## Version 2021/07/08
 # Use this with SyncLounge v3 and up.
 # Make sure that you do not have HSTS enabled, otherwise http access won't work
 # Make sure that your dns has a cname set for synclounge
@@ -40,7 +40,6 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-        proxy_redirect off;
         proxy_buffering off;
         proxy_socket_keepalive on;
         proxy_set_header X-Forwarded-Proto $scheme;

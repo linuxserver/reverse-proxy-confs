@@ -1,4 +1,4 @@
-## Version 2021/05/18
+## Version 2021/07/08
 # freshrss does not have a base url setting
 
 location /freshrss {
@@ -25,7 +25,6 @@ location ^~ /freshrss/ {
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     rewrite /freshrss(.*) $1 break;
-    proxy_redirect off;
     proxy_buffering off;
     proxy_set_header X-Forwarded-Port $server_port;
     proxy_cookie_path / "/; HTTPOnly; Secure";

@@ -1,4 +1,4 @@
-## Version 2021/05/18
+## Version 2021/07/08
 # Works with this youtube-dl Fork: https://github.com/nbr23/youtube-dl-server
 
 location /youtube-dl {
@@ -21,7 +21,6 @@ location ^~ /youtube-dl/ {
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    proxy_redirect  off;
     proxy_set_header Referer '';
     # next line doesn't work with the latest version of: https://github.com/nbr23/youtube-dl-server
     # proxy_set_header Host $upstream_app:8080;

@@ -1,4 +1,4 @@
-## Version 2021/05/18
+## Version 2021/07/08
 # Assuming this container is called "swag", edit your nextcloud container's config
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
 #  'trusted_proxies' => ['swag'],
@@ -36,6 +36,5 @@ location ^~ /nextcloud/ {
     proxy_max_temp_file_size 2048m;
     proxy_set_header Range $http_range;
     proxy_set_header If-Range $http_if_range;
-    proxy_redirect off;
     proxy_ssl_session_reuse off;
 }
