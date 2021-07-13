@@ -1,5 +1,14 @@
-## Version 2021/05/18
+## Version 2021/07/13
 # make sure that your dns has a cname set for homeassistant and that your homeassistant container is not using a base url
+
+# As of homeassistant 2021.7.0, it is now required to define the network range your proxy resides in, this is done in Homeassitants configuration.yaml
+# https://www.home-assistant.io/integrations/http/#trusted_proxies
+# Example below uses the default dockernetwork ranges, you may need to update this if you dont use defaults.
+#
+# http:
+#   use_x_forwarded_for: true
+#   trusted_proxies:
+#     - 172.16.0.0/12
 
 server {
     listen 443 ssl;
@@ -37,7 +46,7 @@ server {
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     }
-    
+
     location /api {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
@@ -46,7 +55,7 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
     }
-    
+
     location /local {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
