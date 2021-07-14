@@ -1,4 +1,4 @@
-## Version 2021/07/08
+## Version 2021/07/14
 # Assuming this container is called "swag", edit your nextcloud container's config
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
 #  'trusted_proxies' => ['swag'],
@@ -11,18 +11,17 @@
 #    1 => 'your-domain.com',
 #  ),
 
-# Redirects for DAV clients
-location = /.well-known/carddav {
-    return 301 $scheme://$host/nextcloud/remote.php/dav;
-}
+location ^~ /.well-known {
+        # The rules in this block are an adaptation of the rules
+        # in the Nextcloud `.htaccess` that concern `/.well-known`.
 
-location = /.well-known/caldav {
-    return 301 $scheme://$host/nextcloud/remote.php/dav;
-}
+        location = /.well-known/carddav { return 301 /nextcloud/remote.php/dav/; }
+        location = /.well-known/caldav  { return 301 /nextcloud/remote.php/dav/; }
 
-location /nextcloud {
-    return 301 $scheme://$host/nextcloud/;
-}
+        # Let Nextcloud's API for `/.well-known` URIs handle all other
+        # requests by passing them to the front-end controller.
+        return 301 /nextcloud/index.php$request_uri;
+    }
 
 location ^~ /nextcloud/ {
     include /config/nginx/proxy.conf;
