@@ -49,6 +49,8 @@ server {
     }
     
     location /dns-query {
+        # to properly use this please set `allow_unencrypted_doh: true` and `force_https: false` in adguard
+        # see https://github.com/AdguardTeam/AdGuardHome/wiki/Configuration#configuration-file
         include /config/nginx/proxy.conf;
         resolver 127.0.0.11 valid=30s;
         set $upstream_app adguard;
