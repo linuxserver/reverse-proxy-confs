@@ -15,6 +15,9 @@ location ^~ /calibre-web/ {
     #error_page 401 =200 /ldaplogin;
 
     # enable for Authelia, also enable authelia-server.conf in the default site config
+    # To use Authelia to log in to Calibre-Web, make sure "Reverse Proxy Login" is 
+    # enabled, "Reverse Proxy Header Name" is set to Remote-User, and each Authelia
+    # user also has a corresponding user manually created in Calibre-Web.
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
@@ -24,6 +27,21 @@ location ^~ /calibre-web/ {
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
+    proxy_set_header X-Scheme $scheme;
+    proxy_set_header X-Script-Name /calibre-web;
+}
+
+# OPDS feed for eBook reader apps
+# Even if you use Authelia, the OPDS feed requires a password to be set for
+# the user directly in Calibre-Web, as eBook reader apps don't support 
+# form-based logins, only HTTP Basic auth.
+location ^~ /calibre-web/opds/ {
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+    set $upstream_app calibre-web;
+    set $upstream_port 8083;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
     proxy_set_header X-Scheme $scheme;
     proxy_set_header X-Script-Name /calibre-web;
 }
