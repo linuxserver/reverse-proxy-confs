@@ -1,4 +1,4 @@
-## Version 2021/06/16
+## Version 2021/09/05
 # make sure that your dns has a cname set for octoprint and that your octoprint container is not using a base url
 
 server {
@@ -35,6 +35,7 @@ server {
         set $upstream_port 80;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+        proxy_set_header X-Scheme https;
 
     }
 
