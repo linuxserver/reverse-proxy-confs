@@ -1,4 +1,4 @@
-## Version 2021/05/18
+## Version 2021/09/24
 # make sure that your dns has a cname set for adguard and that your adguard container is named adguard
 
 server {
@@ -39,6 +39,18 @@ server {
     }
 
     location /control {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app adguard;
+        set $upstream_port 80;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
+    
+    location /dns-query {
+        # to properly use this please set `allow_unencrypted_doh: true` and `force_https: false` in adguard
+        # see https://github.com/AdguardTeam/AdGuardHome/wiki/Configuration#configuration-file
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app adguard;
