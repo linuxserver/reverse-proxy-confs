@@ -20,7 +20,7 @@ server {
     # enable for Authelia
     #include /config/nginx/authelia-server.conf;
 
-    location ~* ^(\/_matrix|\/_synapse\/client) {
+    location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
         #auth_basic_user_file /config/nginx/.htpasswd;
