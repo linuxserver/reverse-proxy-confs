@@ -23,6 +23,16 @@ jobs:
             exit 1
         fi
 
+    - name: Check Line Endings
+      run: |
+        CRLF_ENDINGS=$(find . -not -type d -exec file "{}" ";" | grep CRLF)
+        CRLF_ENDINGS_COUNT=$(echo "${CRLF_ENDINGS}" | wc -w)
+        if (( CRLF_ENDINGS_COUNT > 0 )); then
+            echo "The following files are not allowed:"
+            echo "${CRLF_ENDINGS}"
+            exit 1
+        fi
+
     - name: Check Version Date Line Exists
       run: |
         # Date regex based on https://www.html5pattern.com/Dates
