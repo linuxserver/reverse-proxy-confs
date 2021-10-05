@@ -25,7 +25,7 @@ jobs:
 
     - name: Check Executable Bit
       run: |
-        EXECUTABLE_BIT=$(find . -not -type d -executable)
+        EXECUTABLE_BIT=$(find . -not -path '*/\.*' -type f -executable)
         EXECUTABLE_BIT_COUNT=$(echo "${EXECUTABLE_BIT}" | wc -w)
         if (( EXECUTABLE_BIT_COUNT > 0 )); then
             echo "The following files have executable permissions (not allowed):"
@@ -35,7 +35,7 @@ jobs:
 
     - name: Check Line Endings
       run: |
-        CRLF_ENDINGS=$(find . -not -type d -exec file "{}" ";" | grep CRLF || true)
+        CRLF_ENDINGS=$(find . -not -path '*/\.*' -type f -exec file "{}" ";" | grep CRLF || true)
         CRLF_ENDINGS_COUNT=$(echo "${CRLF_ENDINGS}" | wc -w)
         if (( CRLF_ENDINGS_COUNT > 0 )); then
             echo "The following files have CRLF line endings (not allowed):"
