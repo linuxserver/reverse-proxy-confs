@@ -18,8 +18,28 @@ jobs:
         NOT_SAMPLES=$(find . -not -path '*/\.*' -type f ! \( -name '*.conf.sample' -o -name 'README.md' -o -name 'LICENSE' \))
         NOT_SAMPLES_COUNT=$(echo "${NOT_SAMPLES}" | wc -w)
         if (( NOT_SAMPLES_COUNT > 0 )); then
-            echo "The following files are not allowed:"
+            echo "The following files have extensions that are not allowed:"
             echo "${NOT_SAMPLES}"
+            exit 1
+        fi
+
+    - name: Check Executable Bit
+      run: |
+        EXECUTABLE_BIT=$(find . -not -path '*/\.*' -type f -executable)
+        EXECUTABLE_BIT_COUNT=$(echo "${EXECUTABLE_BIT}" | wc -w)
+        if (( EXECUTABLE_BIT_COUNT > 0 )); then
+            echo "The following files have executable permissions (not allowed):"
+            echo "${EXECUTABLE_BIT}"
+            exit 1
+        fi
+
+    - name: Check Line Endings
+      run: |
+        CRLF_ENDINGS=$(find . -not -path '*/\.*' -type f -exec file "{}" ";" | grep CRLF || true)
+        CRLF_ENDINGS_COUNT=$(echo "${CRLF_ENDINGS}" | wc -w)
+        if (( CRLF_ENDINGS_COUNT > 0 )); then
+            echo "The following files have CRLF line endings (not allowed):"
+            echo "${CRLF_ENDINGS}"
             exit 1
         fi
 

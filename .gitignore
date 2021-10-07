@@ -2,9 +2,10 @@
 *
 
 # Do NOT ignore allowed files
-!*.conf.sample
+!.editorconfig
 !.gitattributes
 !.github
 !.gitignore
+!*.conf.sample
 !LICENSE
 !README.md
