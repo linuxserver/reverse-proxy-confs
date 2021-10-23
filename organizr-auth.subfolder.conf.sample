@@ -25,7 +25,7 @@ location ~ /auth-([0-9]+) {
 
     proxy_set_header Content-Length "";
 
-    # Do not uncomment the lines below, these are examples for usue in other proxy configs
+    # Do not uncomment the lines below, these are examples for use in other proxy configs
     #auth_request /auth-0;   #=Admin
     #auth_request /auth-1;   #=Co-Admin
     #auth_request /auth-2;   #=Super User
