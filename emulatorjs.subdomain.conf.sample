@@ -2,6 +2,7 @@
 # make sure that your dns has a cname set for emulatorjs
 # In emulatorjs docker arguments, set an env variable for SUBFOLDER=/backend/
 # The backend interface will be accessible at https://emulatorjs.yourdomain.com/backend/
+# Don't forget to enable auth at least for the /backend/ location
 
 server {
     listen 443 ssl;
