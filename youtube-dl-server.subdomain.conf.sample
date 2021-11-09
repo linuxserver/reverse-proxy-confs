@@ -1,4 +1,4 @@
-## Version 2021/05/18
+## Version 2021/11/09
 # make sure that your dns has a cname set for youtube-dl-server and that your youtube-dl-server container is not using a base url
 
 server {
@@ -18,6 +18,10 @@ server {
     #include /config/nginx/authelia-server.conf;
 
     location / {
+        return 301 $scheme://$host/youtube-dl;
+    }
+
+    location ^~ /youtube-dl {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
         #auth_basic_user_file /config/nginx/.htpasswd;
