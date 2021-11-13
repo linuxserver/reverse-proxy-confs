@@ -1,0 +1,56 @@
+## Version 2021/11/11
+# make sure that your dns has a cname set for kerberos and that your kerberos container is not using a base url
+# also make sure to add the environment var: KERBEROSIO_SECURE_SSL: 'true' to your container to handle mixed-content errors (preferred method).
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name kerberos.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    # enable for ldap auth, fill in ldap details in ldap.conf
+    #include /config/nginx/ldap.conf;
+
+    # enable for Authelia
+    #include /config/nginx/authelia-server.conf;
+
+    location / {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable the next two lines for ldap auth
+        #auth_request /auth;
+        #error_page 401 =200 /ldaplogin;
+
+        # enable for Authelia
+        #include /config/nginx/authelia-location.conf;
+
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app kerberos;
+        set $upstream_port 80;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        # Uncomment as an alternative to KERBEROSIO_SECURE_SSL: 'true'
+        #add_header 'Content-Security-Policy' 'upgrade-insecure-requests';
+    }
+
+    # Livestream URL
+    location ~ (/kerberos)?/stream {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app kerberos;
+        set $upstream_port 8889;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        # Uncomment as an alternative to KERBEROSIO_SECURE_SSL: 'true'
+        #add_header 'Content-Security-Policy' 'upgrade-insecure-requests';
+    }
+}
