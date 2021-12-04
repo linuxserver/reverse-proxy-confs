@@ -12,6 +12,9 @@
 #    0 => '192.168.0.1:444', # This line may look different on your setup, don't modify it.
 #    1 => 'nextcloud.your-domain.com',
 #  ),
+#
+# The above configuration works with linuxserver/nextcloud. 
+# if you're using the official nextcloud image set $upstream_port 80 and $upstream_proto http
 
 server {
     listen 443 ssl;
