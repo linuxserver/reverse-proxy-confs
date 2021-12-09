@@ -1,7 +1,8 @@
-## Version 2021/12/08
+## Version 2021/12/09
 # make sure you set the following environment variables in your docker arguments
 # CMD_DOMAIN=hedgedoc.server.com
 # CMD_URL_ADDPORT=false
+# CMD_PROTOCOL_USESSL=true
 
 server {
     listen 443 ssl;
