@@ -1,0 +1,43 @@
+## Version 2021/12/30
+# make sure that your dns has a cname set for shlink and that your shlink container is not using a base url
+# NOTE: While the domain name here is 'shlink', the container it really points to is the separate
+# shlink-web-client container. You'll need to make a docker compose stack with both the shlink container (back end)
+# and the shlink-web-client container (Web UI). This will point it to the URL: shlink.<yourdomain.com> for the Web UI
+# while using the shlink back end for the rest.
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name shlink.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    # enable for ldap auth, fill in ldap details in ldap.conf
+    #include /config/nginx/ldap.conf;
+
+    # enable for Authelia
+    #include /config/nginx/authelia-server.conf;
+
+    location / {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable the next two lines for ldap auth
+        #auth_request /auth;
+        #error_page 401 =200 /ldaplogin;
+
+        # enable for Authelia
+        #include /config/nginx/authelia-location.conf;
+
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app shlink-web-client;
+        set $upstream_port 80;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+}
