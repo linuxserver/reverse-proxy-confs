@@ -5,7 +5,7 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name uptime.*;
+    server_name uptime-kuma.*;
 
     include /config/nginx/ssl.conf;
 
