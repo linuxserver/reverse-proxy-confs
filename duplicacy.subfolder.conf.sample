@@ -1,0 +1,120 @@
+## Version 2022/01/17
+# duplicacy does not require a base url setting.
+
+location /duplicacy {
+    return 301 $scheme://$host/duplicacy/;
+}
+
+location /activate_license {
+    return 307 $scheme://$host/duplicacy/activate_license;
+}
+
+location /delete_repository {
+    return 307 $scheme://$host/duplicacy/delete_repository;
+}
+
+location /get_backup_status {
+    return 301 $scheme://$host/duplicacy/get_backup_status;
+}
+
+location /get_listing_status {
+    return 307 $scheme://$host/duplicacy/get_listing_status;
+}
+
+location /get_patterns {
+    return 307 $scheme://$host/duplicacy/get_patterns;
+}
+
+location /get_restore_status {
+    return 307 $scheme://$host/duplicacy/get_restore_status;
+}
+
+location /get_schedule_status {
+    return 301 $scheme://$host/duplicacy/get_schedule_status;
+}
+
+location /list_files {
+    return 307 $scheme://$host/duplicacy/list_files;
+}
+
+location /list_repositories {
+    return 307 $scheme://$host/duplicacy/list_repositories;
+}
+
+location /list_restore_directory {
+    return 307 $scheme://$host/duplicacy/list_restore_directory;
+}
+
+location /list_revisions {
+    return 307 $scheme://$host/duplicacy/list_revisions;
+}
+
+location /list_local_directory {
+    return 307 $scheme://$host/duplicacy/list_local_directory;
+}
+
+location /save_patterns {
+    return 307 $scheme://$host/duplicacy/save_patterns;
+}
+
+location /save_repository {
+    return 307 $scheme://$host/duplicacy/save_repository;
+}
+
+location /save_settings {
+    return 307 $scheme://$host/duplicacy/save_settings;
+}
+
+location /set_backup_options {
+    return 307 $scheme://$host/duplicacy/set_backup_options;
+}
+
+location /set_backup_report_url {
+    return 307 $scheme://$host/duplicacy/set_backup_report_url;
+}
+
+location /set_cli_stable_version {
+    return 307 $scheme://$host/duplicacy/set_cli_stable_version;
+}
+
+location /start_restore {
+    return 307 $scheme://$host/duplicacy/start_restore;
+}
+
+location /start_stop_backup {
+    return 307 $scheme://$host/duplicacy/start_stop_backup;
+}
+
+location /start_stop_schedule {
+    return 307 $scheme://$host/duplicacy/start_stop_schedule;
+}
+
+location /stop_restore {
+    return 307 $scheme://$host/duplicacy/stop_restore;
+}
+
+location /update_listing_session {
+    return 307 $scheme://$host/duplicacy/update_listing_session;
+}
+
+location ^~ /duplicacy/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /ldaplogin;
+
+    # enable for Authelia, also enable authelia-server.conf in the default site config
+    #include /config/nginx/authelia-location.conf;
+
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+    set $upstream_app duplicacy;
+    set $upstream_port 3875;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    rewrite /duplicacy(.*) $1 break;
+}
