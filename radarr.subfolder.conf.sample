@@ -1,7 +1,11 @@
 ## Version 2021/05/18
 # first go into radarr settings, under "General" set the URL Base to /radarr and restart the radarr container
 
-location ^~ /radarr {
+location /radarr {
+    return 301 $scheme://$host/radarr/;
+}
+
+location ^~ /radarr/ {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
