@@ -1,4 +1,4 @@
-## Version 2021/05/18
+## Version 2022/02/08
 # make sure that your dns has a cname set for bitwarden and that your bitwarden container is not using a base url
 # make sure your bitwarden container is named "bitwarden"
 # set the environment variable WEBSOCKET_ENABLED=true on your bitwarden container
@@ -40,7 +40,7 @@ server {
 
     }
 
-    location /admin {
+    location ~ (/bitwarden)?/admin {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
         #auth_basic_user_file /config/nginx/.htpasswd;
@@ -61,7 +61,7 @@ server {
 
     }
 
-    location /notifications/hub {
+    location ~ (/bitwarden)?/notifications/hub {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app bitwarden;
@@ -71,7 +71,7 @@ server {
 
     }
 
-    location /notifications/hub/negotiate {
+    location ~ (/bitwarden)?/notifications/hub/negotiate {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app bitwarden;
