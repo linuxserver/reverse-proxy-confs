@@ -34,7 +34,6 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-
         set $upstream_app cloudbeaver;
         set $upstream_port 8978;
         set $upstream_proto http;
