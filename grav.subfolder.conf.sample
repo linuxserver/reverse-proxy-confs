@@ -1,0 +1,23 @@
+## Version 2022/03/09
+# In order to use this location block you need to edit the default file one folder up and comment out the / location
+
+location / {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
+    #auth_request /auth;
+    #error_page 401 =200 /ldaplogin;
+
+    # enable for Authelia, also enable authelia-server.conf in the default site config
+    #include /config/nginx/authelia-location.conf;
+
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+    set $upstream_app grav;
+    set $upstream_port 80;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+}
