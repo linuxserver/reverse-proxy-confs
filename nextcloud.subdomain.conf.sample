@@ -33,4 +33,21 @@ server {
 
         proxy_max_temp_file_size 2048m;
     }
+    
+    # The rules in this block are an adaptation of the rules
+    # in the Nextcloud `.htaccess` that concern `/.well-known`.
+    location /.well-known/carddav {
+        return 301 $scheme://$host/remote.php/dav;
+    }
+
+    # The rules in this block are an adaptation of the rules
+    # in the Nextcloud `.htaccess` that concern `/.well-known`.
+    location /.well-known/caldav {
+        return 301 $scheme://$host/remote.php/dav;
+    }
+
+    # Let Nextcloud's API for `/.well-known` URIs handle all other
+    # requests by passing them to the front-end controller.
+    rewrite ^/.well-known/webfinger /index.php$uri redirect;
+    rewrite ^/.well-known/nodeinfo /index.php$uri redirect;
 }
