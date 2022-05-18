@@ -39,10 +39,6 @@ server {
     }
     
     location /api {
-        # Needed as a separate endpoint if using Authelia and a
-        # companion application, they cannot work due to the endpoint.
-        # If you do not use a companion app, comment out this API Entry.
-        
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app grocy;
