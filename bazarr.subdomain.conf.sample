@@ -35,6 +35,9 @@ server {
         set $upstream_port 6767;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+        
+        # enable for Authentik
+        #include /config/nginx/authentik.conf;
 
     }
 
@@ -47,4 +50,7 @@ server {
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     }
+    
+    # enable for Authentik
+    #include /config/nginx/authentik_location.conf;
 }
