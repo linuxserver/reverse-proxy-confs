@@ -18,8 +18,9 @@ jobs:
           NOT_SAMPLES=$(find . -not -path '*/\.*' -type f ! \( -name '*.conf.sample' -o -name 'README.md' -o -name 'LICENSE' \))
           NOT_SAMPLES_COUNT=$(echo "${NOT_SAMPLES}" | wc -w)
           if (( NOT_SAMPLES_COUNT > 0 )); then
-              echo "The following files have extensions that are not allowed:"
-              echo "${NOT_SAMPLES}"
+              for i in ${NOT_SAMPLES}; do
+                echo "::error file=${i},line=1,title=Disallowed filenames::This file extension is not allowed, only .sample is allowed"
+              done
               exit 1
           fi
 
