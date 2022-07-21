@@ -29,8 +29,9 @@ jobs:
           EXECUTABLE_BIT=$(find . -not -path '*/\.*' -type f -executable)
           EXECUTABLE_BIT_COUNT=$(echo "${EXECUTABLE_BIT}" | wc -w)
           if (( EXECUTABLE_BIT_COUNT > 0 )); then
-              echo "The following files have executable permissions (not allowed):"
-              echo "${EXECUTABLE_BIT}"
+              for i in ${EXECUTABLE_BIT}; do
+                echo "::error file=${i},line=1,title=Executable Bit::This file is set as exectutable, which is not allowed"
+              done
               exit 1
           fi
 
