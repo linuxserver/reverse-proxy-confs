@@ -40,8 +40,9 @@ jobs:
           CRLF_ENDINGS=$(find . -not -path '*/\.*' -type f -exec file "{}" ";" | grep CRLF || true)
           CRLF_ENDINGS_COUNT=$(echo "${CRLF_ENDINGS}" | wc -w)
           if (( CRLF_ENDINGS_COUNT > 0 )); then
-              echo "The following files have CRLF line endings (not allowed):"
-              echo "${CRLF_ENDINGS}"
+              for i in ${CRLF_ENDINGS}; do
+                echo "::error file=${i},line=1,title=Line Endings::This file has CRLF (Windows) line endings, which is not allowed"
+              done
               exit 1
           fi
 
