@@ -20,7 +20,7 @@
 #      - MYSQL_USER=wordpress_db_user
 #      - MYSQL_PASSWORD=wordpress_db_password # CHANGE THIS
 #    volumes:
-#      - ./db-data:/var/lib/mysql
+#      - ./db-data:/config
 #    restart: unless-stopped
 #
 #  wordpress:
