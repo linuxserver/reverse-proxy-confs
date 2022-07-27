@@ -1,0 +1,83 @@
+## Version 2022/07/27
+# This config makes use of the wordpress-fpm container to proxy Wordpress using FastCGI. 
+# It therefore doesn't require apache which is inside the normal wordpress container.
+# Add the following to your swag's docker-compose.yml to use this making sure you change
+# the URLs and set proper passwords.
+#
+# More details on installation here: https://medium.com/@foxy82.github/setup-swag-and-wordpress-fpm-in-docker-e16e8028ad17
+#
+# version: '3.7'
+# services:
+#   ....
+#  mariadb:
+#    image: lscr.io/linuxserver/mariadb:latest
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD # CHANGE THIS
+#      - TZ=Europe/London
+#      - MYSQL_DATABASE=wordpress
+#      - MYSQL_USER=wordpress_db_user
+#      - MYSQL_PASSWORD=wordpress_db_password # CHANGE THIS
+#    volumes:
+#      - ./db-data:/var/lib/mysql
+#    restart: unless-stopped
+#
+#  wordpress:
+#    image: wordpress:php8.1-fpm-alpine
+#    volumes:
+#        - ./wordpress:/var/www/html
+#    environment:
+#        WORDPRESS_DB_NAME: wordpress
+#        WORDPRESS_DB_HOST: mariadb
+#        WORDPRESS_DB_USER: wordpress_db_user
+#        WORDPRESS_DB_PASSWORD: wordpress_db_password
+#        WORDPRESS_CONFIG_EXTRA: |
+#          define('WP_HOME','https://wordpress.example.com');
+#          define('WP_SITEURL','https://wordpress.example.com');
+#    restart: always
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name wordpress.*;
+
+    include /config/nginx/ssl.conf;
+    
+    root /var/www/html;
+    index index.php;    
+
+    client_max_body_size 0;
+
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable for ldap auth, fill in ldap details in ldap.conf
+    #include /config/nginx/ldap.conf;
+    #auth_request /auth;
+    #error_page 401 =200 /ldaplogin;
+
+    # enable for Authelia
+    #include /config/nginx/authelia-server.conf;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+    
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        # This is the name of the wordpress container from the docker-compose.yml
+        fastcgi_pass wordpress:9000;
+        fastcgi_index index.php;
+        include /etc/nginx/fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+    }
+    
+    # Use NGINX to serve static content as it is faster.
+    location ~* ^.+\.(pdf|ogg|ogv|svg|svgz|eot|otf|woff|mp4|ttf|rss|atom|jpg|jpeg|gif|png|ico|zip|tgz|gz|rar|bz2|doc|xls|exe|ppt|tar|mid|midi|wav|bmp|rtf)$ {
+        expires max;
+    }    
+}
