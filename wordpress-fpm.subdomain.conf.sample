@@ -8,34 +8,37 @@
 #
 # version: '3.7'
 # services:
-#   ....
-#  mariadb:
-#    image: lscr.io/linuxserver/mariadb:latest
-#    environment:
-#      - PUID=1000
-#      - PGID=1000
-#      - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD # CHANGE THIS
-#      - TZ=Europe/London
-#      - MYSQL_DATABASE=wordpress
-#      - MYSQL_USER=wordpress_db_user
-#      - MYSQL_PASSWORD=wordpress_db_password # CHANGE THIS
-#    volumes:
-#      - ./db-data:/config
-#    restart: unless-stopped
+#   swag:
+#     ....
+#     volumes:
+#       - ./wordpress:/var/html/www # Mount the files from the Wordpress container in the Swag container
+#   mariadb:
+#     image: lscr.io/linuxserver/mariadb:latest
+#     environment:
+#       - PUID=1000
+#       - PGID=1000
+#       - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD # CHANGE THIS
+#       - TZ=Europe/London
+#       - MYSQL_DATABASE=wordpress
+#       - MYSQL_USER=wordpress_db_user
+#       - MYSQL_PASSWORD=wordpress_db_password # CHANGE THIS
+#     volumes:
+#       - ./db-data:/config
+#     restart: unless-stopped
 #
-#  wordpress:
-#    image: wordpress:php8.1-fpm-alpine
-#    volumes:
-#        - ./wordpress:/var/www/html
-#    environment:
-#        WORDPRESS_DB_NAME: wordpress
-#        WORDPRESS_DB_HOST: mariadb
-#        WORDPRESS_DB_USER: wordpress_db_user
-#        WORDPRESS_DB_PASSWORD: wordpress_db_password
-#        WORDPRESS_CONFIG_EXTRA: |
-#          define('WP_HOME','https://wordpress.example.com');
-#          define('WP_SITEURL','https://wordpress.example.com');
-#    restart: always
+#   wordpress:
+#     image: wordpress:php8.1-fpm-alpine
+#     volumes:
+#         - ./wordpress:/var/www/html
+#     environment:
+#         WORDPRESS_DB_NAME: wordpress
+#         WORDPRESS_DB_HOST: mariadb
+#         WORDPRESS_DB_USER: wordpress_db_user
+#         WORDPRESS_DB_PASSWORD: wordpress_db_password
+#         WORDPRESS_CONFIG_EXTRA: |
+#           define('WP_HOME','https://wordpress.example.com');
+#           define('WP_SITEURL','https://wordpress.example.com');
+#     restart: always
 
 server {
     listen 443 ssl;
