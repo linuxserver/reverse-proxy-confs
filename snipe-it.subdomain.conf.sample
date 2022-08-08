@@ -38,4 +38,14 @@ server {
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 		
     }
+       
+      location ~ (/snipe-it)?/api {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app snipe-it;
+        set $upstream_port 443;
+        set $upstream_proto https;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    
+    }
 }
