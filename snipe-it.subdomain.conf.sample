@@ -1,4 +1,7 @@
 ## Version 2022/08/08
+# make sure that your dns has a cname set for snipe-it, that your snipe-it container is named snipe-it ,
+# and you have set the correct APP_URL= for the conatainer to match the DNS entry
+
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
