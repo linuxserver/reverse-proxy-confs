@@ -1,11 +1,11 @@
 ## Version 2021/05/18
-# make sure that your dns has a cname set for openhab and that your openhab container is named openhab
+# make sure that your dns has a cname set for firefox and that your firefox container is not using a base url
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name openhab.*;
+    server_name firefox.*;
 
     include /config/nginx/ssl.conf;
 
@@ -24,16 +24,17 @@ server {
 
         # enable the next two lines for ldap auth
         #auth_request /auth;
-        #error_page 401 =200 /login;
+        #error_page 401 =200 /ldaplogin;
 
         # enable for Authelia
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app openhab;
-        set $upstream_port 8080;
+        set $upstream_app firefox;
+        set $upstream_port 3000;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 }
