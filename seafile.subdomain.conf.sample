@@ -3,7 +3,7 @@
 # Requires that the seafile container uses the following env variables:
 #     SEAFILE_SERVER_LETSENCRYPT=true
 #     SEAFILE_SERVER_HOSTNAME=seafile.yourdomain.com
-# Restart or create the seafile container after enabling this subdomain and restarting the letsencrypt contianer
+# Restart or create the seafile container after enabling this subdomain and restarting the letsencrypt container
 
 server {
     listen 443 ssl;
