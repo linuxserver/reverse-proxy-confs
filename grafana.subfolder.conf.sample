@@ -1,4 +1,4 @@
-## Version 2021/05/18
+## Version 2022/09/08
 # grafana requires environment variables set thus:
 #    environment:
 #      - "GF_SERVER_ROOT_URL=https://my.domain.com/grafana"
@@ -9,11 +9,10 @@ location ^~ /grafana/ {
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
 
-    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
-    #auth_request /auth;
-    #error_page 401 =200 /ldaplogin;
+    # enable for ldap auth (requires ldap-server.conf in the server block)
+    #include /config/nginx/ldap-location.conf;
 
-    # enable for Authelia, also enable authelia-server.conf in the default site config
+    # enable for Authelia (requires authelia-server.conf in the server block)
     #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
@@ -22,10 +21,10 @@ location ^~ /grafana/ {
     set $upstream_port 3000;
     set $upstream_proto http;
     proxy_pass http://$upstream_grafana:$upstream_port ;
-    
+
     # Clear Authorization Header if you are using http auth and normal Grafana auth
     #proxy_set_header    Authorization       "";
-    
+
     rewrite ^/grafana/(.*)$ /$1 break;
 
 }

@@ -1,4 +1,4 @@
-## Version 2021/07/08
+## Version 2022/09/08
 # Works with this youtube-dl Fork: https://github.com/nbr23/youtube-dl-server
 
 location /youtube-dl {
@@ -10,9 +10,11 @@ location ^~ /youtube-dl/ {
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
 
-    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
-    #auth_request /auth;
-    #error_page 401 =200 /login;
+    # enable for ldap auth (requires ldap-server.conf in the server block)
+    #include /config/nginx/ldap-location.conf;
+
+    # enable for Authelia (requires authelia-server.conf in the server block)
+    #include /config/nginx/authelia-location.conf;
 
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;

@@ -1,4 +1,4 @@
-## Version 2021/05/18
+## Version 2022/09/08
 # make sure that your dns has a cname set for calibre-web
 
 server {
@@ -11,10 +11,10 @@ server {
 
     client_max_body_size 0;
 
-    # enable for ldap auth, fill in ldap details in ldap.conf
-    #include /config/nginx/ldap.conf;
+    # enable for ldap auth (requires ldap-location.conf in the location block)
+    #include /config/nginx/ldap-server.conf;
 
-    # enable for Authelia
+    # enable for Authelia (requires authelia-location.conf in the location block)
     #include /config/nginx/authelia-server.conf;
 
     location / {
@@ -22,15 +22,14 @@ server {
         #auth_basic "Restricted";
         #auth_basic_user_file /config/nginx/.htpasswd;
 
-        # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
-        #auth_request /auth;
-        #error_page 401 =200 /ldaplogin;
+        # enable for ldap auth (requires ldap-server.conf in the server block)
+        #include /config/nginx/ldap-location.conf;
 
-        # enable for Authelia
-        # To use Authelia to log in to Calibre-Web, make sure "Reverse Proxy Login" is 
+        # enable for Authelia (requires authelia-server.conf in the server block)
+        #include /config/nginx/authelia-location.conf;
+        # To use Authelia to log in to Calibre-Web, make sure "Reverse Proxy Login" is
         # enabled, "Reverse Proxy Header Name" is set to Remote-User, and each Authelia
         # user also has a corresponding user manually created in Calibre-Web.
-        #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
@@ -41,10 +40,10 @@ server {
 
         proxy_set_header X-Scheme $scheme;
     }
-	
+
 	# OPDS feed for eBook reader apps
 	# Even if you use Authelia, the OPDS feed requires a password to be set for
-	# the user directly in Calibre-Web, as eBook reader apps don't support 
+	# the user directly in Calibre-Web, as eBook reader apps don't support
 	# form-based logins, only HTTP Basic auth.
     location /opds/ {
         include /config/nginx/proxy.conf;

@@ -1,4 +1,4 @@
-## Version 2021/05/18
+## Version 2022/09/08
 # REMOVE THIS LINE BEFORE SUBMITTING: The structure of the file (all of the existing lines) should be kept as close as possible to this template.
 # REMOVE THIS LINE BEFORE SUBMITTING: Look through this file for <tags> and replace them. Review other sample files to see how things are done.
 # REMOVE THIS LINE BEFORE SUBMITTING: The comment lines at the top of the file (below this line) should explain any prerequisites for using the proxy such as DNS or app settings.
@@ -14,10 +14,10 @@ server {
 
     client_max_body_size 0;
 
-    # enable for ldap auth, fill in ldap details in ldap.conf
-    #include /config/nginx/ldap.conf;
+    # enable for ldap auth (requires ldap-location.conf in the location block)
+    #include /config/nginx/ldap-server.conf;
 
-    # enable for Authelia
+    # enable for Authelia (requires authelia-location.conf in the location block)
     #include /config/nginx/authelia-server.conf;
 
     location / {
@@ -25,11 +25,10 @@ server {
         #auth_basic "Restricted";
         #auth_basic_user_file /config/nginx/.htpasswd;
 
-        # enable the next two lines for ldap auth
-        #auth_request /auth;
-        #error_page 401 =200 /ldaplogin;
+        # enable for ldap auth (requires ldap-server.conf in the server block)
+        #include /config/nginx/ldap-location.conf;
 
-        # enable for Authelia
+        # enable for Authelia (requires authelia-server.conf in the server block)
         #include /config/nginx/authelia-location.conf;
 
         include /config/nginx/proxy.conf;
