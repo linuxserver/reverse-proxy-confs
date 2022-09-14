@@ -1,0 +1,28 @@
+## Version 2022/13/09
+# make sure that your dns has a cname set for ntfy    
+# if ntfy is running in bridge mode and the container is named "ntfy", the below config should work as is
+# if not, replace the line "set $upstream_app ntfy;" with "set $upstream_app <containername>;"
+# or "set $upstream_app <HOSTIP>;" for host mode, HOSTIP being the IP address of ntfy 
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name ntfy.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    location / {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app ntfy;
+        set $upstream_port 80;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_set_header Range $http_range;
+        proxy_set_header If-Range $http_if_range;
+    }
+}
