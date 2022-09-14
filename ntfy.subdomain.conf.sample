@@ -1,4 +1,4 @@
-## Version 2022/13/09
+## Version 2022/09/13
 # make sure that your dns has a cname set for ntfy    
 # if ntfy is running in bridge mode and the container is named "ntfy", the below config should work as is
 # if not, replace the line "set $upstream_app ntfy;" with "set $upstream_app <containername>;"
