@@ -1,0 +1,38 @@
+## Version 2022/10/01
+# Before activating this config you need to do two things:
+# - enable a setting in the tvheadend web interface 
+# - change your RUN_OPTS for tvheadend. 
+#
+# You need to enable the setting "PROXY protocol & X-Forwarded For"
+# in the tvheadend web interface. This setting can be found in 
+# "Configuration" -> "General" -> "Base" in the "HTTP Server Settings" Group. 
+# You need to set the View level to Expert to see it. Once activated, you may need to 
+# restart your tvheadend container. When testing this config, please be reminded 
+# that the tvheadend docker can take a very long time to start (>10mins). 
+# 
+# For the subfolder to work you also need to edit your tvheadend docker compose / cli config 
+# and set http_root in RUN_OPTS to tvheadend, e.g. in docker compose:
+# - RUN_OPTS= --http_root /tvheadend
+
+location /tvheadend {
+    return 301 $scheme://$host/tvheadend/;
+}
+
+location /tvheadend/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable for ldap auth (requires ldap-server.conf in the server block)
+    #include /config/nginx/ldap-location.conf;
+
+    # enable for Authelia (requires authelia-server.conf in the server block)
+    #include /config/nginx/authelia-location.conf;
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+
+    set $upstream_app tvheadend;
+    set $upstream_port 9981;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+}
