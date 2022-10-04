@@ -11,6 +11,12 @@ They are grouped in two:
 1. `subfolder` these will allow accessing services at https://yourdomain.com/servicename
 2. `subdomain` these will allow accessing services at https://servicename.yourdomain.com
 
+It is recommended that users deploy subdomain reverse proxying and not subfolder.
+
+Whilst subfolder reverse proxying appears easier to implement the inherent nature of this technique requires that each application developer make accommodations to support it. This is not always the case and it is common to see applications with no or partial support resulting in an unreliable experience.
+
+Conversely subdomain reverse proxying does not require special accommodation by application developers and will invariably work (or can be made to work) seamlessly without upstream changes.
+
 ## To enable the reverse proxy configs:
 
 ### Configure your default site config
