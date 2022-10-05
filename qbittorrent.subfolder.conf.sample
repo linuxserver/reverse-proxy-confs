@@ -98,3 +98,17 @@ location ^~ /qbittorrent/sync {
     proxy_set_header Referer '';
     proxy_set_header Host $upstream_app:$upstream_port;
 }
+
+location ^~ /qbittorrent/scripts {
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+    set $upstream_app qbittorrent;
+    set $upstream_port 8080;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    rewrite /qbittorrent(.*) $1 break;
+
+    proxy_set_header Referer '';
+    proxy_set_header Host $upstream_app:$upstream_port;
+}
