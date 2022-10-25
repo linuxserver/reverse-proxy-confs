@@ -1,4 +1,4 @@
-## Version 2022/09/08
+## Version 2022/10/25
 # qbittorrent does not require a base url setting
 
 location /qbittorrent {
@@ -27,6 +27,7 @@ location ^~ /qbittorrent/ {
 
     proxy_set_header Referer '';
     proxy_set_header Host $upstream_app:$upstream_port;
+    proxy_set_header X-Forwarded-Host $host;
 }
 
 location ^~ /qbittorrent/api {
@@ -41,6 +42,7 @@ location ^~ /qbittorrent/api {
 
     proxy_set_header Referer '';
     proxy_set_header Host $upstream_app:$upstream_port;
+    proxy_set_header X-Forwarded-Host $host;
 }
 
 location ^~ /qbittorrent/command {
@@ -55,6 +57,7 @@ location ^~ /qbittorrent/command {
 
     proxy_set_header Referer '';
     proxy_set_header Host $upstream_app:$upstream_port;
+    proxy_set_header X-Forwarded-Host $host;
 }
 
 location ^~ /qbittorrent/query {
@@ -69,6 +72,7 @@ location ^~ /qbittorrent/query {
 
     proxy_set_header Referer '';
     proxy_set_header Host $upstream_app:$upstream_port;
+    proxy_set_header X-Forwarded-Host $host;
 }
 
 location ^~ /qbittorrent/login {
@@ -83,6 +87,7 @@ location ^~ /qbittorrent/login {
 
     proxy_set_header Referer '';
     proxy_set_header Host $upstream_app:$upstream_port;
+    proxy_set_header X-Forwarded-Host $host;
 }
 
 location ^~ /qbittorrent/sync {
@@ -97,6 +102,7 @@ location ^~ /qbittorrent/sync {
 
     proxy_set_header Referer '';
     proxy_set_header Host $upstream_app:$upstream_port;
+    proxy_set_header X-Forwarded-Host $host;
 }
 
 location ^~ /qbittorrent/scripts {
@@ -111,4 +117,5 @@ location ^~ /qbittorrent/scripts {
 
     proxy_set_header Referer '';
     proxy_set_header Host $upstream_app:$upstream_port;
+    proxy_set_header X-Forwarded-Host $host;
 }
