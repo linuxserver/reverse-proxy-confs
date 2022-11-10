@@ -1,6 +1,9 @@
 ## Version 2022/11/10
 # make sure that your dns has a cname set for mastodon
 # make sure you set `WEB_DOMAIN=mastodon.example.com` env var for the mastodon container
+# if you set `LOCAL_DOMAIN=example.com` (without the mastodon subdomain), then don't forget to add
+# the location block for redirecting `/.well-known/webfinger` into your main server block for the WEB_DOMAIN
+# See the upstream docs for more info: https://docs.joinmastodon.org/admin/config/#basic
 
 server {
     listen 443 ssl;
