@@ -1,0 +1,46 @@
+## Version 2022/11/25
+# This is a configuration for IBRACORP’s setup of Pterodactyl
+# It assumes you have the panel configured on port 8001
+# It assumes you have the node configured on port 8181
+# This will enable a proper connection to Cloudflare
+# However the SSL security of the connection is not fully granted
+# This is likely SSL must be enabled for both the panel and then node
+# from the side of pterodactyl to fully support this.
+
+#pterodactyl panel
+server {
+        listen 80;
+        server_name panel.*;
+        return 301 https://panel.yourdomain.com$request_uri;
+        }
+server {
+        listen 443 ssl http2;
+        server_name  panel.*;
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        include /config/nginx/ssl.conf;
+        add_header Strict-Transport-Security "max-age=15768000; includeSubDomains; preload;";
+
+        location / {
+                include /config/nginx/proxy.conf;
+                proxy_pass http://your-unraid-lan-ip:8001;
+                }
+        }
+
+#pterodactyl node
+server {
+        listen 80;
+        server_name node.*;
+        return 301 https://node.yourdomain.com$request_uri;
+        }
+server {
+        listen 443 ssl http2;
+        server_name  node.*;
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        include /config/nginx/ssl.conf;
+        add_header Strict-Transport-Security "max-age=15768000; includeSubDomains; preload;";
+
+        location / {
+                include /config/nginx/proxy.conf;
+                proxy_pass http://your-unraid-lan-ip:8181;
+                }
+        }
