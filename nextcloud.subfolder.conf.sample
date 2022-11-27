@@ -3,12 +3,12 @@
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
 #  'trusted_proxies' => ['swag'],
 #  'overwritewebroot' => '/nextcloud',
-#  'overwrite.cli.url' => 'https://your-domain.com/nextcloud',
+#  'overwrite.cli.url' => 'https://example.com/nextcloud',
 #
 # Also don't forget to add your domain name to the trusted domains array. It should look somewhat like this:
 #  array (
 #    0 => '192.168.0.1:444', # This line may look different on your setup, don't modify it.
-#    1 => 'your-domain.com',
+#    1 => 'example.com',
 #  ),
 
 location ^~ /.well-known {

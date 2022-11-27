@@ -3,14 +3,14 @@
 # assuming this container is called "swag", edit your nextcloud container's config
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
 #  'trusted_proxies' => ['swag'],
-#  'overwrite.cli.url' => 'https://nextcloud.your-domain.com/',
-#  'overwritehost' => 'nextcloud.your-domain.com',
+#  'overwrite.cli.url' => 'https://nextcloud.example.com/',
+#  'overwritehost' => 'nextcloud.example.com',
 #  'overwriteprotocol' => 'https',
 #
 # Also don't forget to add your domain name to the trusted domains array. It should look somewhat like this:
 #  array (
 #    0 => '192.168.0.1:444', # This line may look different on your setup, don't modify it.
-#    1 => 'nextcloud.your-domain.com',
+#    1 => 'nextcloud.example.com',
 #  ),
 
 server {
