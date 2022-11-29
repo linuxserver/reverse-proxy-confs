@@ -1,4 +1,5 @@
 ## Version 2022/07/29
+# Make sure that your DNS has a CNAME record for "mattermost" and your Mattermost container is using the same subdomain
 # To learn how to deploy Mattermost via Docker, visit https://docs.mattermost.com/install/install-docker.html
 
 server {
