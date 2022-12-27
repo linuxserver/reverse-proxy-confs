@@ -1,0 +1,36 @@
+# Based on the issue template
+name: Bug report
+description: Create a report to help us improve. NOT TEMPLATE REQUESTS
+title: "[BUG] <title>"
+labels: [Bug]
+body:
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search to see if an issue already exists for the bug you encountered.
+      options:
+        - label: I have searched the existing issues
+          required: true
+  - type: textarea
+    attributes:
+      label: Current Behavior
+      description: Tell us what happens instead of the expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: Tell us what should happen.
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Steps To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. In this environment...
+        2. With this config...
+        3. Run '...'
+        4. See error...
+    validations:
+      required: true

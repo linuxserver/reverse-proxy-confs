@@ -1,0 +1,12 @@
+name: Mark stale issues and pull requests
+on:
+  schedule:
+    - cron: "30 1 * * *"
+
+jobs:
+  stale:
+    permissions:
+      issues: write
+      pull-requests: write
+    uses: linuxserver/github-workflows/.github/workflows/issues-cron.yml@v1
+    secrets: inherit
