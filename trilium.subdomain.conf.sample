@@ -1,5 +1,5 @@
 ## Version 2022/09/08
-# make sure that your dns has a cname set for <container_name> and that your <container_name> container is not using a base url
+# make sure that your dns has a cname set for trilium and that your trilium container is not using a base url
 
 server {
     listen 443 ssl;
