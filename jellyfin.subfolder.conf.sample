@@ -3,8 +3,7 @@
 # if jellyfin is running in bridge mode and the container is named "jellyfin", the below config should work as is
 # if not, replace the line "set $upstream_app jellyfin;" with "set $upstream_app <containername>;"
 # or "set $upstream_app <HOSTIP>;" for host mode, HOSTIP being the IP address of jellyfin
-# in jellyfin settings, under "Advanced/Networking" change the public https port to 443, leave the local ports as is, set the base url to "/jellyfin",
-# and set the "Secure connection mode" to "Handled by reverse proxy"
+# in jellyfin settings, under "Advanced/Networking" change the public https port to 443, leave the local ports as is, set the base url to "/jellyfin"
 
 location /jellyfin {
     return 301 $scheme://$host/jellyfin/;
