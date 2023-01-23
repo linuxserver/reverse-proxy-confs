@@ -1,5 +1,7 @@
 ## Version 2021/05/18
 # make sure that your dns has a cname set for netbox and that your netbox container is not using a base url
+# make sure your netbox instance is using ALLOWED_HOST=netbox.domain.com (replace with your own domain)
+# or edit both the environment variable and this conf file if using a different subdomain
 
 server {
     listen 443 ssl;
