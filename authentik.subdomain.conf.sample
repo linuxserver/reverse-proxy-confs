@@ -1,0 +1,21 @@
+## Version 2023/02/01
+# make sure that your dns has a cname set for authentik and that your authentik container is not using a base url
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name authentik.*;
+
+    include /config/nginx/ssl.conf;
+    client_max_body_size 0;
+    location / {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        proxy_set_header Host $host;
+        proxy_set_header Connection $connection_upgrade_keepalive;
+        set $upstream_app authentik-server;
+        set $upstream_port 9443;
+        set $upstream_proto https;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+}
