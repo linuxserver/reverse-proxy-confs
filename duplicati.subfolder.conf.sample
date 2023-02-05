@@ -1,5 +1,7 @@
-## Version 2022/09/08
-# duplicati does not require a base url setting. DUPLICATI AUTH WILL NOT WORK WITH THIS CONFIG, use the auth options below
+## Version 2023/02/05
+# make sure that your duplicati container is named duplicati
+# duplicati does not require a base url setting
+# DUPLICATI AUTH WILL NOT WORK WITH THIS CONFIG, use the auth options below
 
 location /duplicati {
     return 301 $scheme://$host/duplicati/;
@@ -15,6 +17,9 @@ location ^~ /duplicati/ {
 
     # enable for Authelia (requires authelia-server.conf in the server block)
     #include /config/nginx/authelia-location.conf;
+
+    # enable for Authentik (requires authentik-server.conf in the server block)
+    #include /config/nginx/authentik-location.conf;
 
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;

@@ -1,4 +1,6 @@
-## Version 2022/10/28
+## Version 2023/02/05
+# make sure that your nextcloud container is named nextcloud
+# make sure that nextcloud is set to work with the base url /nextcloud/
 # Assuming this container is called "swag", edit your nextcloud container's config
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
 #  'trusted_proxies' => ['swag'],
@@ -12,16 +14,16 @@
 #  ),
 
 location ^~ /.well-known {
-        # The rules in this block are an adaptation of the rules
-        # in the Nextcloud `.htaccess` that concern `/.well-known`.
+    # The rules in this block are an adaptation of the rules
+    # in the Nextcloud `.htaccess` that concern `/.well-known`.
 
-        location = /.well-known/carddav { return 301 /nextcloud/remote.php/dav/; }
-        location = /.well-known/caldav  { return 301 /nextcloud/remote.php/dav/; }
+    location = /.well-known/carddav { return 301 /nextcloud/remote.php/dav/; }
+    location = /.well-known/caldav  { return 301 /nextcloud/remote.php/dav/; }
 
-        # Let Nextcloud's API for `/.well-known` URIs handle all other
-        # requests by passing them to the front-end controller.
-        return 301 /nextcloud/index.php$request_uri;
-    }
+    # Let Nextcloud's API for `/.well-known` URIs handle all other
+    # requests by passing them to the front-end controller.
+    return 301 /nextcloud/index.php$request_uri;
+}
 
 location ^~ /nextcloud/ {
     include /config/nginx/proxy.conf;

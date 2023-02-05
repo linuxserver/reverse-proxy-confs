@@ -1,4 +1,5 @@
-## Version 2022/10/28
+## Version 2023/02/05
+# make sure that your nextcloud container is named nextcloud
 # make sure that your dns has a cname set for nextcloud
 # assuming this container is called "swag", edit your nextcloud container's config
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":

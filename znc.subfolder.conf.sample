@@ -1,4 +1,6 @@
-## Version 2022/09/08
+## Version 2023/02/05
+# make sure that your znc container is named znc
+# make sure that znc is set to work with the base url /znc/
 # edit /config/configs/znc.conf and add URIPrefix = /znc/ in the line above </Listener> and restart the znc container
 
 location /znc {
@@ -11,6 +13,9 @@ location /znc {
 
     # enable for Authelia (requires authelia-server.conf in the server block)
     #include /config/nginx/authelia-location.conf;
+
+    # enable for Authentik (requires authentik-server.conf in the server block)
+    #include /config/nginx/authentik-location.conf;
 
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;
