@@ -1,0 +1,40 @@
+## Version 2023/02/05
+# make sure that your theme-park container is named theme-park
+# make sure that theme-park is set to work with the base url /theme-park/
+# If you want to change the urlbase update the TP_URLBASE env on the theme-park container.
+
+location /themepark {
+    return 301 $scheme://$host/themepark/;
+}
+
+location ^~ /themepark/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable for ldap auth (requires ldap-server.conf in the server block)
+    #include /config/nginx/ldap-location.conf;
+
+    # enable for Authelia (requires authelia-server.conf in the server block)
+    #include /config/nginx/authelia-location.conf;
+
+    # enable for Authentik (requires authentik-server.conf in the server block)
+    #include /config/nginx/authentik-location.conf;
+
+    # If you don't want to cache the CSS files you can uncomment the lines below.
+    # add_header Last-Modified $date_gmt;
+    # add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+    # if_modified_since off;
+    # expires -1;
+    # etag off;
+
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+    sub_filter_types *;
+    sub_filter 'url("/css/' 'url("/themepark/css/';
+    sub_filter_once off;
+    set $upstream_app theme-park;
+    set $upstream_port 80;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+}

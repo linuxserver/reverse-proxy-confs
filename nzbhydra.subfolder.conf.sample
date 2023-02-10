@@ -1,4 +1,6 @@
-## Version 2021/05/18
+## Version 2023/02/05
+# make sure that your nzbhydra container is named nzbhydra2
+# make sure that nzbhydra is set to work with the base url /nzbhydra/
 # first go into nzbhydra settings, set the URL Base to /nzbhydra, then disable CSRF protection on the same page and restart the nzbhydra container
 
 location ^~ /nzbhydra {
@@ -6,12 +8,14 @@ location ^~ /nzbhydra {
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
 
-    # enable the next two lines for ldap auth, also customize and enable ldap.conf in the default conf
-    #auth_request /auth;
-    #error_page 401 =200 /ldaplogin;
+    # enable for ldap auth (requires ldap-server.conf in the server block)
+    #include /config/nginx/ldap-location.conf;
 
-    # enable for Authelia, also enable authelia-server.conf in the default site config
+    # enable for Authelia (requires authelia-server.conf in the server block)
     #include /config/nginx/authelia-location.conf;
+
+    # enable for Authentik (requires authentik-server.conf in the server block)
+    #include /config/nginx/authentik-location.conf;
 
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;

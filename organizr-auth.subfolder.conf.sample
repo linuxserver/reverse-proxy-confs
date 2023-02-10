@@ -1,4 +1,5 @@
-## Version 2021/10/05
+## Version 2023/02/05
+# make sure that your organizr container is named organizr
 # To use config this with subfolder proxies:
 #   Rename this file to organizr-auth.subfolder.conf
 #   Add one of the auth_request lines from the comments below

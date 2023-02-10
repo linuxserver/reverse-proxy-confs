@@ -1,4 +1,5 @@
-## Version 2021/11/03
+## Version 2023/02/05
+# make sure that your emulatorjs container is named emulatorjs
 # make sure that your dns has a cname set for emulatorjs
 # In emulatorjs docker arguments, set an env variable for SUBFOLDER=/backend/
 # The backend interface will be accessible at https://emulatorjs.yourdomain.com/backend/
@@ -13,25 +14,30 @@ server {
     include /config/nginx/ssl.conf;
 
     client_max_body_size 0;
-    
-    # enable for ldap auth, fill in ldap details in ldap.conf
-    #include /config/nginx/ldap.conf;
 
-    # enable for Authelia
+    # enable for ldap auth (requires ldap-location.conf in the location block)
+    #include /config/nginx/ldap-server.conf;
+
+    # enable for Authelia (requires authelia-location.conf in the location block)
     #include /config/nginx/authelia-server.conf;
+
+    # enable for Authentik (requires authentik-location.conf in the location block)
+    #include /config/nginx/authentik-server.conf;
 
     location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
         #auth_basic_user_file /config/nginx/.htpasswd;
 
-        # enable the next two lines for ldap auth
-        #auth_request /auth;
-        #error_page 401 =200 /ldaplogin;
+        # enable for ldap auth (requires ldap-server.conf in the server block)
+        #include /config/nginx/ldap-location.conf;
 
-        # enable for Authelia
+        # enable for Authelia (requires authelia-server.conf in the server block)
         #include /config/nginx/authelia-location.conf;
-    
+
+        # enable for Authentik (requires authentik-server.conf in the server block)
+        #include /config/nginx/authentik-location.conf;
+
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app emulatorjs;
@@ -49,13 +55,15 @@ server {
         #auth_basic "Restricted";
         #auth_basic_user_file /config/nginx/.htpasswd;
 
-        # enable the next two lines for ldap auth
-        #auth_request /auth;
-        #error_page 401 =200 /ldaplogin;
+        # enable for ldap auth (requires ldap-server.conf in the server block)
+        #include /config/nginx/ldap-location.conf;
 
-        # enable for Authelia
+        # enable for Authelia (requires authelia-server.conf in the server block)
         #include /config/nginx/authelia-location.conf;
-    
+
+        # enable for Authentik (requires authentik-server.conf in the server block)
+        #include /config/nginx/authentik-location.conf;
+
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app emulatorjs;

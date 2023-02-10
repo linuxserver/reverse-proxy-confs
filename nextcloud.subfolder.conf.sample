@@ -1,27 +1,29 @@
-## Version 2021/07/14
+## Version 2023/02/05
+# make sure that your nextcloud container is named nextcloud
+# make sure that nextcloud is set to work with the base url /nextcloud/
 # Assuming this container is called "swag", edit your nextcloud container's config
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
 #  'trusted_proxies' => ['swag'],
 #  'overwritewebroot' => '/nextcloud',
-#  'overwrite.cli.url' => 'https://your-domain.com/nextcloud',
+#  'overwrite.cli.url' => 'https://example.com/nextcloud',
 #
 # Also don't forget to add your domain name to the trusted domains array. It should look somewhat like this:
 #  array (
 #    0 => '192.168.0.1:444', # This line may look different on your setup, don't modify it.
-#    1 => 'your-domain.com',
+#    1 => 'example.com',
 #  ),
 
 location ^~ /.well-known {
-        # The rules in this block are an adaptation of the rules
-        # in the Nextcloud `.htaccess` that concern `/.well-known`.
+    # The rules in this block are an adaptation of the rules
+    # in the Nextcloud `.htaccess` that concern `/.well-known`.
 
-        location = /.well-known/carddav { return 301 /nextcloud/remote.php/dav/; }
-        location = /.well-known/caldav  { return 301 /nextcloud/remote.php/dav/; }
+    location = /.well-known/carddav { return 301 /nextcloud/remote.php/dav/; }
+    location = /.well-known/caldav  { return 301 /nextcloud/remote.php/dav/; }
 
-        # Let Nextcloud's API for `/.well-known` URIs handle all other
-        # requests by passing them to the front-end controller.
-        return 301 /nextcloud/index.php$request_uri;
-    }
+    # Let Nextcloud's API for `/.well-known` URIs handle all other
+    # requests by passing them to the front-end controller.
+    return 301 /nextcloud/index.php$request_uri;
+}
 
 location ^~ /nextcloud/ {
     include /config/nginx/proxy.conf;
@@ -32,6 +34,7 @@ location ^~ /nextcloud/ {
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     rewrite /nextcloud(.*) $1 break;
+    proxy_hide_header X-Frame-Options;
     proxy_max_temp_file_size 2048m;
     proxy_set_header Range $http_range;
     proxy_set_header If-Range $http_if_range;
