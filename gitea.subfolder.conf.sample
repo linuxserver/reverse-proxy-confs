@@ -1,4 +1,6 @@
-## Version 2021/05/18
+## Version 2023/02/05
+# make sure that your gitea container is named gitea
+# make sure that gitea is set to work with the base url /gitea/
 # The following parameters in /data/gitea/conf/app.ini should be edited to match your setup
 # [server]
 # SSH_DOMAIN       = example.com:2222

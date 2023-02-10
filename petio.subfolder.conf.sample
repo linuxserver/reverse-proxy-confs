@@ -1,5 +1,6 @@
-## Version 2022/09/08
-# first go into petio settings, under "Base path" set the URL Base to /petio and restart the petio container
+## Version 2023/02/05
+# make sure that your petio container is named petio
+# make sure that petio is set to work with the base url /petio/
 
 location /petio {
     return 301 $scheme://$host/petio/;
@@ -15,6 +16,9 @@ location ^~ /petio/ {
 
     # enable for Authelia (requires authelia-server.conf in the server block)
     #include /config/nginx/authelia-location.conf;
+
+    # enable for Authentik (requires authentik-server.conf in the server block)
+    #include /config/nginx/authentik-location.conf;
 
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;

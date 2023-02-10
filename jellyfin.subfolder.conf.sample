@@ -1,5 +1,5 @@
-## Version 2021/05/18
-# make sure that your dns has a cname set for jellyfin
+## Version 2023/02/05
+# make sure that your jellyfin container is named jellyfin
 # if jellyfin is running in bridge mode and the container is named "jellyfin", the below config should work as is
 # if not, replace the line "set $upstream_app jellyfin;" with "set $upstream_app <containername>;"
 # or "set $upstream_app <HOSTIP>;" for host mode, HOSTIP being the IP address of jellyfin
