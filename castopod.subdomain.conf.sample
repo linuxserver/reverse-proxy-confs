@@ -11,7 +11,7 @@ server {
     include /config/nginx/ssl.conf;
 
     client_max_body_size 0;
-    
+
     # enable for ldap auth (requires ldap-location.conf in the location block)
     #include /config/nginx/ldap-server.conf;
 
@@ -20,7 +20,7 @@ server {
 
     # enable for Authentik (requires authentik-location.conf in the location block)
     #include /config/nginx/authentik-server.conf;
-    
+
     location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
@@ -43,4 +43,4 @@ server {
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     }
-}    
+}
