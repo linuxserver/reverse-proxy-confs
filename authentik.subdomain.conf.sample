@@ -38,6 +38,10 @@ server {
         #auth_basic "Restricted";
         #auth_basic_user_file /config/nginx/.htpasswd;
 
+        # block metrics access by default because it is unprotected
+        # you can comment out the next line to enable remote metrics
+        deny all;
+
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app authentik-server;
