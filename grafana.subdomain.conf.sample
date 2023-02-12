@@ -1,4 +1,4 @@
-## Version 2023/02/05
+## Version 2023/02/12
 # make sure that your grafana container is named grafana
 # make sure that your dns has a cname set for grafana
 
@@ -44,6 +44,30 @@ server {
 
         # Clear Authorization Header if you are using http auth and normal Grafana auth
         #proxy_set_header    Authorization       "";
+
+    }
+
+    location ~ (/grafana)?/api {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app grafana;
+        set $upstream_port 3000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
+
+    location ~ (/grafana)?/metrics {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app grafana;
+        set $upstream_port 3000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     }
 }
