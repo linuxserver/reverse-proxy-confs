@@ -1,4 +1,4 @@
-## Version 2023/02/05
+## Version 2023/02/12
 # make sure that your authentik container is named authentik-server
 # make sure that your dns has a cname set for authentik
 
@@ -18,6 +18,30 @@ server {
         include /config/nginx/resolver.conf;
         set $upstream_app authentik-server;
         set $upstream_port 9000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
+
+    location ~ (/authentik)?/api {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app authentik-server;
+        set $upstream_port 9000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
+
+    location ~ (/authentik)?/metrics {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app authentik-server;
+        set $upstream_port 9300;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 

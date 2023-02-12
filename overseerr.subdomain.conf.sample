@@ -1,4 +1,4 @@
-## Version 2023/02/05
+## Version 2023/02/12
 # make sure that your overseerr container is named overseerr
 # make sure that your dns has a cname set for overseerr
 
@@ -35,6 +35,16 @@ server {
         # enable for Authentik (requires authentik-server.conf in the server block)
         #include /config/nginx/authentik-location.conf;
 
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app overseerr;
+        set $upstream_port 5055;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
+
+    location ~ (/overseerr)?/api {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app overseerr;
