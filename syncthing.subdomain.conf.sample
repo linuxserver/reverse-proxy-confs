@@ -42,5 +42,17 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
+        proxy_hide_header Authorization;
+    }
+
+    location ~ (/syncthing)?/rest {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app syncthing;
+        set $upstream_port 8384;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_hide_header Authorization;
     }
 }
