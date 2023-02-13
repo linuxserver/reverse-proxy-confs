@@ -53,7 +53,7 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-   }
+    }
 
     # This allows access to the documentation for the api
     location ~ (/ombi)?/swagger {
@@ -64,9 +64,9 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-   }
+    }
 
-   if ($http_referer ~* /ombi) {
-       rewrite ^/swagger/(.*) /ombi/swagger/$1? redirect;
-   }
+    if ($http_referer ~* /ombi) {
+        rewrite ^/swagger/(.*) /ombi/swagger/$1? redirect;
+    }
 }

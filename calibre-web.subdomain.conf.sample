@@ -48,10 +48,10 @@ server {
         proxy_set_header X-Scheme $scheme;
     }
 
-	# OPDS feed for eBook reader apps
-	# Even if you use Authelia, the OPDS feed requires a password to be set for
-	# the user directly in Calibre-Web, as eBook reader apps don't support
-	# form-based logins, only HTTP Basic auth.
+    # OPDS feed for eBook reader apps
+    # Even if you use Authelia, the OPDS feed requires a password to be set for
+    # the user directly in Calibre-Web, as eBook reader apps don't support
+    # form-based logins, only HTTP Basic auth.
     location /opds/ {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;

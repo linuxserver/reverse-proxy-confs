@@ -121,7 +121,7 @@ server {
         proxy_set_header Host $upstream_app:$upstream_port;
         proxy_set_header X-Forwarded-Host $host;
     }
-    
+
     location ~ (/qbittorrent)?/scripts {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
