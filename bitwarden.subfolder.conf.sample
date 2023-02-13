@@ -1,4 +1,4 @@
-## Version 2023/02/05
+## Version 2023/02/13
 # make sure that your bitwarden container is named bitwarden
 # make sure that bitwarden is set to work with the base url /bitwarden/
 ## Environmental Variable DOMAIN=https://<DOMAIN>/bitwarden must be set in bitwarden container including subfolder.
@@ -45,6 +45,16 @@ location ~ (/bitwarden)?/admin {
     # enable for Authentik (requires authentik-server.conf in the server block)
     #include /config/nginx/authentik-location.conf;
 
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+    set $upstream_app bitwarden;
+    set $upstream_port 80;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+}
+
+location ~ (/bitwarden)?/api {
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;
     set $upstream_app bitwarden;
