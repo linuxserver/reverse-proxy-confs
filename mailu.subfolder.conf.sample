@@ -5,7 +5,7 @@
 # This config have been tested with "TLS_FLAVOR=mail"
 # To avoid errors you must change in docker-compose ports: 80 and 443, more info: https://mailu.io/1.7/reverse.html
 
-location /admin{
+location /admin {
     return 301 $scheme://$host/admin/;
 }
 
@@ -32,7 +32,7 @@ location ^~ /admin/ {
 
 }
 
-location /webmail{
+location /webmail {
     return 301 $scheme://$host/webmail/;
 }
 

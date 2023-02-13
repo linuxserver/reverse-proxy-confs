@@ -9,7 +9,6 @@ location /todo {
 }
 
 location ^~ /todo/ {
-
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
