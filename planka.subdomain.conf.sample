@@ -1,6 +1,7 @@
 ## Version 2023/02/05
+# make sure that your planka container is named planka
 # make sure that your dns has a cname set for planka
-# make sure that the BASE_URL env variable in Planka container is set to: BASE_URL="https://planka.example.com"
+# make sure that the BASE_URL env variable in planka container is set to: BASE_URL="https://planka.example.com"
 
 server {
     listen 443 ssl;
@@ -18,6 +19,9 @@ server {
     # enable for Authelia (requires authelia-location.conf in the location block)
     #include /config/nginx/authelia-server.conf;
 
+    # enable for Authentik (requires authentik-location.conf in the location block)
+    #include /config/nginx/authentik-server.conf;
+
     location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
@@ -28,6 +32,9 @@ server {
 
         # enable for Authelia (requires authelia-server.conf in the server block)
         #include /config/nginx/authelia-location.conf;
+
+        # enable for Authentik (requires authentik-server.conf in the server block)
+        #include /config/nginx/authentik-location.conf;
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
