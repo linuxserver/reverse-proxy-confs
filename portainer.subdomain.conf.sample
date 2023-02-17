@@ -1,4 +1,5 @@
-## Version 2022/09/08
+## Version 2023/02/12
+# make sure that your portainer container is named portainer
 # make sure that your dns has a cname set for portainer
 
 server {
@@ -17,6 +18,9 @@ server {
     # enable for Authelia (requires authelia-location.conf in the location block)
     #include /config/nginx/authelia-server.conf;
 
+    # enable for Authentik (requires authentik-location.conf in the location block)
+    #include /config/nginx/authentik-server.conf;
+
     location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
@@ -28,6 +32,9 @@ server {
         # enable for Authelia (requires authelia-server.conf in the server block)
         #include /config/nginx/authelia-location.conf;
 
+        # enable for Authentik (requires authentik-server.conf in the server block)
+        #include /config/nginx/authentik-location.conf;
+
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app portainer;
@@ -38,17 +45,7 @@ server {
         proxy_hide_header X-Frame-Options; # Possibly not needed after Portainer 1.20.0
     }
 
-    location /api/websocket/ {
-        # enable the next two lines for http auth
-        #auth_basic "Restricted";
-        #auth_basic_user_file /config/nginx/.htpasswd;
-
-        # enable for ldap auth (requires ldap-server.conf in the server block)
-        #include /config/nginx/ldap-location.conf;
-
-        # enable for Authelia (requires authelia-server.conf in the server block)
-        #include /config/nginx/authelia-location.conf;
-
+    location ~ (/portainer)?/api {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app portainer;

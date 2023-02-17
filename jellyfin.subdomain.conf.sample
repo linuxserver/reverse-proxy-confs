@@ -1,10 +1,10 @@
-## Version 2021/05/18
+## Version 2023/02/05
+# make sure that your jellyfin container is named jellyfin
 # make sure that your dns has a cname set for jellyfin
 # if jellyfin is running in bridge mode and the container is named "jellyfin", the below config should work as is
 # if not, replace the line "set $upstream_app jellyfin;" with "set $upstream_app <containername>;"
 # or "set $upstream_app <HOSTIP>;" for host mode, HOSTIP being the IP address of jellyfin
-# in jellyfin settings, under "Advanced/Networking" change the public https port to 443, leave the local ports as is,
-# and set the "Secure connection mode" to "Handled by reverse proxy"
+# in jellyfin settings, under "Advanced/Networking" add subdomain.mydomain.tld as a known proxy
 
 server {
     listen 443 ssl;

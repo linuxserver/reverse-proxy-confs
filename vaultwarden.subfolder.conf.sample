@@ -1,6 +1,9 @@
-## Version 2022/09/08
+## Version 2023/02/13
+# make sure that your vaultwarden container is named vaultwarden
+# make sure that vaultwarden is set to work with the base url /vaultwarden/
 ## Environmental Variable DOMAIN=https://<DOMAIN>/vaultwarden must be set in vaultwarden container including subfolder.
 ## This is using ports 80 and 3012
+
 location /vaultwarden {
     return 301 $scheme://$host/vaultwarden/;
 }
@@ -15,6 +18,9 @@ location ^~ /vaultwarden/ {
 
     # enable for Authelia (requires authelia-server.conf in the server block)
     #include /config/nginx/authelia-location.conf;
+
+    # enable for Authentik (requires authentik-server.conf in the server block)
+    #include /config/nginx/authentik-location.conf;
 
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;
@@ -36,6 +42,19 @@ location ~ (/vaultwarden)?/admin {
     # enable for Authelia (requires authelia-server.conf in the server block)
     #include /config/nginx/authelia-location.conf;
 
+    # enable for Authentik (requires authentik-server.conf in the server block)
+    #include /config/nginx/authentik-location.conf;
+
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+    set $upstream_app vaultwarden;
+    set $upstream_port 80;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+}
+
+location ~ (/vaultwarden)?/api {
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;
     set $upstream_app vaultwarden;

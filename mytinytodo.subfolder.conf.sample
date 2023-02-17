@@ -1,4 +1,6 @@
-## Version 2022/09/08
+## Version 2023/02/05
+# make sure that your mytinytodo container is named mytinytodo
+# make sure that mytinytodo is set to work with the base url /todo/
 # works with https://github.com/breakall/mytinytodo-docker
 # set the mtt_url to 'https://your.domain.com/todo/' in db/config.php
 
@@ -7,7 +9,6 @@ location /todo {
 }
 
 location ^~ /todo/ {
-
     # enable the next two lines for http auth
     #auth_basic "Restricted";
     #auth_basic_user_file /config/nginx/.htpasswd;
@@ -17,6 +18,9 @@ location ^~ /todo/ {
 
     # enable for Authelia (requires authelia-server.conf in the server block)
     #include /config/nginx/authelia-location.conf;
+
+    # enable for Authentik (requires authentik-server.conf in the server block)
+    #include /config/nginx/authentik-location.conf;
 
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;

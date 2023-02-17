@@ -1,5 +1,6 @@
-## Version 2022/09/08
-# make sure that your dns has a cname set for syncthing and that your syncthing container is not using a base url
+## Version 2023/02/12
+# make sure that your syncthing container is named syncthing
+# make sure that your dns has a cname set for syncthing
 
 server {
     listen 443 ssl;
@@ -17,6 +18,9 @@ server {
     # enable for Authelia (requires authelia-location.conf in the location block)
     #include /config/nginx/authelia-server.conf;
 
+    # enable for Authentik (requires authentik-location.conf in the location block)
+    #include /config/nginx/authentik-server.conf;
+
     location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
@@ -28,6 +32,9 @@ server {
         # enable for Authelia (requires authelia-server.conf in the server block)
         #include /config/nginx/authelia-location.conf;
 
+        # enable for Authentik (requires authentik-server.conf in the server block)
+        #include /config/nginx/authentik-location.conf;
+
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app syncthing;
@@ -35,5 +42,17 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
+        proxy_hide_header Authorization;
+    }
+
+    location ~ (/syncthing)?/rest {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app syncthing;
+        set $upstream_port 8384;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_hide_header Authorization;
     }
 }
