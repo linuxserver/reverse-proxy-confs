@@ -1,4 +1,4 @@
-## Version 2023/02/05
+## Version 2023/02/17
 # make sure that your container is named netbox
 # make sure that your dns has a cname set for netbox
 # make sure your netbox instance is using ALLOWED_HOST=netbox.domain.com (replace with your own domain)
@@ -14,10 +14,10 @@ server {
 
     client_max_body_size 0;
 
-    # enable for ldap auth, fill in ldap details in ldap.conf
+    # enable for ldap auth (requires ldap-location.conf in the location block)
     #include /config/nginx/ldap-server.conf;
 
-    # enable for Authelia
+    # enable for Authelia (requires authelia-location.conf in the location block)
     #include /config/nginx/authelia-server.conf;
 
     # enable for Authentik (requires authentik-location.conf in the location block)
