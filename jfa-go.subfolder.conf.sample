@@ -1,6 +1,6 @@
 ## Version 2023/02/05
 # make sure that your jfa-go container is named jfa-go
-# make sure to go into jfa-go Settings, under "General" set the Reverse Proxy subfolder to "/jfa-go/" and restart the jfa-go container
+# make sure to set the URL base (“Reverse Proxy subfolder”) in jfa-go > Settings > General (ui > url_base in jfa-go config.ini) to "/jfa-go/"
 
 location /jfa-go {
     return 301 $scheme://$host/jfa-go/;
@@ -26,4 +26,8 @@ location ^~ /jfa-go/ {
     set $upstream_port 8056;
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    # Remove the CSP header set for Jellyfin
+    proxy_hide_header Content-Security-Policy;
+    add_header Content-Security-Policy "";
 }
