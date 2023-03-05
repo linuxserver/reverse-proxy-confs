@@ -10,9 +10,6 @@ server {
 
     server_name nexusoss.*;
 
-    # allow large uploads of files - refer to nginx documentation
-    client_max_body_size 1G;
-
     include /config/nginx/ssl.conf;
 
     # enable for ldap auth (requires ldap-location.conf in the location block)
@@ -44,10 +41,6 @@ server {
         set $upstream_port 8081;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 
     location /v2/ {
@@ -70,9 +63,5 @@ server {
         set $upstream_port 8082;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 }
