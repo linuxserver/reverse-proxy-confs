@@ -1,0 +1,43 @@
+## Version 2023/03/05
+# make sure that your nexusoss container is named nexusoss
+# make sure that your dns has a cname set for nexusoss
+# make sure that the port for the nexusoss container 8081 (the first location "/")
+# make sure that the HTTP Connector port for the hosted docker repository is 8082 (the second location "/v2/")
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name nexusoss.*;
+
+    # allow large uploads of files - refer to nginx documentation
+    client_max_body_size 1G;
+
+    include /config/nginx/ssl.conf;
+
+    location / {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app nexusoss;
+        set $upstream_port 8081;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location /v2/ {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app nexusoss;
+        set $upstream_port 8082;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
