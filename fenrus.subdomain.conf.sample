@@ -1,6 +1,6 @@
 ## Version 2023/03/11
 # make sure that your fenrus container is named fenrus
-# make sure that your dns has a cname set for fenrus.example.com
+# make sure that your dns has a cname set for fenrus
 
 server {
     listen 443 ssl;
