@@ -12,6 +12,8 @@ server {
 
     include /config/nginx/ssl.conf;
 
+    client_max_body_size 0;
+
     # enable for ldap auth (requires ldap-location.conf in the location block)
     #include /config/nginx/ldap-server.conf;
 
