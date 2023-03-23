@@ -5,6 +5,7 @@
 !.editorconfig
 !.gitattributes
 !.github
+!.github/**
 !.gitignore
 !*.conf.sample
 !LICENSE
