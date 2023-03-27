@@ -2,34 +2,34 @@
 # Make sure you have set base url via Kavita's web gui as /kavita/ and restarted the Kavita.
 
 location /kavita {
-    return 301 $scheme://$host/kavita/;
+	return 301 $scheme://$host/kavita/;
 }
 
 location ^~ /kavita/ {
-    # enable the next two lines for http auth
-    #auth_basic "Restricted";
-    #auth_basic_user_file /config/nginx/.htpasswd;
+	# enable the next two lines for http auth
+	#auth_basic "Restricted";
+	#auth_basic_user_file /config/nginx/.htpasswd;
 
-    # enable for ldap auth (requires ldap-server.conf in the server block)
-    #include /config/nginx/ldap-location.conf;
+	# enable for ldap auth (requires ldap-server.conf in the server block)
+	#include /config/nginx/ldap-location.conf;
 
-    # enable for Authelia (requires authelia-server.conf in the server block)
-    #include /config/nginx/authelia-location.conf;
+	# enable for Authelia (requires authelia-server.conf in the server block)
+	#include /config/nginx/authelia-location.conf;
 
-    include /config/nginx/proxy.conf;
-    include /config/nginx/resolver.conf;
-    set $upstream_app kavita;
-    set $upstream_port 5000 ;
-    set $upstream_proto http;
-    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+	include /config/nginx/proxy.conf;
+	include /config/nginx/resolver.conf;
+	set $upstream_app kavita;
+	set $upstream_port 5000 ;
+	set $upstream_proto http;
+	proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
 }
 
  location ^~ /kavita/api {
-     include /config/nginx/proxy.conf;
-     include /config/nginx/resolver.conf;
-     set $upstream_app kavita;
-     set $upstream_port 5000;
-     set $upstream_proto http;
-     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+	 include /config/nginx/proxy.conf;
+	 include /config/nginx/resolver.conf;
+	 set $upstream_app kavita;
+	 set $upstream_port 5000;
+	 set $upstream_proto http;
+	 proxy_pass $upstream_proto://$upstream_app:$upstream_port;
  }
