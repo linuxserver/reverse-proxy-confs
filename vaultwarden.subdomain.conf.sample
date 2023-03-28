@@ -1,4 +1,4 @@
-## Version 2023/02/13
+## Version 2023/03/27
 # make sure that your vaultwarden container is named vaultwarden
 # make sure that your dns has a cname set for vaultwarden
 # set the environment variable WEBSOCKET_ENABLED=true on your vaultwarden container
@@ -45,7 +45,7 @@ server {
 
     }
 
-    location ~ (/vaultwarden)?/admin {
+    location ~ ^(/vaultwarden)?/admin {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
         #auth_basic_user_file /config/nginx/.htpasswd;
