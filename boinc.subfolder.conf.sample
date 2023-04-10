@@ -31,6 +31,10 @@ location ^~ /boinc/ {
     proxy_buffering off;
 }
 
+# If using subfolders for multiple Linux Desktop containers (full gui apps being rendered over web).
+# You will need to modify this path and modify the the client settings in the application.
+# Settings > Advanced > Websocket > Path
+# IE websockify-boinc
 location ^~ /websockify {
     # enable the next two lines for http auth
     #auth_basic "Restricted";
