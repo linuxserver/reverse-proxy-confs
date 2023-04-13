@@ -1,0 +1,33 @@
+## Version 2023/02/05
+# make sure that your jfa-go container is named jfa-go
+# make sure to set the URL base (“Reverse Proxy subfolder”) in jfa-go > Settings > General (ui > url_base in jfa-go config.ini) to "/jfa-go/"
+
+location /jfa-go {
+    return 301 $scheme://$host/jfa-go/;
+}
+
+location ^~ /jfa-go/ {
+    # enable the next two lines for http auth
+    #auth_basic "Restricted";
+    #auth_basic_user_file /config/nginx/.htpasswd;
+
+    # enable for ldap auth (requires ldap-server.conf in the server block)
+    #include /config/nginx/ldap-location.conf;
+
+    # enable for Authelia (requires authelia-server.conf in the server block)
+    #include /config/nginx/authelia-location.conf;
+
+    # enable for Authentik (requires authentik-server.conf in the server block)
+    #include /config/nginx/authentik-location.conf;
+
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+    set $upstream_app jfa-go;
+    set $upstream_port 8056;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    # Remove the CSP header set for Jellyfin
+    proxy_hide_header Content-Security-Policy;
+    add_header Content-Security-Policy "";
+}
