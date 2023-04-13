@@ -1,7 +1,6 @@
-## Version 2023/03/16
+## Version 2023/04/13
 # make sure that your oogway container is named oogway
-# Oogway is not usable for subfolder structures
-# https://github.com/emvi/oogway
+# make sure that your dns has a cname set for oogway
 
 
 server {
