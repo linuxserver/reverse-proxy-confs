@@ -1,4 +1,4 @@
-## Version 2023/02/12
+## Version 2023/04/14
 # make sure that your prometheus container is named prometheus
 # make sure that your dns has a cname set for prometheus
 
@@ -58,24 +58,6 @@ server {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
         #auth_basic_user_file /config/nginx/.htpasswd;
-
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app prometheus;
-        set $upstream_port 9090;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-    }
-
-    location ~ (/prometheus)?/metrics {
-        # enable the next two lines for http auth
-        #auth_basic "Restricted";
-        #auth_basic_user_file /config/nginx/.htpasswd;
-
-        # block metrics access by default because it is unprotected
-        # you can comment out the next line to enable remote metrics
-        deny all;
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
