@@ -53,22 +53,4 @@ server {
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     }
-
-    location ~ (/cadvisor)?/metrics {
-        # enable the next two lines for http auth
-        #auth_basic "Restricted";
-        #auth_basic_user_file /config/nginx/.htpasswd;
-
-        # block metrics access by default because it is unprotected
-        # you can comment out the next line to enable remote metrics
-        deny all;
-
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app cadvisor;
-        set $upstream_port 8080;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-    }
 }
