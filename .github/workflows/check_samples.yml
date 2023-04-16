@@ -62,7 +62,7 @@ jobs:
       - name: Check Nginx Conf Validity
         run: |
           curl -fsL "https://raw.githubusercontent.com/linuxserver/docker-swag/master/root/defaults/nginx/proxy.conf.sample" -o proxy.conf
-          docker run -d --rm --name nginx -v "${WORKSPACE}:/testconfs:ro" ghcr.io/linuxserver/nginx
+          docker run -d --rm --name nginx -v "${GITHUB_WORKSPACE}:/testconfs:ro" ghcr.io/linuxserver/nginx
           sleep 5
           docker exec nginx bash -c "\
             mkdir -p /config/nginx/proxy-confs && \
