@@ -1,4 +1,4 @@
-## Version 2023/02/12
+## Version 2023/04/14
 # make sure that your grafana container is named grafana
 # make sure that grafana is set to work with the base url /grafana/
 # grafana requires environment variables set thus:
@@ -35,29 +35,6 @@ location ^~ /grafana/ {
 }
 
 location ^~ /grafana/api {
-    include /config/nginx/proxy.conf;
-    include /config/nginx/resolver.conf;
-    set $upstream_grafana grafana;
-    set $upstream_port 3000;
-    set $upstream_proto http;
-    proxy_pass http://$upstream_grafana:$upstream_port ;
-
-    # Clear Authorization Header if you are using http auth and normal Grafana auth
-    #proxy_set_header    Authorization       "";
-
-    rewrite ^/grafana/(.*)$ /$1 break;
-
-}
-
-location ^~ /grafana/metrics {
-    # enable the next two lines for http auth
-    #auth_basic "Restricted";
-    #auth_basic_user_file /config/nginx/.htpasswd;
-
-    # block metrics access by default because it is unprotected
-    # you can comment out the next line to enable remote metrics
-    deny all;
-
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;
     set $upstream_grafana grafana;
