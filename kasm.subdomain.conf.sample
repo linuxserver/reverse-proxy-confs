@@ -1,3 +1,6 @@
+## Version 2023/04/18
+# make sure that your kasm container is named kasm
+
 # This configuration assumes 8443 with the environment variable -e KASM_PORT=8443 set adjust to your needs
 # Post installation you will need to access Kasm > Admin > Zones > default zone (edit) and modify 
 # Proxy Port to 0 as documented https://www.kasmweb.com/docs/latest/how_to/reverse_proxy.html#update-zones
