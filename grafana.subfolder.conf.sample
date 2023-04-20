@@ -1,4 +1,4 @@
-## Version 2023/04/14
+## Version 2023/04/20
 # make sure that your grafana container is named grafana
 # make sure that grafana is set to work with the base url /grafana/
 # grafana requires environment variables set thus:
@@ -22,10 +22,10 @@ location ^~ /grafana/ {
 
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;
-    set $upstream_grafana grafana;
+    set $upstream_app grafana;
     set $upstream_port 3000;
     set $upstream_proto http;
-    proxy_pass http://$upstream_grafana:$upstream_port ;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     # Clear Authorization Header if you are using http auth and normal Grafana auth
     #proxy_set_header    Authorization       "";
@@ -37,10 +37,10 @@ location ^~ /grafana/ {
 location ^~ /grafana/api {
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;
-    set $upstream_grafana grafana;
+    set $upstream_app grafana;
     set $upstream_port 3000;
     set $upstream_proto http;
-    proxy_pass http://$upstream_grafana:$upstream_port ;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     # Clear Authorization Header if you are using http auth and normal Grafana auth
     #proxy_set_header    Authorization       "";
