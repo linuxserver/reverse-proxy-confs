@@ -1,10 +1,6 @@
-## Version 2023/04/14
+## Version 2023/04/29
 # make sure that your authelia container is named authelia
 # make sure that your dns has a cname set for authelia
-# the default authelia-server and authelia-location confs included with swag rely on
-# a built-in subfolder proxy at "/authelia" and enabling this proxy conf is not necessary.
-# But if you'd like to use authelia via subdomain, you can enable this proxy and set
-# the $authelia_backed variable in the authelia-server.conf.
 
 server {
     listen 443 ssl;
