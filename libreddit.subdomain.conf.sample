@@ -1,4 +1,6 @@
 ## Version 2023/02/05
+# make sure that your libreddit container is named libreddit
+# make sure that your dns has a cname set for libreddit
 
 server {
     listen 443 ssl;
