@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.5.0
+        uses: actions/checkout@v3.5.2
 
       - name: Check Allowed File Names
         run: |
@@ -58,3 +58,24 @@ jobs:
               done
               exit 1
           fi
+
+      - name: Check Nginx Conf Validity
+        run: |
+          curl -fsL "https://raw.githubusercontent.com/linuxserver/docker-swag/master/root/defaults/nginx/proxy.conf.sample" -o proxy.conf
+          docker run -d --rm --name nginx -v "${GITHUB_WORKSPACE}:/testconfs:ro" ghcr.io/linuxserver/nginx
+          sleep 5
+          docker exec nginx bash -c "\
+            mkdir -p /config/nginx/proxy-confs && \
+            cp /testconfs/*.conf.sample /config/nginx/proxy-confs/ && \
+            cp /testconfs/proxy.conf /config/nginx/ && \
+            rm -rf /config/nginx/proxy-confs/{_template.sub*,heimdall.subf*,boinc.subf*,organizr.subf*,wordpress.subf*} && \
+            echo 'include /config/nginx/proxy-confs/*.subdomain.conf.sample;' >> /config/nginx/site-confs/default.conf && \
+            sed -i -r 's|(root \\\$root;)|\1\ninclude /config/nginx/proxy-confs/*.subfolder.conf.sample;|' /config/nginx/site-confs/default.conf"
+          VALIDITY=$(docker exec nginx nginx -t 2>&1) || :
+          echo "${VALIDITY}"
+          echo "${VALIDITY}" >> $GITHUB_STEP_SUMMARY
+          if ! docker exec nginx nginx -t >/dev/null 2>&1; then
+            docker stop nginx
+            exit 1
+          fi
+          docker stop nginx

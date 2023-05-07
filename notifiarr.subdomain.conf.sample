@@ -1,12 +1,12 @@
-## Version 2023/04/14
-# make sure that your prometheus container is named prometheus
-# make sure that your dns has a cname set for prometheus
+## Version 2023/02/05
+# make sure that your notifiarr container is named notifiarr
+# make sure that your dns has a cname set for notifiarr
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name prometheus.*;
+    server_name notifiarr.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,34 +37,9 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app prometheus;
-        set $upstream_port 9090;
+        set $upstream_app notifiarr;
+        set $upstream_port 5454;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-    }
-
-    location ~ (/prometheus)?/api {
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app prometheus;
-        set $upstream_port 9090;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-    }
-
-    location ~ (/prometheus)?/-/(healthy|ready|reload|quit) {
-        # enable the next two lines for http auth
-        #auth_basic "Restricted";
-        #auth_basic_user_file /config/nginx/.htpasswd;
-
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app prometheus;
-        set $upstream_port 9090;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
     }
 }

@@ -1,12 +1,12 @@
-## Version 2023/04/14
-# make sure that your prometheus container is named prometheus
-# make sure that your dns has a cname set for prometheus
+## Version 2023/04/16
+# make sure that your jfa-go container is named jfa-go
+# make sure that your dns has a cname set for jfa-go
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name prometheus.*;
+    server_name jfa-go.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,32 +37,8 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app prometheus;
-        set $upstream_port 9090;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-    }
-
-    location ~ (/prometheus)?/api {
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app prometheus;
-        set $upstream_port 9090;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-    }
-
-    location ~ (/prometheus)?/-/(healthy|ready|reload|quit) {
-        # enable the next two lines for http auth
-        #auth_basic "Restricted";
-        #auth_basic_user_file /config/nginx/.htpasswd;
-
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app prometheus;
-        set $upstream_port 9090;
+        set $upstream_app jfa-go;
+        set $upstream_port 8056;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
