@@ -23,17 +23,6 @@ server {
     # enable for Authentik (requires authentik-location.conf in the location block)
     #include /config/nginx/authentik-server.conf;
 
-    location ~ ^\/api\/servers\/(?<serverid>.*)?\/ws$ {
-
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app pterodactylnode;
-        set $upstream_port 443;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port/api/servers/$serverid/ws;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-    }
 
     location / {
         # enable the next two lines for http auth
