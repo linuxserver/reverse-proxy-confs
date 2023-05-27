@@ -48,6 +48,5 @@ server {
             image/svg+xml;
             
         proxy_buffering off;
-        tcp_nodelay on;
     }
 }
