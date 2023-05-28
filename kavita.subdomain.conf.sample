@@ -45,7 +45,7 @@ server {
     }
 
     # Needed for OPDS access while using Authelia/ldap
-    location ~ /api {
+    location ~ (/kavita)?/api {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app kavita;
