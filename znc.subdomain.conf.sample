@@ -1,10 +1,10 @@
-## Version 2023/02/05
+## Version 2023/05/31
 # make sure that your znc container is named znc
 # make sure that your dns has a cname set for znc
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
 
     server_name znc.*;
 
