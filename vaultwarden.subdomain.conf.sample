@@ -1,11 +1,11 @@
-## Version 2023/03/27
+## Version 2023/05/31
 # make sure that your vaultwarden container is named vaultwarden
 # make sure that your dns has a cname set for vaultwarden
 # set the environment variable WEBSOCKET_ENABLED=true on your vaultwarden container
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
 
     server_name vaultwarden.*;
 

@@ -1,4 +1,4 @@
-## Version 2023/02/05
+## Version 2023/05/31
 # make sure that your openvscode-server container is named openvscode-server
 # make sure that your dns has a cname set for openvscode-server
 # This conf allows accessing internal ports at `PORT` (http) or `PORTs` (https) as subdomain
@@ -6,8 +6,8 @@
 # Access https port 8080 at `https://8080s.openvscode-server.domain.url`
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
 
     server_name openvscode-server.*;
 
@@ -49,8 +49,8 @@ server {
 }
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
 
     server_name "~^(?<upstream_port>[0-9]{1,10})\.openvscode-server\..*$";
 
@@ -91,8 +91,8 @@ server {
 }
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
 
     server_name "~^(?<upstream_port>[0-9]{1,10})s\.openvscode-server\..*$";
 
