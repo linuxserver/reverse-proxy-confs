@@ -1,12 +1,12 @@
-## Version 2023/02/05
-# make sure that your kavita container is named kavita
-# make sure that your dns has a cname set for kavita
+## Version 2023/05/08
+# make sure that your it-tools container is named it-tools
+# make sure that your dns has a cname set for it-tools
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name kavita.*;
+    server_name it-tools.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,21 +37,9 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app kavita;
-        set $upstream_port 5000;
+        set $upstream_app it-tools;
+        set $upstream_port 80;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-    }
-
-    # Needed for OPDS access while using Authelia/ldap
-    location ~ (/kavita)?/api {
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app kavita;
-        set $upstream_port 5000;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
     }
 }
