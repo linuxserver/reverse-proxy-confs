@@ -1,10 +1,10 @@
-## Version 2023/04/13
+## Version 2023/05/31
 # make sure that your duplicacy container is named duplicacy
 # make sure that your dns has a cname set for duplicacy
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
 
     server_name duplicacy.*;
 

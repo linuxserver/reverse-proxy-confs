@@ -1,4 +1,4 @@
-## Version 2023/02/05
+## Version 2023/05/31
 # make sure that your emulatorjs container is named emulatorjs
 # make sure that your dns has a cname set for emulatorjs
 # In emulatorjs docker arguments, set an env variable for SUBFOLDER=/backend/
@@ -6,8 +6,8 @@
 # Don't forget to enable auth at least for the /backend/ location
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
 
     server_name emulatorjs.*;
 

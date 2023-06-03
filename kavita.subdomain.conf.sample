@@ -1,10 +1,10 @@
-## Version 2023/02/05
+## Version 2023/05/31
 # make sure that your kavita container is named kavita
 # make sure that your dns has a cname set for kavita
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
 
     server_name kavita.*;
 
@@ -35,6 +35,17 @@ server {
         # enable for Authentik (requires authentik-server.conf in the server block)
         #include /config/nginx/authentik-location.conf;
 
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app kavita;
+        set $upstream_port 5000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
+
+    # Needed for OPDS access while using Authelia/ldap
+    location ~ (/kavita)?/api {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app kavita;

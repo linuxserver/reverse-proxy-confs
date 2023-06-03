@@ -1,11 +1,11 @@
-## Version 2023/02/05
+## Version 2023/05/31
 # make sure that your quassel container is named quassel-web
 # make sure that your dns has a cname set for quassel
 # make sure Quassel-Web is running on http with -e 'HTTPS'='false' or if you're using -e 'ADVANCED'='true' by editing config.json appropriately
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
 
     server_name quassel.*;
 

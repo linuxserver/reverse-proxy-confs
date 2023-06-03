@@ -1,4 +1,4 @@
-## Version 2023/02/05
+## Version 2023/05/31
 # make sure that your mastodon container is named mastodon
 # make sure that your dns has a cname set for mastodon
 # make sure you set `WEB_DOMAIN=mastodon.example.com` env var for the mastodon container
@@ -7,8 +7,8 @@
 # See the upstream docs for more info: https://docs.joinmastodon.org/admin/config/#basic
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
 
     server_name mastodon.*;
 

@@ -1,11 +1,11 @@
-## Version 2023/02/05
+## Version 2023/05/31
 # make sure that your airsonic container is named airsonic
 # make sure that your dns has a cname set for airsonic
 # add `server.use-forward-headers=true` to `/config/application.properties` to ensure logs contain real source IP
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
 
     server_name airsonic.*;
 
