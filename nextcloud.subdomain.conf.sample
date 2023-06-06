@@ -34,6 +34,6 @@ server {
 
         # Uncomment X-Frame-Options directive in ssl.conf to pass security checks.
         proxy_hide_header X-Frame-Options;
-        proxy_max_temp_file_size 2048m;
+        proxy_buffering off;
     }
 }
