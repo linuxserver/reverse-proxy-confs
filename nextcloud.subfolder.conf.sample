@@ -1,4 +1,4 @@
-## Version 2023/05/10
+## Version 2023/06/06
 # make sure that your nextcloud container is named nextcloud
 # make sure that nextcloud is set to work with the base url /nextcloud/
 # Assuming this container is called "swag", edit your nextcloud container's config
