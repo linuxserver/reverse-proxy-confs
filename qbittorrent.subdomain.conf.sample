@@ -1,4 +1,4 @@
-## Version 2023/05/31
+## Version 2023/06/14
 # make sure that your qbittorrent container is named qbittorrent
 # make sure that your dns has a cname set for qbittorrent
 
