@@ -1,4 +1,4 @@
-## Version 2023/05/10
+## Version 2023/06/06
 # make sure that your nextcloud container is named nextcloud
 # make sure that nextcloud is set to work with the base url /nextcloud/
 # Assuming this container is called "swag", edit your nextcloud container's config
@@ -36,7 +36,7 @@ location ^~ /nextcloud/ {
     rewrite /nextcloud(.*) $1 break;
     # Uncomment X-Frame-Options directive in ssl.conf to pass security checks.
     proxy_hide_header X-Frame-Options;
-    proxy_max_temp_file_size 2048m;
+    proxy_buffering off;
     proxy_set_header Range $http_range;
     proxy_set_header If-Range $http_if_range;
     proxy_ssl_session_reuse off;
