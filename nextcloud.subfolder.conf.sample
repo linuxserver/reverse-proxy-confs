@@ -40,6 +40,7 @@ location ^~ /nextcloud/ {
     proxy_ssl_session_reuse off;
 
     # Hide proxy response headers from Nextcloud that conflict with ssl.conf
+    # Uncomment the Optional additional headers in SWAG's ssl.conf to pass Nextcloud's security scan
     proxy_hide_header Referrer-Policy;
     proxy_hide_header X-Content-Type-Options;
     proxy_hide_header X-Frame-Options;
