@@ -1,4 +1,4 @@
-## Version 2023/05/31
+## Version 2023/07/10
 # make sure that your vaultwarden container is named vaultwarden
 # make sure that your dns has a cname set for vaultwarden
 # set the environment variable WEBSOCKET_ENABLED=true on your vaultwarden container
@@ -84,6 +84,8 @@ server {
         set $upstream_app vaultwarden;
         set $upstream_port 3012;
         set $upstream_proto http;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     }
