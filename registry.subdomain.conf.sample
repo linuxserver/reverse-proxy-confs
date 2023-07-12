@@ -1,0 +1,70 @@
+## Version 2023/07/12
+# make sure that your registry container is named registry
+# make sure that your dns has a cname set for registry
+# if you want to generate a registry password create a htpasswd file using e.g.:
+# `docker run --entrypoint htpasswd registry:2 -Bbn ${REGISTRY_USER} ${REGISTRY_PASS} > ${REGISTRY_ROOT}/auth/htpasswd`
+# and then pass it to the registry container using a volume mount
+#
+# Example snippet for a compose file (registry_network is shared with swag):
+# registry:
+#   image: registry:2.8.2
+#   container_name: registry
+#   volumes:
+#     - ${DOCKER_REGISTRY_ROOT}:/var/lib/registry
+#     - ${DOCKER_REGISTRY_ROOT}/auth:/auth
+#   environment:
+#     - REGISTRY_AUTH=htpasswd
+#     - REGISTRY_AUTH_HTPASSWD_REALM="Registry Realm"
+#     - REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd
+#   depends_on:
+#      - swag
+#   restart: always
+#   networks:
+#     - registry_network
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    server_name registry.*;
+
+    include /config/nginx/ssl.conf;
+
+    # remove the maximum upload body-size so that the registry can handle large uploads
+    client_max_body_size 0;
+
+    # enable for ldap auth (requires ldap-location.conf in the location block)
+    #include /config/nginx/ldap-server.conf;
+
+    # enable for Authelia (requires authelia-location.conf in the location block)
+    #include /config/nginx/authelia-server.conf;
+
+    # enable for Authentik (requires authentik-location.conf in the location block)
+    #include /config/nginx/authentik-server.conf;
+
+    location / {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable for ldap auth (requires ldap-server.conf in the server block)
+        #include /config/nginx/ldap-location.conf;
+
+        # enable for Authelia (requires authelia-server.conf in the server block)
+        #include /config/nginx/authelia-location.conf;
+
+        # enable for Authentik (requires authentik-server.conf in the server block)
+        #include /config/nginx/authentik-location.conf;
+
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app registry;
+        set $upstream_port 5000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        # fix for https://github.com/moby/moby/issues/1486
+        chunked_transfer_encoding on;
+    }
+
+}
