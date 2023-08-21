@@ -1,4 +1,4 @@
-## Version 2023/06/06
+## Version 2023/06/24
 # make sure that your nextcloud container is named nextcloud
 # make sure that nextcloud is set to work with the base url /nextcloud/
 # Assuming this container is called "swag", edit your nextcloud container's config
@@ -34,10 +34,18 @@ location ^~ /nextcloud/ {
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     rewrite /nextcloud(.*) $1 break;
-    # Uncomment X-Frame-Options directive in ssl.conf to pass security checks.
-    proxy_hide_header X-Frame-Options;
-    proxy_buffering off;
+
     proxy_set_header Range $http_range;
     proxy_set_header If-Range $http_if_range;
     proxy_ssl_session_reuse off;
+
+    # Hide proxy response headers from Nextcloud that conflict with ssl.conf
+    # Uncomment the Optional additional headers in SWAG's ssl.conf to pass Nextcloud's security scan
+    proxy_hide_header Referrer-Policy;
+    proxy_hide_header X-Content-Type-Options;
+    proxy_hide_header X-Frame-Options;
+    proxy_hide_header X-XSS-Protection;
+
+    # Disable proxy buffering
+    proxy_buffering off;
 }
