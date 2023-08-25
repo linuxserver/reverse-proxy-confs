@@ -1,16 +1,16 @@
-## Version 2023/05/31
-# make sure that your cadvisor container is named cadvisor
-# make sure that your dns has a cname set for cadvisor
+## Version 2023/08/05
+# make sure that your saltrim webserver container is named bar_assistant-webserver-1 or manually change to match the upstream_app below
+# make sure that your dns has a cname set for saltrim
 
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
-    server_name cadvisor.*;
+    server_name saltrim.*;
 
     include /config/nginx/ssl.conf;
 
-    client_max_body_size 0;
+    client_max_body_size 100M;
 
     # enable for ldap auth (requires ldap-location.conf in the location block)
     #include /config/nginx/ldap-server.conf;
@@ -37,20 +37,9 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app cadvisor;
-        set $upstream_port 8080;
+        set $upstream_app bar_assistant-webserver-1;
+        set $upstream_port 3000;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-    }
-
-    location ~ (/cadvisor)?/api {
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app cadvisor;
-        set $upstream_port 8080;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
     }
 }
