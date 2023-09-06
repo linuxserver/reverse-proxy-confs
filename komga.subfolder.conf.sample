@@ -1,4 +1,4 @@
-## Version 2023/02/05
+## Version 2023/09/05
 # make sure that your komga container is named komga
 # make sure that komga is set to work with the base url /komga/
 # First make sure your Container has set an Baseurl set via docker-compose File "envirnoment: SERVER_SERVLET_CONTEXT_PATH=/komga" and recreate the container.
