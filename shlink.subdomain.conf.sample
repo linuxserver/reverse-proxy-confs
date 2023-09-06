@@ -1,12 +1,12 @@
 ## Version 2023/05/31
-# make sure that your cadvisor container is named cadvisor
-# make sure that your dns has a cname set for cadvisor
+# make sure that your shlink container is named shlink
+# make sure that your dns has a cname set for shlink
 
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
 
-    server_name cadvisor.*;
+    server_name shlink.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,20 +37,9 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app cadvisor;
+        set $upstream_app shlink;
         set $upstream_port 8080;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-    }
-
-    location ~ (/cadvisor)?/api {
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app cadvisor;
-        set $upstream_port 8080;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
     }
 }
