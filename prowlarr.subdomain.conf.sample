@@ -1,4 +1,4 @@
-## Version 2023/05/31
+## Version 2023/09/13
 # make sure that your prowlarr container is named prowlarr
 # make sure that your dns has a cname set for prowlarr
 
@@ -50,5 +50,15 @@ server {
         set $upstream_port 9696;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+
+    location ~ /prowlarr(/[0-9]+)?/download {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app prowlarr;
+        set $upstream_port 9696;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 }
