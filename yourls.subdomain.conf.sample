@@ -1,12 +1,12 @@
-## Version 2023/09/05
-# make sure that your komga container is named komga
-# make sure that your dns has a cname set for komga
+## Version 2023/08/27
+# make sure that your yourls container is named yourls
+# make sure that your dns has a cname set for yourls if necessary 
 
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
 
-    server_name komga.*;
+    server_name yourls.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,18 +37,8 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app komga;
-        set $upstream_port 25600;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-    }
-
-    location ~ (/komga)?/api {
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app komga;
-        set $upstream_port 25600;
+        set $upstream_app yourls;
+        set $upstream_port 80;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 

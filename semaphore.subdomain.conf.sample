@@ -1,12 +1,12 @@
-## Version 2023/09/05
-# make sure that your komga container is named komga
-# make sure that your dns has a cname set for komga
+## Version 2023/09/01
+# make sure that your semaphore container is named semaphore
+# make sure that your dns has a cname set for semaphore
 
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
 
-    server_name komga.*;
+    server_name semaphore.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,20 +37,14 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app komga;
-        set $upstream_port 25600;
+        set $upstream_app semaphore;
+        set $upstream_port 3000;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    }
-
-    location ~ (/komga)?/api {
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app komga;
-        set $upstream_port 25600;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+        # Clear Authorization Header if you are using http auth and normal semaphore auth
+        #proxy_set_header    Authorization       "";
 
     }
+
 }
