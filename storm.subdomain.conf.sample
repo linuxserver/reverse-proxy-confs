@@ -10,9 +10,6 @@ server {
 
     server_name storm.*;
 
-    # enable to indicate to search engines to not index this site
-    # add_header X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
-
     include /config/nginx/ssl.conf;
 
     client_max_body_size 0;
