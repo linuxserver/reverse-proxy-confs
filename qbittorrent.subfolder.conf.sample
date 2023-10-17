@@ -1,6 +1,14 @@
-## Version 2023/02/05
+## Version 2023/10/10
 # make sure that your qbittorrent container is named qbittorrent
 # qbittorrent does not require a base url setting
+# Api and related location bypasses are now commented out by default
+# due to users easily misconfiguring qbittorrent to allow
+# public access through the api endpoint by including SWAG in
+# "Bypass authentication for clients in whitelisted IP subnets",
+# which results in all connections through SWAG to be considered
+# local and bypassing auth, which also applies to qbittorrent's
+# api endpoint (webui api)
+# enable at your own risk
 
 location /qbittorrent {
     return 301 $scheme://$host/qbittorrent/;
@@ -34,92 +42,107 @@ location ^~ /qbittorrent/ {
     proxy_set_header X-Forwarded-Host $host;
 }
 
-location ^~ /qbittorrent/api {
-    include /config/nginx/proxy.conf;
-    include /config/nginx/resolver.conf;
-    set $upstream_app qbittorrent;
-    set $upstream_port 8080;
-    set $upstream_proto http;
-    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+# location ^~ /qbittorrent/api {
+#     include /config/nginx/proxy.conf;
+#     include /config/nginx/resolver.conf;
+#     set $upstream_app qbittorrent;
+#     set $upstream_port 8080;
+#     set $upstream_proto http;
+#     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    rewrite /qbittorrent(.*) $1 break;
+#     rewrite /qbittorrent(.*) $1 break;
 
-    proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:$upstream_port;
-    proxy_set_header X-Forwarded-Host $host;
-}
+#     proxy_set_header Referer '';
+#     proxy_set_header Host $upstream_app:$upstream_port;
+#     proxy_set_header X-Forwarded-Host $host;
+# }
 
-location ^~ /qbittorrent/command {
-    include /config/nginx/proxy.conf;
-    include /config/nginx/resolver.conf;
-    set $upstream_app qbittorrent;
-    set $upstream_port 8080;
-    set $upstream_proto http;
-    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+# location ^~ /qbittorrent/command {
+#     include /config/nginx/proxy.conf;
+#     include /config/nginx/resolver.conf;
+#     set $upstream_app qbittorrent;
+#     set $upstream_port 8080;
+#     set $upstream_proto http;
+#     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    rewrite /qbittorrent(.*) $1 break;
+#     rewrite /qbittorrent(.*) $1 break;
 
-    proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:$upstream_port;
-    proxy_set_header X-Forwarded-Host $host;
-}
+#     proxy_set_header Referer '';
+#     proxy_set_header Host $upstream_app:$upstream_port;
+#     proxy_set_header X-Forwarded-Host $host;
+# }
 
-location ^~ /qbittorrent/query {
-    include /config/nginx/proxy.conf;
-    include /config/nginx/resolver.conf;
-    set $upstream_app qbittorrent;
-    set $upstream_port 8080;
-    set $upstream_proto http;
-    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+# location ^~ /qbittorrent/css {
+#     include /config/nginx/proxy.conf;
+#     include /config/nginx/resolver.conf;
+#     set $upstream_app qbittorrent;
+#     set $upstream_port 8080;
+#     set $upstream_proto http;
+#     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    rewrite /qbittorrent(.*) $1 break;
+#     rewrite /qbittorrent(.*) $1 break;
 
-    proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:$upstream_port;
-    proxy_set_header X-Forwarded-Host $host;
-}
+#     proxy_set_header Referer '';
+#     proxy_set_header Host $upstream_app:$upstream_port;
+#     proxy_set_header X-Forwarded-Host $host;
+# }
 
-location ^~ /qbittorrent/login {
-    include /config/nginx/proxy.conf;
-    include /config/nginx/resolver.conf;
-    set $upstream_app qbittorrent;
-    set $upstream_port 8080;
-    set $upstream_proto http;
-    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+# location ^~ /qbittorrent/query {
+#     include /config/nginx/proxy.conf;
+#     include /config/nginx/resolver.conf;
+#     set $upstream_app qbittorrent;
+#     set $upstream_port 8080;
+#     set $upstream_proto http;
+#     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    rewrite /qbittorrent(.*) $1 break;
+#     rewrite /qbittorrent(.*) $1 break;
 
-    proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:$upstream_port;
-    proxy_set_header X-Forwarded-Host $host;
-}
+#     proxy_set_header Referer '';
+#     proxy_set_header Host $upstream_app:$upstream_port;
+#     proxy_set_header X-Forwarded-Host $host;
+# }
 
-location ^~ /qbittorrent/sync {
-    include /config/nginx/proxy.conf;
-    include /config/nginx/resolver.conf;
-    set $upstream_app qbittorrent;
-    set $upstream_port 8080;
-    set $upstream_proto http;
-    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+# location ^~ /qbittorrent/login {
+#     include /config/nginx/proxy.conf;
+#     include /config/nginx/resolver.conf;
+#     set $upstream_app qbittorrent;
+#     set $upstream_port 8080;
+#     set $upstream_proto http;
+#     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    rewrite /qbittorrent(.*) $1 break;
+#     rewrite /qbittorrent(.*) $1 break;
 
-    proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:$upstream_port;
-    proxy_set_header X-Forwarded-Host $host;
-}
+#     proxy_set_header Referer '';
+#     proxy_set_header Host $upstream_app:$upstream_port;
+#     proxy_set_header X-Forwarded-Host $host;
+# }
 
-location ^~ /qbittorrent/scripts {
-    include /config/nginx/proxy.conf;
-    include /config/nginx/resolver.conf;
-    set $upstream_app qbittorrent;
-    set $upstream_port 8080;
-    set $upstream_proto http;
-    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+# location ^~ /qbittorrent/sync {
+#     include /config/nginx/proxy.conf;
+#     include /config/nginx/resolver.conf;
+#     set $upstream_app qbittorrent;
+#     set $upstream_port 8080;
+#     set $upstream_proto http;
+#     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    rewrite /qbittorrent(.*) $1 break;
+#     rewrite /qbittorrent(.*) $1 break;
 
-    proxy_set_header Referer '';
-    proxy_set_header Host $upstream_app:$upstream_port;
-    proxy_set_header X-Forwarded-Host $host;
-}
+#     proxy_set_header Referer '';
+#     proxy_set_header Host $upstream_app:$upstream_port;
+#     proxy_set_header X-Forwarded-Host $host;
+# }
+
+# location ^~ /qbittorrent/scripts {
+#     include /config/nginx/proxy.conf;
+#     include /config/nginx/resolver.conf;
+#     set $upstream_app qbittorrent;
+#     set $upstream_port 8080;
+#     set $upstream_proto http;
+#     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+#     rewrite /qbittorrent(.*) $1 break;
+
+#     proxy_set_header Referer '';
+#     proxy_set_header Host $upstream_app:$upstream_port;
+#     proxy_set_header X-Forwarded-Host $host;
+# }
