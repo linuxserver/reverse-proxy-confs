@@ -1,6 +1,10 @@
-## Version 2023/11/11
+## Version 2023/11/12
 # make sure that your vaultwarden container is named vaultwarden
 # make sure that your dns has a cname set for vaultwarden
+# if you are using bitwarden (the official image), use the bitwarden conf
+# if you are using vaultwarden (an unofficial implementation), use the vaultwarden conf
+#
+# vaultwarden defaults to port 80 and can be changed using the environment variable ROCKET_PORT on the vaultwarden container
 
 server {
     listen 443 ssl http2;

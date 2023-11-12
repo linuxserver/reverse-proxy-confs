@@ -1,7 +1,12 @@
-## Version 2023/11/11
+## Version 2023/11/12
 # make sure that your vaultwarden container is named vaultwarden
 # make sure that vaultwarden is set to work with the base url /vaultwarden/
-## Environmental Variable DOMAIN=https://<DOMAIN>/vaultwarden must be set in vaultwarden container including subfolder.
+# if you are using bitwarden (the official image), use the bitwarden conf
+# if you are using vaultwarden (an unofficial implementation), use the vaultwarden conf
+#
+# vaultwarden defaults to port 80 and can be changed using the environment variable ROCKET_PORT on the vaultwarden container
+#
+# Environmental Variable DOMAIN=https://<DOMAIN>/vaultwarden must be set in vaultwarden container including subfolder.
 
 location /vaultwarden {
     return 301 $scheme://$host/vaultwarden/;
