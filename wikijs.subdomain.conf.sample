@@ -41,6 +41,7 @@ server {
         set $upstream_port 3000;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 
     location ~ (/wikijs)?/graphql {
@@ -50,5 +51,6 @@ server {
         set $upstream_port 3000;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 }
