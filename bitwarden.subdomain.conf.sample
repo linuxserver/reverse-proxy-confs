@@ -1,7 +1,10 @@
-## Version 2023/05/31
+## Version 2023/11/12
 # make sure that your bitwarden container is named bitwarden
 # make sure that your dns has a cname set for bitwarden
-# set the environment variable WEBSOCKET_ENABLED=true on your bitwarden container
+# if you are using bitwarden (the official image), use the bitwarden conf
+# if you are using vaultwarden (an unofficial implementation), use the vaultwarden conf
+#
+# bitwarden defaults to port 8080 and can be changed using the environment variable BW_PORT_HTTP on the bitwarden container
 
 server {
     listen 443 ssl http2;
@@ -39,7 +42,7 @@ server {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app bitwarden;
-        set $upstream_port 80;
+        set $upstream_port 8080;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
@@ -62,7 +65,7 @@ server {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app bitwarden;
-        set $upstream_port 80;
+        set $upstream_port 8080;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
@@ -72,7 +75,7 @@ server {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app bitwarden;
-        set $upstream_port 80;
+        set $upstream_port 8080;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
@@ -82,17 +85,7 @@ server {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app bitwarden;
-        set $upstream_port 3012;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-    }
-
-    location ~ (/bitwarden)?/notifications/hub/negotiate {
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app bitwarden;
-        set $upstream_port 80;
+        set $upstream_port 8080;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 

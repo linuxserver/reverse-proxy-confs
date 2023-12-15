@@ -1,8 +1,12 @@
-## Version 2023/03/27
+## Version 2023/11/12
 # make sure that your vaultwarden container is named vaultwarden
 # make sure that vaultwarden is set to work with the base url /vaultwarden/
-## Environmental Variable DOMAIN=https://<DOMAIN>/vaultwarden must be set in vaultwarden container including subfolder.
-## This is using ports 80 and 3012
+# if you are using bitwarden (the official image), use the bitwarden conf
+# if you are using vaultwarden (an unofficial implementation), use the vaultwarden conf
+#
+# vaultwarden defaults to port 80 and can be changed using the environment variable ROCKET_PORT on the vaultwarden container
+#
+# Environmental Variable DOMAIN=https://<DOMAIN>/vaultwarden must be set in vaultwarden container including subfolder.
 
 location /vaultwarden {
     return 301 $scheme://$host/vaultwarden/;
@@ -65,16 +69,6 @@ location ~ (/vaultwarden)?/api {
 }
 
 location ~ (/vaultwarden)?/notifications/hub {
-    include /config/nginx/proxy.conf;
-    include /config/nginx/resolver.conf;
-    set $upstream_app vaultwarden;
-    set $upstream_port 3012;
-    set $upstream_proto http;
-    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-}
-
-location ~ (/vaultwarden)?/notifications/hub/negotiate {
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;
     set $upstream_app vaultwarden;

@@ -1,15 +1,13 @@
-## Version 2023/09/06
-# make sure that your unifi-network-application container is named unifi-network-application
-# make sure that your dns has a cname set for unifi
-# NOTE: If you use the proxy_cookie_path setting in proxy.conf you need to remove HTTPOnly;
-# ex: proxy_cookie_path / "/; Secure";
-# change $upstream_port to 443 if connecting to a Unifi Cloud Key
+## Version 2023/11/26
+# make sure that your immich container is named immich
+# make sure that your dns has a cname set for immich
+# immich v1.88+ only
 
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
 
-    server_name unifi.*;
+    server_name immich.*;
 
     include /config/nginx/ssl.conf;
 
@@ -40,11 +38,20 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app unifi-network-application;
-        set $upstream_port 8443;
-        set $upstream_proto https;
+        set $upstream_app immich-server;
+        set $upstream_port 3001;
+        set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-        proxy_buffering off;
+    }
+
+    location ~ (/immich)?/api {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app immich-server;
+        set $upstream_port 3001;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 }
