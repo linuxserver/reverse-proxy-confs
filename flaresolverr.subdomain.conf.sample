@@ -1,4 +1,4 @@
-## Version 2023/05/31
+## Version 2023/12/15
 # make sure that your flaresolverr container is named flaresolverr
 # make sure that your dns has a cname set for flaresolverr
 
