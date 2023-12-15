@@ -1,12 +1,13 @@
-## Version 2023/09/13
-# make sure that your prowlarr container is named prowlarr
-# make sure that your dns has a cname set for prowlarr
+## Version 2023/09/29
+# make sure that your linkace container is named linkace
+# make sure that your dns has a cname set for linkace
+# use linkace:simple package with included proxy
 
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
 
-    server_name prowlarr.*;
+    server_name linkace.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,28 +38,9 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app prowlarr;
-        set $upstream_port 9696;
+        set $upstream_app linkace;
+        set $upstream_port 80;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-    }
-
-    location ~ (/prowlarr)?(/[0-9]+)?/api {
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app prowlarr;
-        set $upstream_port 9696;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-    }
-
-    location ~ (/prowlarr)?(/[0-9]+)?/download {
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app prowlarr;
-        set $upstream_port 9696;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
     }
 }
