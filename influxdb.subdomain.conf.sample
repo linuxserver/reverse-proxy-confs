@@ -1,4 +1,4 @@
-## Version 2023/12/21
+## Version 2023/05/31
 # make sure that your influxdb container is named influxdb
 # make sure that your dns has a cname set for influxdb
 
@@ -41,17 +41,6 @@ server {
         set $upstream_port 8086;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-    }
-
-    location ~ (/influxdb)?/api {
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app influxdb;
-        set $upstream_port 8086;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-    
     }
 }
 
