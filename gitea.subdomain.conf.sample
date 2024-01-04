@@ -1,4 +1,4 @@
-## Version 2023/05/31
+## Version 2023/12/26
 # make sure that your gitea container is named gitea
 # make sure that your dns has a cname set for gitea
 # edit the following parameters in /data/gitea/conf/app.ini
@@ -40,6 +40,16 @@ server {
         # enable for Authentik (requires authentik-server.conf in the server block)
         #include /config/nginx/authentik-location.conf;
 
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app gitea;
+        set $upstream_port 3000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
+
+    location ~ (/gitea)?/info/lfs {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app gitea;
