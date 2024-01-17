@@ -41,6 +41,9 @@ server {
         set $upstream_port 8080;
         set $upstream_proto https;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+        if ($http_content_type = "application/grpc") {
+            grpc_pass grpcs://pydio-cells:33060;
+        }
 
     }
 
