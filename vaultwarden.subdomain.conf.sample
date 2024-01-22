@@ -1,4 +1,4 @@
-## Version 2023/11/12
+## Version 2024/01/24
 # make sure that your vaultwarden container is named vaultwarden
 # make sure that your dns has a cname set for vaultwarden
 # if you are using bitwarden (the official image), use the bitwarden conf
@@ -82,6 +82,16 @@ server {
     }
 
     location ~ (/vaultwarden)?/notifications/hub {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app vaultwarden;
+        set $upstream_port 80;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
+
+        location ~ (/vaultwarden)?/identity/connect/token {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app vaultwarden;
