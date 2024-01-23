@@ -91,7 +91,7 @@ server {
 
     }
 
-        location ~ (/vaultwarden)?/identity/connect/token {
+    location ~ (/vaultwarden)?/identity/connect/token {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app vaultwarden;
