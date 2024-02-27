@@ -42,5 +42,8 @@ server {
         set $upstream_proto https;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
+        # Enable to secure cookies. Further reading here -> https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
+        #proxy_cookie_path / "/; Secure; SameSite=strict; HttpOnly";
+
     }
 }
