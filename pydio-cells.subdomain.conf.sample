@@ -1,4 +1,4 @@
-## Version 2024/01/17
+## Version 2024/03/14
 # make sure that your pydio-cells container is named pydio-cells
 # make sure that your dns has a cname set for pydio-cells
 
@@ -40,10 +40,10 @@ server {
         set $upstream_app pydio-cells;
         set $upstream_port 8080;
         set $upstream_proto https;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
         if ($http_content_type = "application/grpc") {
-            grpc_pass grpcs://pydio-cells:33060;
+            grpc_pass grpcs://$upstream_app:8080;
         }
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     }
 
