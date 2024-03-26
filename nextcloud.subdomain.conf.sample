@@ -50,6 +50,8 @@ server {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app nextcloud;
+        # The url below is for the notify-push service running inside the NC container
+        # The address should be the NC container's address, but the proto and port are the custom service's
         proxy_pass http://$upstream_app:7867/;
     }
 
