@@ -39,7 +39,7 @@ server {
         include /config/nginx/resolver.conf;
         set $upstream_app privatebin;
         set $upstream_port 8080;
-        set $upstream_proto https;
+        set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     }
