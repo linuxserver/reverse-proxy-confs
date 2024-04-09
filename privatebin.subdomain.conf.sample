@@ -1,4 +1,4 @@
-## Version 2023/05/31
+## Version 2024/03/28
 # make sure that your privatebin container is named privatebin
 # make sure that your dns has a cname set for privatebin
 
@@ -39,7 +39,7 @@ server {
         include /config/nginx/resolver.conf;
         set $upstream_app privatebin;
         set $upstream_port 8080;
-        set $upstream_proto https;
+        set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     }

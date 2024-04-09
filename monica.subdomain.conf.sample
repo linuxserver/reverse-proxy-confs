@@ -1,6 +1,9 @@
-## Version 2023/05/31
-# make sure that your monica. container is named monica.
+## Version 2024/03/28
+# make sure that your monica container is named monica.
 # make sure that your dns has a cname set for monica.
+# monica container should have the env var APP_ENV=production set.
+# monica container should have the env var TRUSTED_PROXIES set to a value 
+# that includes SWAG as seen by the monica container
 
 server {
     listen 443 ssl http2;
@@ -38,8 +41,8 @@ server {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app monica;
-        set $upstream_port 80;
-        set $upstream_proto http;
+        set $upstream_port 443;
+        set $upstream_proto https;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
     }
 }
