@@ -1,3 +1,7 @@
+## Version 2024/04/13
+# make sure that your OpenProject container is named OpenProject
+# make sure that your DNS has a record set for openproject
+
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
