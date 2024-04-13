@@ -1,0 +1,18 @@
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name openproject.*;
+    include /config/nginx/ssl.conf;
+    client_max_body_size 0;
+
+    location / {    
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app OpenProject;
+        set $upstream_port 8080;
+        set $upstream_proto https;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+        proxy_set_header X-Forwarded-Host $upstream_app:$upstream_port;
+    }
+}
