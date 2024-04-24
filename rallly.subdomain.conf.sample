@@ -1,5 +1,5 @@
 ## Version 2023/05/31
-# make sure that your <container_name> container is named rallly
+# make sure that your rallly container is named rallly
 # make sure that your dns has a cname set for rallly
 
 server {
