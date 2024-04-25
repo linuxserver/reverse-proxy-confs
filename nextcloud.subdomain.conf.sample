@@ -1,9 +1,9 @@
-## Version 2023/06/24
+## Version 2024/04/25
 # make sure that your nextcloud container is named nextcloud
 # make sure that your dns has a cname set for nextcloud
 # assuming this container is called "swag", edit your nextcloud container's config
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
-#  'trusted_proxies' => ['swag'],
+#  'trusted_proxies' => [gethostbyname('swag')],
 #  'overwrite.cli.url' => 'https://nextcloud.example.com/',
 #  'overwritehost' => 'nextcloud.example.com',
 #  'overwriteprotocol' => 'https',
