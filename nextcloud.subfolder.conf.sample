@@ -1,4 +1,4 @@
-## Version 2024/04/25
+## Version 2024/04/28
 # make sure that your nextcloud container is named nextcloud
 # make sure that nextcloud is set to work with the base url /nextcloud/
 # Assuming this container is called "swag", edit your nextcloud container's config
@@ -48,4 +48,8 @@ location ^~ /nextcloud/ {
 
     # Disable proxy buffering
     proxy_buffering off;
+
+    # Nextcloud's redirect for these two `/.well-known` URIs in version 29 did not consider overwritewebroot
+    location = /nextcloud/.well-known/carddav { return 301 /nextcloud/remote.php/dav/; }
+    location = /nextcloud/.well-known/caldav { return 301 /nextcloud/remote.php/dav/; }
 }
