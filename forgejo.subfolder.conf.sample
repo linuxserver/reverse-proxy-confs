@@ -1,0 +1,24 @@
+## Version 2024/04/20
+# make sure that your forgejo container is named forgejo
+# make sure that forgejo is set to work with the base url /forgejo/
+# The following parameters in /data/forgejo/conf/app.ini should be edited to match your setup
+# or set as ENV vars in your container
+# [server]
+# SSH_DOMAIN       = example.com:2222
+# ROOT_URL         = https://example.com/forgejo/
+# DOMAIN           = example.com
+
+location /forgejo {
+    return 301 $scheme://$host/forgejo/;
+}
+
+location ^~ /forgejo/ {
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+    set $upstream_app forgejo;
+    set $upstream_port 3000;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    rewrite /forgejo(.*) $1 break;
+}
