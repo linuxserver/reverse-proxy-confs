@@ -1,11 +1,10 @@
-## Version 2023/05/31
+## Version 2024/05/29
 # make sure that your n8n container is named n8n
 # make sure that your dns has a cname set for n8n
 # add `server.use-forward-headers=true` to `/config/application.properties` to ensure logs contain real source IP
 
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    listen *:443 ssl;
 
     server_name n8n.*;
 

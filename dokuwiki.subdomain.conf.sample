@@ -1,11 +1,10 @@
-## Version 2023/05/31
+## Version 2024/05/29
 # make sure that your dokuwiki container is named dokuwiki
 # make sure that your dns has a cname set for dokuwiki
 # complete the setup by appending install.php to URL
 
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    listen *:443 ssl;
 
     server_name dokuwiki.*;
 

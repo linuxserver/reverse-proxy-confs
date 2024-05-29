@@ -1,9 +1,8 @@
-## Version 2023/06/27
+## Version 2024/05/29
 # make sure that your dns has a cname set for linkstack and that your linkstack container is not using a base url
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen *:443 ssl;
 
     server_name linkstack.*;
 

@@ -1,4 +1,4 @@
-## Version 2023/09/06
+## Version 2024/05/29
 # make sure that your unifi-network-application container is named unifi-network-application
 # make sure that your dns has a cname set for unifi
 # NOTE: If you use the proxy_cookie_path setting in proxy.conf you need to remove HTTPOnly;
@@ -6,8 +6,7 @@
 # change $upstream_port to 443 if connecting to a Unifi Cloud Key
 
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    listen *:443 ssl;
 
     server_name unifi.*;
 
