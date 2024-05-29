@@ -14,6 +14,8 @@ server {
     include /config/nginx/ssl.conf;
 
     client_max_body_size 0;
+    proxy_redirect off;
+    proxy_buffering off;
 
     # enable for ldap auth (requires ldap-location.conf in the location block)
     #include /config/nginx/ldap-server.conf;
@@ -44,9 +46,6 @@ server {
         set $upstream_port 32400;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-        proxy_buffering off;
-        proxy_redirect off;
 
         proxy_set_header X-Plex-Client-Identifier $http_x_plex_client_identifier;
         proxy_set_header X-Plex-Device $http_x_plex_device;
