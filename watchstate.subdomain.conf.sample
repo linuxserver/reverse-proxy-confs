@@ -1,12 +1,14 @@
-## Version 2024/01/08
-# make sure that your influxdb container is named influxdb
-# make sure that your dns has a cname set for influxdb
+## Version 2024/05/06
+# make sure that your radarr container is named watchstate
+# make sure that your dns has a cname set for watchstate
+# the api endpoint is not behind auth, so please make sure to enable
+# "Webhook match backend id" in backend settings
 
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
 
-    server_name influxdb.*;
+    server_name watchstate.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,20 +39,20 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app influxdb;
-        set $upstream_port 8086;
+        set $upstream_app watchstate;
+        set $upstream_port 8080;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     }
 
-    location ~ (/influxdb)?/api {
+    location ~ /v1/api {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app influxdb;
-        set $upstream_port 8086;
+        set $upstream_app watchstate;
+        set $upstream_port 8080;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-    
+
     }
 }

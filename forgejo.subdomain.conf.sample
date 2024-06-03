@@ -1,12 +1,17 @@
-## Version 2024/01/08
-# make sure that your influxdb container is named influxdb
-# make sure that your dns has a cname set for influxdb
+## Version 2024/04/20
+# make sure that your forgejo container is named forgejo
+# make sure that your dns has a cname set for forgejo
+# edit the following parameters in /data/forgejo/conf/app.ini or set as ENV vars in your container
+# [server]
+# SSH_DOMAIN       = forgejo.example.com
+# ROOT_URL         = https://forgejo.example.com/
+# DOMAIN           = forgejo.example.com
 
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
 
-    server_name influxdb.*;
+    server_name forgejo.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,20 +42,20 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app influxdb;
-        set $upstream_port 8086;
+        set $upstream_app forgejo;
+        set $upstream_port 3000;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     }
 
-    location ~ (/influxdb)?/api {
+    location ~ (/forgejo)?/info/lfs {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app influxdb;
-        set $upstream_port 8086;
+        set $upstream_app forgejo;
+        set $upstream_port 3000;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-    
+
     }
 }
