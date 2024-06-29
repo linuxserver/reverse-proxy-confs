@@ -1,10 +1,9 @@
-## Version 2023/09/28
+## Version 2024/05/29
 # make sure that your nocodb container is named nocodb
 # make sure that your dns has a cname set for nocodb
 
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    listen *:443 ssl;
 
     server_name nocodb.*;
 
