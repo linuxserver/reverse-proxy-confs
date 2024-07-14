@@ -1,4 +1,4 @@
-## Version 2024/05/29
+## Version 2024/07/14
 # make sure that your influxdb container is named influxdb
 # make sure that your dns has a cname set for influxdb
 
@@ -50,6 +50,6 @@ server {
         set $upstream_port 8086;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-    
+
     }
 }

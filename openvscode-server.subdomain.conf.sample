@@ -1,4 +1,4 @@
-## Version 2024/05/29
+## Version 2024/07/14
 # make sure that your openvscode-server container is named openvscode-server
 # make sure that your dns has a cname set for openvscode-server
 # This conf allows accessing internal ports at `PORT` (http) or `PORTs` (https) as subdomain

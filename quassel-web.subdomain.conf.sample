@@ -1,4 +1,4 @@
-## Version 2024/05/29
+## Version 2024/07/14
 # make sure that your quassel container is named quassel-web
 # make sure that your dns has a cname set for quassel
 # make sure Quassel-Web is running on http with -e 'HTTPS'='false' or if you're using -e 'ADVANCED'='true' by editing config.json appropriately

@@ -1,8 +1,8 @@
-## Version 2024/05/29
+## Version 2024/07/14
 # make sure that your monica container is named monica.
 # make sure that your dns has a cname set for monica.
 # monica container should have the env var APP_ENV=production set.
-# monica container should have the env var TRUSTED_PROXIES set to a value 
+# monica container should have the env var TRUSTED_PROXIES set to a value
 # that includes SWAG as seen by the monica container
 
 server {

@@ -1,6 +1,6 @@
-## Version 2024/05/29
+## Version 2024/07/14
 # make sure that your yourls container is named yourls
-# make sure that your dns has a cname set for yourls if necessary 
+# make sure that your dns has a cname set for yourls if necessary
 
 server {
     listen *:443 ssl;

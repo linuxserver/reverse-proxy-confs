@@ -1,4 +1,4 @@
-## Version 2024/05/29
+## Version 2024/07/14
 # make sure that your authelia container is named authelia
 # make sure that your dns has a cname set for authelia
 

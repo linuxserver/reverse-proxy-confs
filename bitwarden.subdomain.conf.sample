@@ -1,4 +1,4 @@
-## Version 2024/05/29
+## Version 2024/07/14
 # make sure that your bitwarden container is named bitwarden
 # make sure that your dns has a cname set for bitwarden
 # if you are using bitwarden (the official image), use the bitwarden conf

@@ -1,4 +1,4 @@
-## Version 2024/05/29
+## Version 2024/07/14
 # make sure that your linkace container is named linkace
 # make sure that your dns has a cname set for linkace
 # use linkace:simple package with included proxy
