@@ -1,4 +1,4 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # REMOVE THIS LINE BEFORE SUBMITTING: The structure of the file (all of the existing lines) should be kept as close as possible to this template.
 # REMOVE THIS LINE BEFORE SUBMITTING: Look through this file for <tags> and replace them. Review other sample files to see how things are done.
 # REMOVE THIS LINE BEFORE SUBMITTING: The comment lines at the top of the file (below this line) should explain any prerequisites for using the proxy such as DNS or app settings.
@@ -6,7 +6,8 @@
 # make sure that your dns has a cname set for <container_name>
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name <container_name>.*;
 

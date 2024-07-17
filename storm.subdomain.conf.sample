@@ -1,11 +1,12 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # reverse proxy config for a modern deluge interface named storm
 # https://github.com/relvacode/storm
 # make sure that your storm container is named storm
 # make sure that your dns has a cname set for storm
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name storm.*;
 

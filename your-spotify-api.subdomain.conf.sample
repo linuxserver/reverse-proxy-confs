@@ -1,4 +1,4 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # https://github.com/Yooooomi/your_spotify
 # this is not a standalone config, it requires configured your-spotify web container for full functionality.
 # it uses server URLs for api callbacks, thus a server is required
@@ -7,7 +7,8 @@
 # do not forget to finish configuration following instructions in apps repository. API_ENDPOINT=https://your-spotify-server.[your domain].
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name your-spotify-server.*;
 

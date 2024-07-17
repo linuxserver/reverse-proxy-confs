@@ -1,8 +1,9 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # Ensure your DNS has a CNAME set for mealie and that mealie container is named.
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name mealie.*;
 

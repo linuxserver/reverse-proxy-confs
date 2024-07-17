@@ -1,11 +1,12 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # make sure that your nexusoss container is named nexusoss
 # make sure that your dns has a cname set for nexusoss
 # make sure that the port for the nexusoss container 8081 (the first location "/")
 # make sure that the HTTP Connector port for the hosted docker repository is 8082 (the second location "/v2/")
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name nexusoss.*;
 

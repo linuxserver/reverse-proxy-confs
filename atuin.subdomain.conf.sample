@@ -1,9 +1,10 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # make sure that your atuin container is named atuin
 # make sure that your dns has a cname set for atuin
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name atuin.*;
 

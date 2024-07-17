@@ -1,11 +1,12 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # this is for nodes, not your actual panel
 # make sure you set your node to use 443 as its API port
 # make sure that your pterodactylnode container is named pterodactylnode
 # make sure that your dns has a cname set for pterodactylnode
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name pterodactylnode.*;
 

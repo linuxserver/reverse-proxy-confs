@@ -1,9 +1,10 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # make sure that your adguard container is named adguard
 # make sure that your dns has a cname set for adguard
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name adguard.*;
 

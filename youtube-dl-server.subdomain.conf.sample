@@ -1,9 +1,10 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # make sure that your youtube-dl-server container is named youtube-dl-server
 # make sure that your dns has a cname set for youtube-dl-server
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name youtube-dl-server.*;
 

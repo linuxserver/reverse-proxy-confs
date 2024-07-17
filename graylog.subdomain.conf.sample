@@ -1,11 +1,12 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # make sure that your graylog container is named graylog
 # make sure that your dns has a cname set for graylog
 # Ensure the upstream_port matches your GRAYLOG_HTTP_BIND_ADDRESS port
 # This conf assumes GRAYLOG_HTTP_BIND_ADDRESS=0.0.0.0:9000
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name graylog.*;
 

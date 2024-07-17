@@ -1,4 +1,4 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # make sure that your qbittorrent container is named qbittorrent
 # make sure that your dns has a cname set for qbittorrent
 # Api and related location bypasses are now commented out by default
@@ -11,7 +11,8 @@
 # enable at your own risk
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name qbittorrent.*;
 

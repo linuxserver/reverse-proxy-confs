@@ -1,9 +1,10 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # make sure that your yt-dlp-web container is named yt-dlp-web
 # make sure that your dns has a cname set for yt-dlp-web
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name yt-dlp-web.*;
 

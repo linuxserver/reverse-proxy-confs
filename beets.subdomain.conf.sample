@@ -1,10 +1,11 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # make sure that your beets container is named beets
 # make sure that your dns has a cname set for beets
 #First edit beets.yml and enable the reverse proxy settings, under "web" add "reverse_proxy: true" and restart the beets container.
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name beets.*;
 

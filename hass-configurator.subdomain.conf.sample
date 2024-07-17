@@ -1,11 +1,12 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # make sure that your hass container is named hass
 # make sure that your dns has a cname set for hass
 # this proxy configuration file is for the hass-configurator-docker container that is used
 # in the hassos addon store (https://github.com/CausticLab/hass-configurator-docker)
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name hass-configurator.*;
 

@@ -1,9 +1,10 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # Make sure that your DNS has a CNAME record for "mattermost" and your Mattermost container is using the same subdomain
 # To learn how to deploy Mattermost via Docker, visit https://docs.mattermost.com/install/install-docker.html
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name mattermost.*;
 

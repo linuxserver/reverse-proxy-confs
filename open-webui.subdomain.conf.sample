@@ -1,9 +1,10 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # make sure that your open-webui container is named open-webui
 # make sure that your dns has a cname set for open-webui
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name open-webui.*;
 

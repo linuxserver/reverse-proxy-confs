@@ -1,4 +1,4 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # make sure that your calibre container is named calibre
 # make sure that your dns has a cname set for calibre
 # for the content server, go into calibre preferences / sharing over the net / advanced and
@@ -6,7 +6,8 @@
 # the content server will be accessible at 'https://calibre.domain.com/content-server/'
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name calibre.*;
 

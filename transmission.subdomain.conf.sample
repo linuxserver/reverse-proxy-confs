@@ -1,4 +1,4 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # Make sure that DNS has a cname set for transmission
 #
 # Some Transmission Chrome extensions cannot handle HTTP/2 proxies as they
@@ -11,7 +11,8 @@
 # extension developer to fix their extensions to support HTTP/2.
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name transmission.*;
 

@@ -1,4 +1,4 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # make sure that your monica container is named monica.
 # make sure that your dns has a cname set for monica.
 # monica container should have the env var APP_ENV=production set.
@@ -6,7 +6,8 @@
 # that includes SWAG as seen by the monica container
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name monica.*;
 

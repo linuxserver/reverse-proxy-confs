@@ -1,10 +1,11 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # make sure that your healthchecks container is named healthchecks
 # make sure that your dns has a cname set for healthchecks
 # make sure your Healthchecks ALLOWED_HOSTS and SITE_ROOT align with the server_name used in this conf.
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name healthchecks.*;
 

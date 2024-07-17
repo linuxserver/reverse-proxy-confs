@@ -1,4 +1,4 @@
-## Version 2024/07/14
+## Version 2024/07/16
 # make sure that your bitwarden container is named bitwarden
 # make sure that your dns has a cname set for bitwarden
 # if you are using bitwarden (the official image), use the bitwarden conf
@@ -7,7 +7,8 @@
 # bitwarden defaults to port 8080 and can be changed using the environment variable BW_PORT_HTTP on the bitwarden container
 
 server {
-    listen *:443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name bitwarden.*;
 
