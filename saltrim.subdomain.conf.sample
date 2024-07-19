@@ -1,4 +1,4 @@
-## Version 2023/08/05
+## Version 2024/07/16
 # make sure that your saltrim webserver container is named bar_assistant-webserver-1 or manually change to match the upstream_app below
 # make sure that your dns has a cname set for saltrim
 
