@@ -1,4 +1,4 @@
-## Version 2023/05/31
+## Version 2024/07/16
 # Make sure that DNS has a cname set for transmission
 #
 # Some Transmission Chrome extensions cannot handle HTTP/2 proxies as they
@@ -6,14 +6,13 @@
 # X-Transmission-Session-Id header or not. HTTP/2 does not return this text
 # so jQuery responses are empty. This causes RPCs to fail.
 #
-# If your extension is affected, you can remove http2 from the default server
-# in /config/nginx/site-confs/default or listen on a different port that has
-# no http2 servers defined. Better yet, submit a bug report with the
+# If your extension is affected, you can remove http2 from
+# /config/nginx/nginx.conf or submit a bug report with the
 # extension developer to fix their extensions to support HTTP/2.
 
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name transmission.*;
 
