@@ -1,9 +1,10 @@
+## Version 2024/08/13
+# make sure that your seafile container is named seafile
+# make sure that your dns has a cname set for seafile
+
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
-
-# make sure that your seafile container is named seafile
-# make sure that your dns has a cname set for seafile
 
     server_name seafile.*; # update to match the full domain e.g. seafile.example.com
 
