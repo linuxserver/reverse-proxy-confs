@@ -14,6 +14,7 @@ server {
 
     location / {
         include /config/nginx/resolver.conf;
+        include /config/nginx/proxy.conf;
         proxy_pass http://seafile:8000;
         proxy_read_timeout 310s;
         proxy_set_header Host $host;
@@ -29,6 +30,7 @@ server {
 
     location /seafhttp {
         include /config/nginx/resolver.conf;
+        include /config/nginx/proxy.conf;
         rewrite ^/seafhttp(.*)$ $1 break;
         proxy_pass http://seafile:8082;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
