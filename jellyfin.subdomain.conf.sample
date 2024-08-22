@@ -1,4 +1,4 @@
-## Version 2024/07/16
+## Version 2024/08/22
 # make sure that your jellyfin container is named jellyfin
 # make sure that your dns has a cname set for jellyfin
 # if jellyfin is running in bridge mode and the container is named "jellyfin", the below config should work as is
