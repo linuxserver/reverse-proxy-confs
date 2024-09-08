@@ -1,12 +1,12 @@
-## Version 2024/07/16
-# make sure that your dashy container is named dashy
-# make sure that your dns has a cname set for dashy
+## Version 2024/08/04
+# make sure that your whisparr container is named whisparr
+# make sure that your dns has a cname set for whisparr
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name dashy.*;
+    server_name whisparr.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,9 +37,20 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app dashy;
-        set $upstream_port 8080;
+        set $upstream_app whisparr;
+        set $upstream_port 6969;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
+
+    location ~ (/whisparr)?/api {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app whisparr;
+        set $upstream_port 6969;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 }

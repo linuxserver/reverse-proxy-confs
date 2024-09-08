@@ -1,12 +1,12 @@
-## Version 2024/07/16
-# make sure that your dashy container is named dashy
-# make sure that your dns has a cname set for dashy
+## Version 2024/08/18
+# make sure that your lubelogger container is named lubelogger
+# make sure that your dns has a cname set for lubelogger
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name dashy.*;
+    server_name lubelogger.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,9 +37,10 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app dashy;
+        set $upstream_app lubelogger;
         set $upstream_port 8080;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
     }
 }
