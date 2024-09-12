@@ -28,3 +28,13 @@ location ^~ /paperless/ {
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
 }
+
+location ~ (/paperless)?/api {
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+    set $upstream_app paperless;
+    set $upstream_port 8000;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+}
