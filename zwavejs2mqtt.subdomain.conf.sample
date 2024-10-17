@@ -1,12 +1,12 @@
-## Version 2024/10/17
-# make sure that your zwave-js-ui container is named zwave-js-ui
-# make sure that your dns has a cname set for zwave-js-ui
+## Version 2023/05/31
+# make sure that your zwavejs2mqtt container is named zwavejs2mqtt
+# make sure that your dns has a cname set for zwavejs2mqtt
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
 
-    server_name zwave-js-ui.*;
+    server_name zwavejs2mqtt.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,7 +37,7 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app zwave-js-ui;
+        set $upstream_app zwavejs2mqtt;
         set $upstream_port 8091;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
