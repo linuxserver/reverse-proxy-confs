@@ -1,12 +1,12 @@
-## Version 2024/07/16
-# make sure that your zwavejs2mqtt container is named zwavejs2mqtt
-# make sure that your dns has a cname set for zwavejs2mqtt
+## Version 2024/10/17
+# make sure that your zwavejsui container is named zwavejsui
+# make sure that your dns has a cname set for zwavejsui
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name zwavejs2mqtt.*;
+    server_name zwavejsui.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,7 +37,7 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app zwavejs2mqtt;
+        set $upstream_app zwavejsui;
         set $upstream_port 8091;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
