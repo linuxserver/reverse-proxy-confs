@@ -1,6 +1,7 @@
 ## Version 2024/10/27
 # make sure that your maintainerr container is named maintainerr
 # make sure that your dns has a cname set for maintainerr
+# maintainerr v2.0.0+ only
 
 server {
     listen 443 ssl;
