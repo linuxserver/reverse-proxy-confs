@@ -2,6 +2,15 @@
 # make sure that your calibre-web container is named calibre-web
 # make sure that your dns has a cname set for calibre-web
 
+# port 80 is necessary for kobo
+server {
+    listen 80;
+    listen [::]:80;
+    server_name calibre-web.*;
+
+    return 301 https://$host$request_uri; # this is required according to https://github.com/janeczku/calibre-web/issues/1891#issuecomment-801886803, make sure to set Server External Port to 80 (not 443!)
+}
+
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
@@ -22,6 +31,12 @@ server {
     #include /config/nginx/authentik-server.conf;
 
     location / {
+
+        # proxy buffer is required for kobo downloads to work as per https://github.com/janeczku/calibre-web/issues/1891#issuecomment-801886803
+        proxy_buffer_size 128k;
+        proxy_buffers 4 256k;
+        proxy_busy_buffers_size 256k;
+        
         # enable the next two lines for http auth
         #auth_basic "Restricted";
         #auth_basic_user_file /config/nginx/.htpasswd;
@@ -38,7 +53,25 @@ server {
         # enabled, "Reverse Proxy Header Name" is set to Remote-User, and each Authelia
         # user also has a corresponding user manually created in Calibre-Web.
 
-        include /config/nginx/proxy.conf;
+        # original proxy.conf config without the incompatible proxy_buffer config
+
+        proxy_set_header Connection $connection_upgrade;
+        proxy_set_header Early-Data $ssl_early_data;
+        proxy_set_header Host $host;
+        proxy_set_header Proxy "";
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Method $request_method;
+        proxy_set_header X-Forwarded-Port $server_port;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-Ssl on;
+        proxy_set_header X-Forwarded-Uri $request_uri;
+        proxy_set_header X-Original-Method $request_method;
+        proxy_set_header X-Original-URL $scheme://$http_host$request_uri;
+        proxy_set_header X-Real-IP $remote_addr;
+
         include /config/nginx/resolver.conf;
         set $upstream_app calibre-web;
         set $upstream_port 8083;
