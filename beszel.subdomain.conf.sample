@@ -44,7 +44,7 @@ server {
 
     }
 
-    location ~ (/<container_name>)?/api {
+    location ~ (/beszel)?/api {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app beszel;
