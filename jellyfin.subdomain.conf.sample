@@ -1,4 +1,4 @@
-## Version 2023/05/31
+## Version 2024/08/22
 # make sure that your jellyfin container is named jellyfin
 # make sure that your dns has a cname set for jellyfin
 # if jellyfin is running in bridge mode and the container is named "jellyfin", the below config should work as is
@@ -7,8 +7,8 @@
 # in jellyfin settings, under "Advanced/Networking" add subdomain.mydomain.tld as a known proxy
 
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name jellyfin.*;
 
@@ -36,5 +36,23 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
+    }
+
+    # Restrict access to /metrics
+    # https://jellyfin.org/docs/general/networking/monitoring/#prometheus-metrics
+    location /metrics {
+        allow 192.168.0.0/16;
+        allow 10.0.0.0/8;
+        allow 172.16.0.0/12;
+        allow 127.0.0.0/8;
+
+        deny all;
+
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app jellyfin;
+        set $upstream_port 8096;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
     }
 }
