@@ -1,4 +1,4 @@
-## Version 2024/11/02
+## Version 2024/11/26
 # make sure that your container is named dnsdist
 # make sure that your dns has a cname set for dnsdist
 
@@ -8,10 +8,6 @@ server {
 
     server_name dnsdist.*;
 
-    include /config/nginx/ssl.conf;
-
-    server_tokens off;
-
     location /dns-query {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
@@ -20,12 +16,6 @@ server {
         set $upstream_proto grpc;
         grpc_pass grpcs://$upstream_app:$upstream_port;
 
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Protocol $scheme;
         proxy_set_header Range $http_range;
         proxy_set_header If-Range $http_if_range;
     }
