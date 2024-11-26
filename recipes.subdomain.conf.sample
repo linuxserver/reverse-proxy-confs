@@ -3,9 +3,6 @@
 # make sure that your dns has a cname set for recipes
 # make sure to mount /media/ in your swag container to point to your Recipes Media directory
 
-# if using Authelia use this one:
-# Doc: https://vabene1111.github.io/recipes/install/docker/#using-proxy-authentication
-
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
