@@ -39,7 +39,7 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app immich-server;
+        set $upstream_app immich_server;
         set $upstream_port 2283;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
@@ -49,7 +49,7 @@ server {
     location ~ (/immich)?/api {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app immich-server;
+        set $upstream_app immich_server;
         set $upstream_port 2283;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
