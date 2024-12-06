@@ -20,6 +20,6 @@
 * If the application needs further configuration, specify this in a comment
 
 * In most cases we want the comments for Authelia, ldap and basic auth to be present
-* If the application has known API endpoints, we prefer these to be exempt from auth trough a location block (provided the application has security on the endpoint)
+* If the application has known API endpoints, we prefer these to be exempt from auth through a location block (provided the application has security on the endpoint)
 
 * Files must not be executeable
