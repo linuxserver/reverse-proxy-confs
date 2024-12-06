@@ -1,7 +1,7 @@
 ## Version 2024/12/06
 # make sure that your immich container is named immich
 # make sure that your dns has a cname set for immich
-# immich v1.118+ only using the old docker-compose.yml.
+# immich v1.118+ only using the old docker-compose.yml, for the updated docker-compose, use immich-server.subdomain.conf.sample.
 # For earlier versions, change $upstream_port to 3001
 
 server {
