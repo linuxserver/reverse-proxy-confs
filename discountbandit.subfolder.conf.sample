@@ -1,6 +1,6 @@
 ## Version 2024/11/25
-# make sure that your <container_name> container is named <container_name>
-# make sure that <container_name> is set to work with the base url /<container_name>/
+# make sure that your discountbandit container is named discountbandit
+# make sure that discountbandit is set to work with the base url /discountbandit/
 
 
 location /discountbandit {
@@ -30,7 +30,7 @@ location ^~ /discountbandit/ {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-    # REMOVE THIS LINE BEFORE SUBMITTING: Additional proxy settings such as headers go below this line, leave the blank line above.
+    
 }
 
 
