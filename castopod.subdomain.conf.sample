@@ -1,5 +1,5 @@
-## Version 2024/07/16
-# make sure that your castopod container is named castopod
+## Version 2024/12/04
+# make sure that your castopod container is named castopod-app
 # make sure that your dns has a cname set for castopod
 
 server {
@@ -37,8 +37,8 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app castopod;
-        set $upstream_port 80;
+        set $upstream_app castopod-app;
+        set $upstream_port 8000;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
