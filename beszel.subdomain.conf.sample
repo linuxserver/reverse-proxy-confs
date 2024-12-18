@@ -1,13 +1,12 @@
 ## Version 2024/07/16
-# make sure that your recipes container is named recipes
-# make sure that your dns has a cname set for recipes
-# make sure to mount /media/ in your swag container to point to your Recipes Media directory
+# make sure that your beszel container is named beszel
+# make sure that your dns has a cname set for beszel
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name recipes.*;
+    server_name beszel.*;
 
     include /config/nginx/ssl.conf;
 
@@ -21,11 +20,6 @@ server {
 
     # enable for Authentik (requires authentik-location.conf in the location block)
     #include /config/nginx/authentik-server.conf;
-
-    # serve media files
-    location /media/ {
-        alias /media/;
-    }
 
     location / {
         # enable the next two lines for http auth
@@ -43,8 +37,18 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app recipes;
-        set $upstream_port 8080;
+        set $upstream_app beszel;
+        set $upstream_port 8090;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
+
+    location ~ (/beszel)?/api {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app beszel;
+        set $upstream_port 8090;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 

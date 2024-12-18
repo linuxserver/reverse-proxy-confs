@@ -1,6 +1,7 @@
-## Version 2024/07/16
+## Version 2024/10/27
 # make sure that your maintainerr container is named maintainerr
 # make sure that your dns has a cname set for maintainerr
+# maintainerr v2.0.0+ only. for prior versions, set upstream_port to 80
 
 server {
     listen 443 ssl;
@@ -38,7 +39,7 @@ server {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app maintainerr;
-        set $upstream_port 80;
+        set $upstream_port 6246;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
