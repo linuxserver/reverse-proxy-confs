@@ -62,18 +62,4 @@ server {
         proxy_set_header X-Scheme $scheme;
     }
 
-    # For kobo e-reader sync support
-    # you will need to bypass ^/kobo.* in authentik or authelia if they are used.
-    location /kobo {
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app calibre-web;
-        set $upstream_port 8083;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-        proxy_set_header X-Scheme $scheme;
-        proxy_buffers 4 256k;
-        proxy_busy_buffers_size 256k;
-        proxy_buffer_size 128k;
-    }
 }
