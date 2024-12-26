@@ -1,0 +1,31 @@
+## Version 2024/10/18
+# make sure that your TubeArchivist container is named TubeArchivist
+# make sure that your dns has a cname set for tubearchivist
+# if jellyfin is running in bridge mode and the container is named "TubeArchivist", the below config should work as is
+# if not, replace the line "set $upstream_app TubeArchivist;" with "set $upstream_app <containername>;"
+# or "set $upstream_app <HOSTIP>;" for host mode, HOSTIP being the IP address of tubearchivist
+# maker sure to set the "TA_HOST" environment variables to your subdomain in TubeArchivist docker.
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name tubearchivist.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    location / {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app TubeArchivist;
+        set $upstream_port 8000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_set_header Range $http_range;
+        proxy_set_header If-Range $http_if_range;
+    }
+}
+
