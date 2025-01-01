@@ -1,12 +1,12 @@
-## Version 2024/12/29
-# make sure that your babybuddy container is named babybuddy
-# make sure that your dns has a cname set for babybuddy
+## Version 2024/10/26
+# make sure that your romM container is named romm
+# make sure that your dns has a cname set for romm
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name babybuddy.*;
+    server_name romm.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,18 +37,8 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app babybuddy;
-        set $upstream_port 8000;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-    }
-
-    location ~ ^/api/ {
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app babybuddy;
-        set $upstream_port 8000;
+        set $upstream_app romm;
+        set $upstream_port 8080;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
