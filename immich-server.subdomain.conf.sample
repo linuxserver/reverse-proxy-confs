@@ -1,6 +1,6 @@
 ## Version 2025/01/30
-# make sure that your immich container is named immich-server
-# make sure that your dns has a cname set for immich-server
+# make sure that your immich container is named immich_server
+# make sure that your dns has a cname set for immich
 # immich v1.118+ only. For earlier versions, change $upstream_port to 3001 
 
 server {
@@ -38,7 +38,7 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app immich-server;
+        set $upstream_app immich_server;
         set $upstream_port 2283;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
@@ -48,7 +48,7 @@ server {
     location ~ (/immich)?/api {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app immich-server;
+        set $upstream_app immich_server;
         set $upstream_port 2283;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
