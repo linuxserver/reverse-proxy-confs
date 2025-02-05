@@ -1,13 +1,12 @@
-## Version 2025/01/16
-# make sure that your frigate container is named frigate
-# make sure that your dns has a cname set for frigate
-# if you are on a version older than 0.14.0 set upstream_port to 5000 and upstream_proto to http
+## Version 2025/01/24
+# make sure that your watcharr container is named watcharr
+# make sure that your dns has a cname set for watcharr
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name frigate.*;
+    server_name watcharr.*;
 
     include /config/nginx/ssl.conf;
 
@@ -38,10 +37,20 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app frigate;
-        set $upstream_port 8971;
-        set $upstream_proto https;
+        set $upstream_app watcharr;
+        set $upstream_port 3080;
+        set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
+    }
+
+    location ~ (/watcharr)?/api {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app watcharr;
+        set $upstream_port 3080;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    
     }
 }
