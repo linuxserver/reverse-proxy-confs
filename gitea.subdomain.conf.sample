@@ -1,4 +1,4 @@
-## Version 2024/07/16
+## Version 2025/04/26
 # make sure that your gitea container is named gitea
 # make sure that your dns has a cname set for gitea
 # edit the following parameters in /data/gitea/conf/app.ini
@@ -49,7 +49,7 @@ server {
 
     }
 
-    location ~ (/gitea)?/info/lfs {
+    location ~ (/gitea)?/(api|info/lfs) {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
         set $upstream_app gitea;
