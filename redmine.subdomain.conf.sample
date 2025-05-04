@@ -1,3 +1,5 @@
+## Version 2025/05/04
+
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
