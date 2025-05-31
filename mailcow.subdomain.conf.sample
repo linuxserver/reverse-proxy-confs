@@ -9,7 +9,8 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name mailcow.* autoconfig.* autodiscover.*; # modify these names to match your domain/mailcow configuration
+    # modify these to match your domain/mailcow configuration
+    server_name mailcow.* autoconfig.* autodiscover.*;
 
     include /config/nginx/ssl.conf;
 
