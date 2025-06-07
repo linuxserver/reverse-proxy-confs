@@ -1,17 +1,12 @@
-## Version 2025/04/26
-# make sure that your gitea container is named gitea
-# make sure that your dns has a cname set for gitea
-# edit the following parameters in /data/gitea/conf/app.ini
-# [server]
-# SSH_DOMAIN       = gitea.server.com
-# ROOT_URL         = https://gitea.server.com/
-# DOMAIN           = gitea.server.com
+## Version 2025/01/20
+# make sure that your discount-bandit container is named discount-bandit
+# make sure that your dns has a cname set for discount-bandit
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name gitea.*;
+    server_name discount-bandit.*;
 
     include /config/nginx/ssl.conf;
 
@@ -42,20 +37,9 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app gitea;
-        set $upstream_port 3000;
+        set $upstream_app discount-bandit;
+        set $upstream_port 80;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-    }
-
-    location ~ (/gitea)?/(api|info/lfs) {
-        include /config/nginx/proxy.conf;
-        include /config/nginx/resolver.conf;
-        set $upstream_app gitea;
-        set $upstream_port 3000;
-        set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
     }
 }

@@ -1,4 +1,4 @@
-## Version 2024/07/16
+## Version 2025/05/23
 # make sure that your plex container is named plex
 # make sure that your dns has a cname set for plex
 # if plex is running in bridge mode and the container is named "plex", the below config should work as is
@@ -60,5 +60,13 @@ server {
         proxy_set_header X-Plex-Provides $http_x_plex_provides;
         proxy_set_header X-Plex-Device-Vendor $http_x_plex_device_vendor;
         proxy_set_header X-Plex-Model $http_x_plex_model;
+    }
+
+    location /library/streams/ {
+        set $upstream_app plex;
+        set $upstream_port 32400;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+        proxy_pass_request_headers off;
     }
 }

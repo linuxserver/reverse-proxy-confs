@@ -1,12 +1,12 @@
-## Version 2024/10/17
-# make sure that your zwave-js-ui container is named zwave-js-ui
-# make sure that your dns has a cname set for zwave-js-ui
+## Version 2025/01/15
+# make sure that your pingvin-share container is named pingvin-share
+# make sure that your dns has a cname set for pingvin-share
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name zwave-js-ui.*;
+    server_name pingvin-share.*;
 
     include /config/nginx/ssl.conf;
 
@@ -37,10 +37,20 @@ server {
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app zwave-js-ui;
-        set $upstream_port 8091;
+        set $upstream_app pingvin-share;
+        set $upstream_port 3000;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
+    }
+
+    location ~ (/pingvin-share)?/api {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app pingvin-share;
+        set $upstream_port 3000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    
     }
 }
