@@ -1,4 +1,4 @@
-## Version 2024/07/16
+## Version 2025/02/18
 # make sure that your pihole container is named pihole
 # make sure that your dns has a cname set for pihole
 
@@ -68,4 +68,14 @@ server {
 
         proxy_hide_header X-Frame-Options;
     }
+
+    # Uncomment this block out if using pihole v6+
+    # location ~ ^/api {
+    #     include /config/nginx/proxy.conf;
+    #     include /config/nginx/resolver.conf;
+    #     set $upstream_app pihole;
+    #     set $upstream_port 80;
+    #     set $upstream_proto http;
+    #     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    # }
 }
