@@ -1,4 +1,4 @@
-## Version 2024/07/16
+## Version 2025/07/12
 # make sure that your qbit-manage container is named qbit-manage
 # make sure that your dns has a cname set for qbit-manage
 # qbit-manage v4.5.0+ only
