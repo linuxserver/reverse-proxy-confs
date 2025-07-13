@@ -20,7 +20,7 @@ server {
     #include /config/nginx/authelia-server.conf;
 
     # enable for Authentik (requires authentik-location.conf in the location block)
-    # include /config/nginx/authentik-server.conf;
+    #include /config/nginx/authentik-server.conf;
 
     location / {
         # enable the next two lines for http auth
@@ -34,7 +34,7 @@ server {
         #include /config/nginx/authelia-location.conf;
 
         # enable for Authentik (requires authentik-server.conf in the server block)
-        # include /config/nginx/authentik-location.conf;
+        #include /config/nginx/authentik-location.conf;
 
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
