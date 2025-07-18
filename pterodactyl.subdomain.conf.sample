@@ -1,4 +1,4 @@
-## Version 2025/06/08
+## Version 2025/07/18
 # this is for your actual panel, not nodes
 # make sure you set your pterodactyl servers "remote" and "api" addresses to the domains you specify here
 # ensure you have enabled "ssl encryption" and (if necessary) "behind proxy" in your pterodactyl server
@@ -7,7 +7,9 @@
 
 server {
     listen 443 ssl;
+#    listen 443 quic;
     listen [::]:443 ssl;
+#    listen [::]:443 quic;
 
     server_name pterodactyl.*;
 

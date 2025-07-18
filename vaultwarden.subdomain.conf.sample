@@ -1,4 +1,4 @@
-## Version 2025/06/08
+## Version 2025/07/18
 # make sure that your vaultwarden container is named vaultwarden
 # make sure that your dns has a cname set for vaultwarden
 # if you are using bitwarden (the official image), use the bitwarden conf
@@ -8,7 +8,9 @@
 
 server {
     listen 443 ssl;
+#    listen 443 quic;
     listen [::]:443 ssl;
+#    listen [::]:443 quic;
 
     server_name vaultwarden.*;
 

@@ -1,11 +1,13 @@
-## Version 2025/06/08
+## Version 2025/07/18
 # make sure that your immich container is named immich_server
 # make sure that your dns has a cname set for immich
 # immich v1.118+ only. For earlier versions, change $upstream_port to 3001
 
 server {
     listen 443 ssl;
+#    listen 443 quic;
     listen [::]:443 ssl;
+#    listen [::]:443 quic;
 
     server_name immich.*;
 

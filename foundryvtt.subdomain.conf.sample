@@ -1,4 +1,4 @@
-## Version 2025/06/08
+## Version 2025/07/18
 # make sure that your foundryvtt container is named foundryvtt
 # make sure that your dns has a cname set for foundryvtt
 # Ensure that your Foundry VTT's {userData}/Config/options.json file is configured as follows:
@@ -13,7 +13,9 @@
 
 server {
     listen 443 ssl;
+#    listen 443 quic;
     listen [::]:443 ssl;
+#    listen [::]:443 quic;
 
     server_name foundryvtt.*;
 

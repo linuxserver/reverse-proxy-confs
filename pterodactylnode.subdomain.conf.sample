@@ -1,4 +1,4 @@
-## Version 2025/06/08
+## Version 2025/07/18
 # this is for nodes, not your actual panel
 # make sure you set your node to use 443 as its API port
 # make sure that your pterodactylnode container is named pterodactylnode
@@ -6,7 +6,9 @@
 
 server {
     listen 443 ssl;
+#    listen 443 quic;
     listen [::]:443 ssl;
+#    listen [::]:443 quic;
 
     server_name pterodactylnode.*;
 

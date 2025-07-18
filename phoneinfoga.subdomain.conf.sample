@@ -1,11 +1,13 @@
-## Version 2025/06/08
+## Version 2025/07/18
 # make sure that your phoneinfoga container is named phoneinfoga
 # make sure that your dns has a cname set for phoneinfoga
 # add command: 'serve' to your docker compose, so the PhoneInfoga web server starts
 
 server {
     listen 443 ssl;
+#    listen 443 quic;
     listen [::]:443 ssl;
+#    listen [::]:443 quic;
 
     server_name phoneinfoga.*;
 

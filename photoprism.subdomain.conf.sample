@@ -1,9 +1,11 @@
-## Version 2025/06/08
+## Version 2025/07/18
 # Ensure your DNS has a CNAME set for Photoprism and that Photoprism container is named.
 
 server {
     listen 443 ssl;
+#    listen 443 quic;
     listen [::]:443 ssl;
+#    listen [::]:443 quic;
 
     server_name photoprism.*;
 

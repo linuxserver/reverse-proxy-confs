@@ -1,4 +1,4 @@
-## Version 2025/06/08
+## Version 2025/07/18
 # make sure that your forgejo container is named forgejo
 # make sure that your dns has a cname set for forgejo
 # edit the following parameters in /data/forgejo/conf/app.ini or set as ENV vars in your container
@@ -9,7 +9,9 @@
 
 server {
     listen 443 ssl;
+#    listen 443 quic;
     listen [::]:443 ssl;
+#    listen [::]:443 quic;
 
     server_name forgejo.*;
 

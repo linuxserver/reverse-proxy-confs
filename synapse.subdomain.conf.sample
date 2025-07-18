@@ -1,8 +1,10 @@
-## Version 2025/06/08
+## Version 2025/07/18
 
 server {
     listen 443 ssl;
+#    listen 443 quic;
     listen [::]:443 ssl;
+#    listen [::]:443 quic;
 
     # For the federation port
     listen 8448 ssl;

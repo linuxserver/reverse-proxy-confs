@@ -1,10 +1,12 @@
-## Version 2025/06/08
+## Version 2025/07/18
 # make sure that your syncthing container is named syncthing
 # make sure that your dns has a cname set for syncthing
 
 server {
     listen 443 ssl;
+#    listen 443 quic;
     listen [::]:443 ssl;
+#    listen [::]:443 quic;
 
     server_name syncthing.*;
 

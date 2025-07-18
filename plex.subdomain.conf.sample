@@ -1,4 +1,4 @@
-## Version 2025/06/08
+## Version 2025/07/18
 # make sure that your plex container is named plex
 # make sure that your dns has a cname set for plex
 # if plex is running in bridge mode and the container is named "plex", the below config should work as is
@@ -8,7 +8,9 @@
 
 server {
     listen 443 ssl;
+#    listen 443 quic;
     listen [::]:443 ssl;
+#    listen [::]:443 quic;
 
     server_name plex.*;
 
