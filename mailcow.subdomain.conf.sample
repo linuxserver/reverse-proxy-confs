@@ -1,4 +1,4 @@
-## Version 2025/05/31
+## Version 2025/07/18
 # make sure that your mailcow container is named mailcow
 # make sure that you are aqquainted with the mailcow documentation (https://docs.mailcow.email/)
 # make sure you have read the most important entries in the "Get Started" section, "Post Installation Tasks -> Reverse Proxy -> Overview" and "Post Installation Tasks -> Reverse Proxy -> Nginx" sections
@@ -7,7 +7,9 @@
 
 server {
     listen 443 ssl;
+#    listen 443 quic;
     listen [::]:443 ssl;
+#    listen [::]:443 quic;
 
     # modify these to match your domain/mailcow configuration
     server_name mailcow.* autoconfig.* autodiscover.*;
@@ -26,6 +28,9 @@ server {
     # enable for Authentik (requires authentik-location.conf in the location block)
     #include /config/nginx/authentik-server.conf;
 
+    # enable for Tinyauth (requires tinyauth-location.conf in the location block)
+    #include /config/nginx/tinyauth-server.conf;
+
     location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
@@ -39,6 +44,9 @@ server {
 
         # enable for Authentik (requires authentik-server.conf in the server block)
         #include /config/nginx/authentik-location.conf;
+
+        # enable for Tinyauth (requires tinyauth-server.conf in the server block)
+        #include /config/nginx/tinyauth-location.conf;
 
         include /config/nginx/resolver.conf;
         set $upstream_app mailcow;
