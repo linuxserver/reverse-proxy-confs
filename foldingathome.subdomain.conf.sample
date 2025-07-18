@@ -1,10 +1,12 @@
-## Version 2024/07/16
+## Version 2025/07/18
 # make sure that your foldingathome container is named foldingathome
 # make sure that your dns has a cname set for foldingathome
 
 server {
     listen 443 ssl;
+#    listen 443 quic;
     listen [::]:443 ssl;
+#    listen [::]:443 quic;
 
     server_name foldingathome.*;
 
@@ -21,6 +23,9 @@ server {
     # enable for Authentik (requires authentik-location.conf in the location block)
     #include /config/nginx/authentik-server.conf;
 
+    # enable for Tinyauth (requires tinyauth-location.conf in the location block)
+    #include /config/nginx/tinyauth-server.conf;
+
     location / {
         # enable the next two lines for http auth
         #auth_basic "Restricted";
@@ -34,6 +39,9 @@ server {
 
         # enable for Authentik (requires authentik-server.conf in the server block)
         #include /config/nginx/authentik-location.conf;
+
+        # enable for Tinyauth (requires tinyauth-server.conf in the server block)
+        #include /config/nginx/tinyauth-location.conf;
 
         include /config/nginx/proxy.conf;
         proxy_buffering off;

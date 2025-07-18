@@ -1,4 +1,4 @@
-## Version 2025/05/18
+## Version 2025/07/18
 # make sure that your jellyfin container is named jellyfin
 # make sure that your dns has a cname set for jellyfin
 # if jellyfin is running in bridge mode and the container is named "jellyfin", the below config should work as is
@@ -8,7 +8,9 @@
 
 server {
     listen 443 ssl;
+#    listen 443 quic;
     listen [::]:443 ssl;
+#    listen [::]:443 quic;
 
     server_name jellyfin.*;
 
