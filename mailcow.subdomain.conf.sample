@@ -1,0 +1,76 @@
+## Version 2025/07/18
+# make sure that your mailcow container is named mailcow
+# make sure that you are aqquainted with the mailcow documentation (https://docs.mailcow.email/)
+# make sure you have read the most important entries in the "Get Started" section, "Post Installation Tasks -> Reverse Proxy -> Overview" and "Post Installation Tasks -> Reverse Proxy -> Nginx" sections
+# make sure that your dns is configured as per your domain requirements and the mailcow documentation
+# make sure to set up a mechanism to copy your SSL certificate after each renewal to /data/assets/ssl/ directory for mailcow to use (see mailcow documentation in "Post Installation Tasks -> Reverse Proxy -> Overview")
+
+server {
+    listen 443 ssl;
+#    listen 443 quic;
+    listen [::]:443 ssl;
+#    listen [::]:443 quic;
+
+    # modify these to match your domain/mailcow configuration
+    server_name mailcow.* autoconfig.* autodiscover.*;
+
+    include /config/nginx/ssl.conf;
+    include /config/nginx/proxy.conf;
+
+    client_max_body_size 0;
+
+    # enable for ldap auth (requires ldap-location.conf in the location block)
+    #include /config/nginx/ldap-server.conf;
+
+    # enable for Authelia (requires authelia-location.conf in the location block)
+    #include /config/nginx/authelia-server.conf;
+
+    # enable for Authentik (requires authentik-location.conf in the location block)
+    #include /config/nginx/authentik-server.conf;
+
+    # enable for Tinyauth (requires tinyauth-location.conf in the location block)
+    #include /config/nginx/tinyauth-server.conf;
+
+    location / {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable for ldap auth (requires ldap-server.conf in the server block)
+        #include /config/nginx/ldap-location.conf;
+
+        # enable for Authelia (requires authelia-server.conf in the server block)
+        #include /config/nginx/authelia-location.conf;
+
+        # enable for Authentik (requires authentik-server.conf in the server block)
+        #include /config/nginx/authentik-location.conf;
+
+        # enable for Tinyauth (requires tinyauth-server.conf in the server block)
+        #include /config/nginx/tinyauth-location.conf;
+
+        include /config/nginx/resolver.conf;
+        set $upstream_app mailcow;
+        set $upstream_port 8080;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_buffer_size 128k;
+        proxy_buffers 64 512k;
+        proxy_busy_buffers_size 512k;
+    }
+
+    location /Microsoft-Server-ActiveSync {
+        include /config/nginx/resolver.conf;
+        set $upstream_app mailcow;
+        set $upstream_port 8080;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        proxy_connect_timeout 75;
+        proxy_send_timeout 3650;
+        proxy_read_timeout 3650;
+        proxy_buffers 64 512k;
+
+        client_body_buffer_size 512k;
+    }
+}

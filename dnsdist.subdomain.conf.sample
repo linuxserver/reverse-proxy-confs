@@ -1,0 +1,24 @@
+## Version 2025/07/18
+# make sure that your container is named dnsdist
+# make sure that your dns has a cname set for dnsdist
+
+server {
+    listen 443 ssl;
+#    listen 443 quic;
+    listen [::]:443 ssl;
+#    listen [::]:443 quic;
+
+    server_name dnsdist.*;
+
+    location /dns-query {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app dnsdist;
+        set $upstream_port 443;
+        set $upstream_proto grpc;
+        grpc_pass grpcs://$upstream_app:$upstream_port;
+
+        proxy_set_header Range $http_range;
+        proxy_set_header If-Range $http_if_range;
+    }
+}

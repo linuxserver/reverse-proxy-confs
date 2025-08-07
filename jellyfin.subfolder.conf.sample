@@ -1,4 +1,4 @@
-## Version 2023/02/05
+## Version 2025/05/18
 # make sure that your jellyfin container is named jellyfin
 # if jellyfin is running in bridge mode and the container is named "jellyfin", the below config should work as is
 # if not, replace the line "set $upstream_app jellyfin;" with "set $upstream_app <containername>;"
@@ -15,6 +15,9 @@ location ^~ /jellyfin/ {
     set $upstream_app jellyfin;
     set $upstream_port 8096;
     set $upstream_proto http;
+    if ($http_user_agent ~ Web0S) {
+        add_header Access-Control-Allow-Origin "luna://com.webos.service.config" always;
+    }
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
     proxy_set_header Range $http_range;

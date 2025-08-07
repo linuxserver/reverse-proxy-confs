@@ -1,0 +1,27 @@
+## Version 2025/07/18
+# make sure that your tinyauth container is named tinyauth
+# make sure that your dns has a cname set for tinyauth
+
+server {
+    listen 443 ssl;
+#    listen 443 quic;
+    listen [::]:443 ssl;
+#    listen [::]:443 quic;
+
+    server_name tinyauth.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    location / {
+
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app tinyauth;
+        set $upstream_port 3000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
+}
