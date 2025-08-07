@@ -1,4 +1,4 @@
-## Version 2025/07/18
+## Version 2025/08/07
 # make sure that your jdownloader container is named jdownloader
 # make sure that your dns has a cname set for jdownloader
 
@@ -57,6 +57,6 @@ server {
         set $upstream_app jdownloader;
         set $upstream_port 5800;
         set $upstream_proto http;
-        proxy_pass $upstream_proto://$upstream_app:$upstream_port/websockify/;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port/websockify;
     }
 }
