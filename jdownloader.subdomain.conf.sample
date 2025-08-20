@@ -59,4 +59,31 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port/websockify;
     }
+    
+    # Additional websocket locations for proper VNC display
+    location = /websockify {
+        include /config/nginx/resolver.conf;
+        set $upstream_app jdownloader;
+        set $upstream_port 5800;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port/websockify;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_buffering off;
+    }
+    
+    location ~ ^/websockify/(.*)$ {
+        include /config/nginx/resolver.conf;
+        set $upstream_app jdownloader;
+        set $upstream_port 5800;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port/websockify/$1$is_args$args;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_buffering off;
+    }
 }
