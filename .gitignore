@@ -1,12 +1,26 @@
-# Ignore everything
+# Ignore everything by default
 *
 
-# Do NOT ignore allowed files
+# Do NOT ignore these standard project files
 !.editorconfig
 !.gitattributes
 !.github
 !.github/**
 !.gitignore
-!*.conf.sample
 !LICENSE
 !README.md
+
+# Do NOT ignore the files needed to generate the configs
+!generate_configs.py
+!config_data.yml
+!templates/
+!templates/**
+!custom_configs/
+!custom_configs/**
+
+# Explicitly ignore the output directory and common Python artifacts.
+output/
+__pycache__/
+*.pyc
+venv/
+.venv/
