@@ -69,6 +69,39 @@ server {
 {% if item.set_x_scheme %}
         proxy_set_header X-Scheme https;
 {% endif %}
+{% if item.websockets %}
+        proxy_buffering off;
+        proxy_socket_keepalive on;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Sec-WebSocket-Extensions $http_sec_websocket_extensions;
+        proxy_set_header Sec-WebSocket-Key $http_sec_websocket_key;
+        proxy_set_header Sec-WebSocket-Version $http_sec_websocket_version;
+{% endif %}
+{% if item.proxy_pass_headers %}
+{% for header in item.proxy_pass_headers %}
+        proxy_pass_header {{ header }};
+{% endfor %}
+{% endif %}
+{% if item.proxy_set_headers %}
+{% for header in item.proxy_set_headers %}
+        proxy_set_header {{ header.key }} {{ header.value }};
+{% endfor %}
+{% endif %}
+{% if item.proxy_hide_headers %}
+{% for header in item.proxy_hide_headers %}
+        proxy_hide_header {{ header }};
+{% endfor %}
+{% endif %}
+{% if item.add_headers %}
+{% for header in item.add_headers %}
+        add_header {{ header.key }} "{{ header.value }}";
+{% endfor %}
+{% endif %}
+{% if item.custom_directives %}
+{% for directive in item.custom_directives %}
+        {{ directive }};
+{% endfor %}
+{% endif %}
     }
 {% if item.api %}
     location ~ (?:/{{ item.name }})?/api {
@@ -79,5 +112,32 @@ server {
         set $upstream_proto {% if item.https %}https{% else %}http{% endif %};
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
     }
+{% endif %}
+{% if item.extra_locations %}
+{% for loc in item.extra_locations %}
+    location ~ (?:/{{ item.name }})?{{ loc.path }} {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app {{ loc.app | default(item.name) }};
+        set $upstream_port {{ loc.port | default(item.port) }};
+        set $upstream_proto {% if loc.https %}https{% elif item.https and loc.https is not defined %}https{% else %}http{% endif %};
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port{% if loc.proxy_pass_path %}{{ loc.proxy_pass_path }}{% endif %};
+{% if loc.proxy_set_headers %}
+{% for header in loc.proxy_set_headers %}
+        proxy_set_header {{ header.key }} {{ header.value }};
+{% endfor %}
+{% endif %}
+{% if loc.proxy_hide_headers %}
+{% for header in loc.proxy_hide_headers %}
+        proxy_hide_header {{ header }};
+{% endfor %}
+{% endif %}
+{% if loc.custom_directives %}
+{% for directive in loc.custom_directives %}
+        {{ directive }};
+{% endfor %}
+{% endif %}
+    }
+{% endfor %}
 {% endif %}
 }

@@ -42,7 +42,6 @@ def generate_configs():
             lstrip_blocks=True
         )
         subdomain_template = env.get_template('subdomain.conf.j2')
-        subfolder_template = env.get_template('subfolder.conf.j2')
         print("Jinja2 templates loaded successfully.")
     except Exception as e:
         print(f"ERROR: Failed to load Jinja2 templates from '{TEMPLATE_DIR}': {e}. Exiting.")
@@ -55,17 +54,6 @@ def generate_configs():
         filename = f"{item['name']}.subdomain.conf.sample"
         output_path = os.path.join(OUTPUT_DIR, filename)
         rendered_content = subdomain_template.render(item=item)
-        with open(output_path, 'w') as f:
-            f.write(rendered_content)
-        print(f"  [OK] Generated {filename}")
-
-    # Generate templated subfolder configs
-    print("\n--- Generating Templated Subfolder Configs ---")
-    subfolder_items = data.get('subfolders', [])
-    for item in subfolder_items:
-        filename = f"{item['name']}.subfolder.conf.sample"
-        output_path = os.path.join(OUTPUT_DIR, filename)
-        rendered_content = subfolder_template.render(item=item)
         with open(output_path, 'w') as f:
             f.write(rendered_content)
         print(f"  [OK] Generated {filename}")
@@ -86,17 +74,6 @@ def generate_configs():
             else:
                 print(f"  [!!] WARNING: Custom config file not found: {source_path}")
         
-        # Process custom subfolders
-        for app_name in data.get('custom', {}).get('subfolders', []):
-            filename = f"{app_name}.subfolder.conf.sample"
-            source_path = os.path.join(CUSTOM_DIR, filename)
-            dest_path = os.path.join(OUTPUT_DIR, filename)
-            if os.path.exists(source_path):
-                shutil.copy(source_path, dest_path)
-                print(f"  [OK] Copied {filename}")
-            else:
-                print(f"  [!!] WARNING: Custom config file not found: {source_path}")
-
     print("\n--- Generation Complete ---")
 
 if __name__ == "__main__":
