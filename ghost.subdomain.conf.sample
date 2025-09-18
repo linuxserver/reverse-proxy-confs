@@ -1,6 +1,7 @@
 ## Version 2025/09/17
 # make sure that your ghost container is named ghost
 # make sure that your dns has a cname set for ghost
+# Note: The Ghost(Pro) hosted ActivityPub Service (https://ap.ghost.org) has usage limits. See https://docs.ghost.org/install/docker#hosted-activitypub-usage-limits
 
 server {
     listen 443 ssl;
