@@ -1,4 +1,4 @@
-## Version 2025/07/18
+## Version 2025/09/17
 # make sure that your ghost container is named ghost
 # make sure that your dns has a cname set for ghost
 
@@ -50,5 +50,25 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
+    }
+
+    location ~ /.ghost/activitypub/* {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        add_header X-Content-Type-Options "nosniff";
+        proxy_ssl_server_name on;
+        proxy_pass https://ap.ghost.org;
+    }
+
+    location ~ /.well-known/(webfinger|nodeinfo) {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        add_header X-Content-Type-Options "nosniff";
+        proxy_ssl_server_name on;
+        proxy_pass https://ap.ghost.org;
     }
 }
