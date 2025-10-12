@@ -1,7 +1,6 @@
 ## Version 2025/10/12
 # make sure that your recipes container is named recipes
 # make sure that your dns has a cname set for recipes
-# make sure to mount /media/ in your swag container to point to your Recipes Media directory
 
 server {
     listen 443 ssl;
@@ -26,11 +25,6 @@ server {
 
     # enable for Tinyauth (requires tinyauth-location.conf in the location block)
     #include /config/nginx/tinyauth-server.conf;
-
-    # serve media files
-    location /media/ {
-        alias /media/;
-    }
 
     location / {
         # enable the next two lines for http auth
