@@ -1,4 +1,4 @@
-## Version 2025/07/18
+## Version 2025/10/28
 # make sure that your wizarr container is named wizarr
 # make sure that your dns has a cname set for wizarr
 
@@ -48,6 +48,94 @@ server {
         set $upstream_app wizarr;
         set $upstream_port 5690;
         set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+
+    location /join {
+        # enable the next line for Organizr ServerAuth
+        # auth_request off;
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_proto http;
+        set $upstream_app Wizarr;
+        set $upstream_port 5690;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+
+    location ~ /j/* {
+        # enable the next line for Organizr ServerAuth
+        # auth_request off;
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_proto http;
+        set $upstream_app Wizarr;
+        set $upstream_port 5690;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+
+    location ~ /setup* {
+        # enable the next line for Organizr ServerAuth
+        # auth_request off;
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_proto http;
+        set $upstream_app Wizarr;
+        set $upstream_port 5690;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+
+    location ~ /static* {
+        # enable the next line for Organizr ServerAuth
+        # auth_request off;
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_proto http;
+        set $upstream_app Wizarr;
+        set $upstream_port 5690;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+
+    location ~ /wizard* {
+        # enable the next line for Organizr ServerAuth
+        # auth_request off;
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_proto http;
+        set $upstream_app Wizarr;
+        set $upstream_port 5690;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+
+    location ~ /setup* {
+        # enable the next line for Organizr ServerAuth
+        # auth_request off;
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_proto http;
+        set $upstream_app Wizarr;
+        set $upstream_port 5690;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+
+    location ~ /image-proxy* {
+        # enable the next line for Organizr ServerAuth
+        # auth_request off;
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_proto http;
+        set $upstream_app Wizarr;
+        set $upstream_port 5690;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+
+    location ~ /cinema-posters* {
+        # enable the next line for Organizr ServerAuth
+        # auth_request off;
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_proto http;
+        set $upstream_app Wizarr;
+        set $upstream_port 5690;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
     }
 }
