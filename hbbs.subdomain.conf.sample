@@ -42,7 +42,6 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-        proxy_http_version 1.1;
         proxy_read_timeout 120s;
     }
 
@@ -62,7 +61,6 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-        proxy_http_version 1.1;
         proxy_read_timeout 120s;
     }
 }
