@@ -1,0 +1,25 @@
+## Version 2026/01/16
+# make sure that your firefly-pico container is named firefly-pico
+# make sure that your dns has a cname set for firefly-pico
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name firefly-pico.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    location / {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+
+        set $upstream_app firefly-pico;
+        set $upstream_port 80;
+        set $upstream_proto http;
+
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
+}
