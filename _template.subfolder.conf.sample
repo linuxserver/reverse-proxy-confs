@@ -1,4 +1,4 @@
-## Version 2023/02/05
+## Version 2023/08/23
 # REMOVE THIS LINE BEFORE SUBMITTING: The structure of the file (all of the existing lines) should be kept as close as possible to this template.
 # REMOVE THIS LINE BEFORE SUBMITTING: Look through this file for <tags> and replace them. Review other sample files to see how things are done.
 # REMOVE THIS LINE BEFORE SUBMITTING: The comment lines at the top of the file (below this line) should explain any prerequisites for using the proxy such as DNS or app settings.
@@ -23,6 +23,12 @@ location ^~ /<container_name>/ {
 
     # enable for Authentik (requires authentik-server.conf in the server block)
     #include /config/nginx/authentik-location.conf;
+
+    # enable for OAuth2 Proxy (requires oauth2-proxy-server.conf in the server block)
+    #include /config/nginx/oauth2-proxy-location.conf;
+
+    # enable for Tinyauth (requires tinyauth-server.conf in the server block)
+    #include /config/nginx/tinyauth-location.conf;
 
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;
