@@ -1,4 +1,4 @@
-## Version 2023/02/05
+## Version 2026/04/04
 # make sure that your slskd container is named slskd
 # make sure that slskd is set to work with the base url /slskd/
 # first edit the slskd.yml and set 'url_base: /slskd' and restart the slskd container
@@ -20,7 +20,7 @@ location ^~ /slskd {
     include /config/nginx/proxy.conf;
     include /config/nginx/resolver.conf;
     set $upstream_app slskd;
-    set $upstream_port 5000;
+    set $upstream_port 5030;
     set $upstream_proto http;
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
