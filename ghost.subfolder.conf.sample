@@ -1,8 +1,9 @@
-## Version 2023/02/05
+## Version 2025/09/17
 # make sure that your ghost container is named ghost
 # make sure that ghost is set to work with the base url /ghost/
 # Make sure you are using a subfolder in your ghost config file. https://ghost.org/docs/concepts/config/#url
 # Note: /ghost/ is by default used for the admin page. See https://ghost.org/docs/concepts/config/#admin-url
+# Note: Subfolder configuration does not support ActivityPub. See https://docs.ghost.org/update-major-version#get-activitypub-ready
 
 location /blog {
     # enable the next two lines for http auth
