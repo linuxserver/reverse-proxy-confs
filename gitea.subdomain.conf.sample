@@ -57,6 +57,18 @@ server {
 
     }
 
+    # support for git credential manager. don't proxy a redirect to localhost in the oauth flow.
+    location /login/oauth/grant {
+        proxy_redirect ~^http://127.0.0.1(.*) http://127.0.0.1$1;
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app gitea;
+        set $upstream_port 3000;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+    }
+
     location ~ (/gitea)?/(api|info/lfs) {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
