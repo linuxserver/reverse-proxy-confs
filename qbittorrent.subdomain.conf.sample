@@ -1,4 +1,4 @@
-## Version 2025/07/18
+## Version 2026/06/30
 # make sure that your qbittorrent container is named qbittorrent
 # make sure that your dns has a cname set for qbittorrent
 # Api and related location bypasses are now commented out by default
@@ -58,8 +58,8 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
-        proxy_set_header Referer '';
-        proxy_set_header Host $upstream_app:$upstream_port;
+        proxy_set_header Host $host;
+        proxy_set_header Origin "https://$host";
         proxy_set_header X-Forwarded-Host $host;
     }
 
@@ -73,8 +73,8 @@ server {
 
     #     rewrite /qbittorrent(.*) $1 break;
 
-    #     proxy_set_header Referer '';
-    #     proxy_set_header Host $upstream_app:$upstream_port;
+    #     proxy_set_header Host $host;
+    #     proxy_set_header Origin "https://$host";
     #     proxy_set_header X-Forwarded-Host $host;
     # }
 
@@ -88,8 +88,8 @@ server {
 
     #     rewrite /qbittorrent(.*) $1 break;
 
-    #     proxy_set_header Referer '';
-    #     proxy_set_header Host $upstream_app:$upstream_port;
+    #     proxy_set_header Host $host;
+    #     proxy_set_header Origin "https://$host";
     #     proxy_set_header X-Forwarded-Host $host;
     # }
 
@@ -103,8 +103,8 @@ server {
 
     #     rewrite /qbittorrent(.*) $1 break;
 
-    #     proxy_set_header Referer '';
-    #     proxy_set_header Host $upstream_app:$upstream_port;
+    #     proxy_set_header Host $host;
+    #     proxy_set_header Origin "https://$host";
     #     proxy_set_header X-Forwarded-Host $host;
     # }
 
@@ -118,8 +118,8 @@ server {
 
     #     rewrite /qbittorrent(.*) $1 break;
 
-    #     proxy_set_header Referer '';
-    #     proxy_set_header Host $upstream_app:$upstream_port;
+    #     proxy_set_header Host $host;
+    #     proxy_set_header Origin "https://$host";
     #     proxy_set_header X-Forwarded-Host $host;
     # }
 
@@ -133,8 +133,8 @@ server {
 
     #     rewrite /qbittorrent(.*) $1 break;
 
-    #     proxy_set_header Referer '';
-    #     proxy_set_header Host $upstream_app:$upstream_port;
+    #     proxy_set_header Host $host;
+    #     proxy_set_header Origin "https://$host";
     #     proxy_set_header X-Forwarded-Host $host;
     # }
 
@@ -148,8 +148,8 @@ server {
 
     #     rewrite /qbittorrent(.*) $1 break;
 
-    #     proxy_set_header Referer '';
-    #     proxy_set_header Host $upstream_app:$upstream_port;
+    #     proxy_set_header Host $host;
+    #     proxy_set_header Origin "https://$host";
     #     proxy_set_header X-Forwarded-Host $host;
     # }
 
@@ -163,8 +163,8 @@ server {
 
     #     rewrite /qbittorrent(.*) $1 break;
 
-    #     proxy_set_header Referer '';
-    #     proxy_set_header Host $upstream_app:$upstream_port;
+    #     proxy_set_header Host $host;
+    #     proxy_set_header Origin "https://$host";
     #     proxy_set_header X-Forwarded-Host $host;
     # }
 }
