@@ -1,0 +1,60 @@
+## Version 2026/07/29
+# Make sure that your container from oleduc/docker-obsidian-livesync-couchdb is named couchdb-obsidian-livesync
+# (this matches the container_name used in that project's example docker-compose.yml).
+# The Obsidian LiveSync plugin push/pull large attachments, so buffering is disabled.
+
+server {
+    listen 443 ssl;
+    # listen 443 quic;
+    listen [::]:443 ssl;
+    # listen [::]:443 quic;
+
+    server_name couchdb-obsidian-livesync.*;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    # enable for ldap auth (requires ldap-location.conf in the location block)
+    #include /config/nginx/ldap-server.conf;
+
+    # enable for Authelia (requires authelia-location.conf in the location block)
+    #include /config/nginx/authelia-server.conf;
+
+    # enable for Authentik (requires authentik-location.conf in the location block)
+    #include /config/nginx/authentik-server.conf;
+
+    # enable for Tinyauth (requires tinyauth-location.conf in the location block)
+    #include /config/nginx/tinyauth-server.conf;
+
+    location / {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable for ldap auth (requires ldap-server.conf in the server block)
+        #include /config/nginx/ldap-location.conf;
+
+        # enable for Authelia (requires authelia-server.conf in the server block)
+        #include /config/nginx/authelia-location.conf;
+
+        # enable for Authentik (requires authentik-server.conf in the server block)
+        #include /config/nginx/authentik-location.conf;
+
+        # enable for Tinyauth (requires tinyauth-server.conf in the server block)
+        #include /config/nginx/tinyauth-location.conf;
+
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app couchdb-obsidian-livesync;
+        set $upstream_port 5984;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+
+        # required for CouchDB's long-poll _changes feed (continuous replication) and large
+        # attachment/vault transfers: keep the connection unbuffered and don't time it out early
+        proxy_buffering off;
+        proxy_request_buffering off;
+        chunked_transfer_encoding on;
+    }
+}
