@@ -1,4 +1,4 @@
-## Version 2025/07/18
+## Version 2026/08/11
 # make sure that your joplin container is named joplin
 # make sure that your dns has a cname set for joplin
 
@@ -49,6 +49,14 @@ server {
         set $upstream_port 22300;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+    }
 
+    location /api {
+        include /config/nginx/proxy.conf;
+        include /config/nginx/resolver.conf;
+        set $upstream_app joplin;
+        set $upstream_port 22300;
+        set $upstream_proto http;
+        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
     }
 }
