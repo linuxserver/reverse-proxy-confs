@@ -1,4 +1,4 @@
-## Version 2025/07/18
+## Version 2026/09/01
 # make sure that your forgejo container is named forgejo
 # make sure that your dns has a cname set for forgejo
 # edit the following parameters in /data/forgejo/conf/app.ini or set as ENV vars in your container
@@ -55,6 +55,11 @@ server {
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 
+    }
+
+    # Restrict access to the internal API
+    location ^~ /api/internal {
+        deny all;
     }
 
     location ~ (/forgejo)?/info/lfs {

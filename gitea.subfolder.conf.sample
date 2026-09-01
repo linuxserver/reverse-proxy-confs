@@ -1,4 +1,4 @@
-## Version 2023/02/05
+## Version 2026/09/01
 # make sure that your gitea container is named gitea
 # make sure that gitea is set to work with the base url /gitea/
 # The following parameters in /data/gitea/conf/app.ini should be edited to match your setup
@@ -9,6 +9,11 @@
 
 location /gitea {
     return 301 $scheme://$host/gitea/;
+}
+
+# Restrict access to the internal API
+location ^~ /gitea/api/internal {
+    deny all;
 }
 
 location ^~ /gitea/ {

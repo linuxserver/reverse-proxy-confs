@@ -1,4 +1,4 @@
-## Version 2024/04/20
+## Version 2026/09/01
 # make sure that your forgejo container is named forgejo
 # make sure that forgejo is set to work with the base url /forgejo/
 # The following parameters in /data/forgejo/conf/app.ini should be edited to match your setup
@@ -10,6 +10,11 @@
 
 location /forgejo {
     return 301 $scheme://$host/forgejo/;
+}
+
+# Restrict access to the internal API
+location ^~ /forgejo/api/internal {
+    deny all;
 }
 
 location ^~ /forgejo/ {
